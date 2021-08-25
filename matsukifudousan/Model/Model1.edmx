@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="matsukiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
+          <Property Name="ImageType" Type="nvarchar" MaxLength="50" />
+          <Property Name="HouseNo" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="RentalManagementDB">
+          <Key>
+            <PropertyRef Name="HouseNo" />
+          </Key>
+          <Property Name="HouseNo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="HouseName" Type="nvarchar" MaxLength="100" />
+          <Property Name="HousePost" Type="nvarchar" MaxLength="50" />
+          <Property Name="HouseAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="NearestSation" Type="nvarchar" MaxLength="500" />
+          <Property Name="HouseType" Type="nvarchar" MaxLength="250" />
+          <Property Name="Construction" Type="nvarchar" MaxLength="500" />
+          <Property Name="YearConstruction" Type="nvarchar" MaxLength="250" />
+          <Property Name="Decorate" Type="nvarchar" MaxLength="500" />
+          <Property Name="TotalArea" Type="nvarchar" MaxLength="200" />
+          <Property Name="Parking" Type="nvarchar" MaxLength="500" />
+          <Property Name="Pets" Type="nvarchar" MaxLength="500" />
+          <Property Name="OtherEquipment" Type="nvarchar" MaxLength="1000" />
+          <Property Name="HouseRemarks" Type="nvarchar" MaxLength="1000" />
+          <Property Name="SecurityDeposit" Type="nvarchar" MaxLength="1000" />
+          <Property Name="KeyMoney" Type="nvarchar" MaxLength="150" />
+          <Property Name="CommonFee" Type="nvarchar" MaxLength="500" />
+          <Property Name="ManagementFee" Type="nvarchar" MaxLength="250" />
+          <Property Name="Rent" Type="nvarchar" MaxLength="250" />
+          <Property Name="ParkingFee" Type="nvarchar" MaxLength="250" />
+          <Property Name="OtherFee" Type="nvarchar" MaxLength="500" />
+          <Property Name="MNGMTCOName" Type="nvarchar" MaxLength="500" />
+          <Property Name="CompanyAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="COPhone" Type="nvarchar" MaxLength="150" />
+          <Property Name="COFax" Type="nvarchar" MaxLength="150" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="150" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="150" />
+          <Property Name="MNGMTForm" Type="nvarchar" MaxLength="500" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Image" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__Image__HouseNo__7C4F7684">
+          <End Role="RentalManagementDB" Type="Self.RentalManagementDB" Multiplicity="0..1" />
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RentalManagementDB">
+              <PropertyRef Name="HouseNo" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="HouseNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="matsukiModelStoreContainer">
+          <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RentalManagementDB" EntityType="Self.RentalManagementDB" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Image__HouseNo__7C4F7684" Association="Self.FK__Image__HouseNo__7C4F7684">
+            <End Role="RentalManagementDB" EntitySet="RentalManagementDB" />
+            <End Role="Image" EntitySet="Image" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="matsukiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="matsukiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Image" EntityType="matsukiModel.Image" />
+          <EntitySet Name="RentalManagementDB" EntityType="matsukiModel.RentalManagementDB" />
+          <AssociationSet Name="FK__Image__HouseNo__7C4F7684" Association="matsukiModel.FK__Image__HouseNo__7C4F7684">
+            <End Role="RentalManagementDB" EntitySet="RentalManagementDB" />
+            <End Role="Image" EntitySet="Image" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HouseNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RentalManagementDB" Relationship="matsukiModel.FK__Image__HouseNo__7C4F7684" FromRole="Image" ToRole="RentalManagementDB" />
+        </EntityType>
+        <EntityType Name="RentalManagementDB">
+          <Key>
+            <PropertyRef Name="HouseNo" />
+          </Key>
+          <Property Name="HouseNo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HouseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HousePost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HouseAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NearestSation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="HouseType" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Construction" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="YearConstruction" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Decorate" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TotalArea" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Parking" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Pets" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OtherEquipment" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="HouseRemarks" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityDeposit" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="KeyMoney" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CommonFee" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ManagementFee" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Rent" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ParkingFee" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="OtherFee" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MNGMTCOName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="COPhone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="COFax" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MNGMTForm" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Image1" Relationship="matsukiModel.FK__Image__HouseNo__7C4F7684" FromRole="RentalManagementDB" ToRole="Image" />
+        </EntityType>
+        <Association Name="FK__Image__HouseNo__7C4F7684">
+          <End Type="matsukiModel.RentalManagementDB" Role="RentalManagementDB" Multiplicity="0..1" />
+          <End Type="matsukiModel.Image" Role="Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RentalManagementDB">
+              <PropertyRef Name="HouseNo" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="HouseNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="matsukiModelStoreContainer" CdmEntityContainer="matsukiEntities">
+          <EntitySetMapping Name="Image">
+            <EntityTypeMapping TypeName="matsukiModel.Image">
+              <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="HouseNo" ColumnName="HouseNo" />
+                <ScalarProperty Name="ImageType" ColumnName="ImageType" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RentalManagementDB">
+            <EntityTypeMapping TypeName="matsukiModel.RentalManagementDB">
+              <MappingFragment StoreEntitySet="RentalManagementDB">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="MNGMTForm" ColumnName="MNGMTForm" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="COFax" ColumnName="COFax" />
+                <ScalarProperty Name="COPhone" ColumnName="COPhone" />
+                <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+                <ScalarProperty Name="MNGMTCOName" ColumnName="MNGMTCOName" />
+                <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
+                <ScalarProperty Name="ParkingFee" ColumnName="ParkingFee" />
+                <ScalarProperty Name="Rent" ColumnName="Rent" />
+                <ScalarProperty Name="ManagementFee" ColumnName="ManagementFee" />
+                <ScalarProperty Name="CommonFee" ColumnName="CommonFee" />
+                <ScalarProperty Name="KeyMoney" ColumnName="KeyMoney" />
+                <ScalarProperty Name="SecurityDeposit" ColumnName="SecurityDeposit" />
+                <ScalarProperty Name="HouseRemarks" ColumnName="HouseRemarks" />
+                <ScalarProperty Name="OtherEquipment" ColumnName="OtherEquipment" />
+                <ScalarProperty Name="Pets" ColumnName="Pets" />
+                <ScalarProperty Name="Parking" ColumnName="Parking" />
+                <ScalarProperty Name="TotalArea" ColumnName="TotalArea" />
+                <ScalarProperty Name="Decorate" ColumnName="Decorate" />
+                <ScalarProperty Name="YearConstruction" ColumnName="YearConstruction" />
+                <ScalarProperty Name="Construction" ColumnName="Construction" />
+                <ScalarProperty Name="HouseType" ColumnName="HouseType" />
+                <ScalarProperty Name="NearestSation" ColumnName="NearestSation" />
+                <ScalarProperty Name="HouseAddress" ColumnName="HouseAddress" />
+                <ScalarProperty Name="HousePost" ColumnName="HousePost" />
+                <ScalarProperty Name="HouseName" ColumnName="HouseName" />
+                <ScalarProperty Name="HouseNo" ColumnName="HouseNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="なし" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewmodel="clr-namespace:matsukifudousan.ViewModel"
+                    xmlns:local="clr-namespace:matsukifudousan.ResourceXAML">
+
+
+    <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
+
+    <viewmodel:RentalInputViewModel x:Key="RentalInputVM"></viewmodel:RentalInputViewModel>
+
+    <viewmodel:ContractDetailsViewModel x:Key="ContractDetailsVM"></viewmodel:ContractDetailsViewModel>
+
+    <viewmodel:RentalSearchModel x:Key="RentalSearchVM"></viewmodel:RentalSearchModel>
+
+    <viewmodel:RentalDetailsViewViewModel x:Key="RentalDetailsViewVM"></viewmodel:RentalDetailsViewViewModel>
+
+    <viewmodel:PrintsViewModel x:Key="PrintsVM"></viewmodel:PrintsViewModel>
+
+</ResourceDictionary>
