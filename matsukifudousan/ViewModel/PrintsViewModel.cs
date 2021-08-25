@@ -15,8 +15,10 @@ using System.Windows.Forms;
 using PrintDialog = System.Windows.Forms.PrintDialog;
 using System.Threading;
 using System.Drawing.Printing;
-using Spire.Pdf;
+using DocumentFormat.OpenXml.Wordprocessing;
+using GleamTech.FileSystems.AmazonS3;
 using Spire.Xls;
+using Spire.Pdf;
 
 namespace matsukifudousan.ViewModel
 {
@@ -54,40 +56,65 @@ namespace matsukifudousan.ViewModel
 
                 Prints prs = new Prints();
 
-                string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/bin/Debug/RentalImage/2.pdf";
+                string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/test.pdf";
 
                 PdfDocument doc = new PdfDocument();
                 try
                 {
                     doc.LoadFromFile(path);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
 
                     System.Windows.MessageBox.Show("パスが正しくないです。", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
 
+                PrintDialog dialogPrint = new PrintDialog();
 
-            PrintDialog dialogPrint = new PrintDialog();
-            dialogPrint.AllowPrintToFile = true;
-            dialogPrint.AllowSomePages = true;
-            dialogPrint.PrinterSettings.MinimumPage = 1;
-            dialogPrint.PrinterSettings.MaximumPage = doc.Pages.Count;
-            dialogPrint.PrinterSettings.FromPage = 1;
-            dialogPrint.PrinterSettings.ToPage = doc.Pages.Count;
+                //PrintPreviewDialog previewDialog = new PrintPreviewDialog();
+                //previewDialog.ClientSize =
+                //    new System.Drawing.Size(400, 300);
+                //previewDialog.Location =
+                //    new System.Drawing.Point(29, 29);
+                //previewDialog.Name = "PrintPreviewDialog1";
+                //PrintDocument printDoc = doc.PrintDocument;
+                //previewDialog.Document = printDoc;
+                //previewDialog.ShowDialog();
 
-            if (dialogPrint.ShowDialog() == DialogResult.OK)
+                dialogPrint.AllowPrintToFile = true;
+                dialogPrint.AllowSomePages = true;
+                dialogPrint.PrinterSettings.MinimumPage = 1;
+                dialogPrint.PrinterSettings.MaximumPage = doc.Pages.Count;
+                dialogPrint.PrinterSettings.FromPage = 1;
+                dialogPrint.PrinterSettings.ToPage = doc.Pages.Count;
+                PageSize pageSize = null;
+
+
+
+                if (dialogPrint.ShowDialog() == DialogResult.OK)
             {
                     doc.PrintFromPage = dialogPrint.PrinterSettings.FromPage;
                     doc.PrintToPage = dialogPrint.PrinterSettings.ToPage;
                     doc.PrinterName = dialogPrint.PrinterSettings.PrinterName;
+                    //doc.PageSettings.Size = PdfPageSize.A3;
+                    //doc.PageSettings.Rotate = PdfPageRotateAngle.RotateAngle90;
+
 
                     PrintDocument printDoc = doc.PrintDocument;
+
+                    PrinterSettings ps = new PrinterSettings();
+                    printDoc.PrinterSettings = ps;
+
+                    //printDoc.DefaultPageSettings.PaperSize = new PaperSize("Custom", 297, 420);
+
+                    //printDoc.DefaultPageSettings.PaperSize.RawKind = (int)PaperKind.A3Rotated;
+
                     try
                     {
                         printDoc.Print();
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
 
                         System.Windows.MessageBox.Show("プリンターがないです。","エラー",MessageBoxButton.OK,MessageBoxImage.Error);
@@ -102,14 +129,14 @@ namespace matsukifudousan.ViewModel
 
                 Prints prs = new Prints();
 
-                string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/bin/Debug/RentalImage/tuvung1.xlsx";
+                string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/tuvung1.xlsx";
 
                 Workbook workbook = new Workbook();
                 try
                 {
                     workbook.LoadFromFile(path);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
 
                     System.Windows.MessageBox.Show("パスが正しくないです。", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -117,6 +144,7 @@ namespace matsukifudousan.ViewModel
                 }
 
                 PrintDialog dialog = new PrintDialog();
+
                 dialog.AllowPrintToFile = true;
                 dialog.AllowCurrentPage = true;
                 dialog.AllowSomePages = true;
@@ -135,7 +163,7 @@ namespace matsukifudousan.ViewModel
                         PrintDocument pd = workbook.PrintDocument;
                         pd.Print();
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
 
                         System.Windows.MessageBox.Show("プリンターがないです。", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -149,14 +177,14 @@ namespace matsukifudousan.ViewModel
 
                 Prints prs = new Prints();
 
-                string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/bin/Debug/RentalImage/2.xlsx";
+                string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/tuvung1.xlsx";
 
                 Workbook workbook = new Workbook();
                 try
                 {
                     workbook.LoadFromFile(path);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     System.Windows.MessageBox.Show("パスが正しくないです。", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -181,7 +209,7 @@ namespace matsukifudousan.ViewModel
                         PrintDocument pd = workbook.PrintDocument;
                         pd.Print();
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
 
                         System.Windows.MessageBox.Show("プリンターがないです。", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);

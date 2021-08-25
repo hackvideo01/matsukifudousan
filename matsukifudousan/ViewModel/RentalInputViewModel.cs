@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 using ImageDB = matsukifudousan.Model.Image;
 namespace matsukifudousan.ViewModel
 {
@@ -118,8 +119,6 @@ namespace matsukifudousan.ViewModel
         private object _NameIMG;
         public object NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged(); } }
 
-        private object _NameIMGSection;
-        public object NameIMGSection { get => _NameIMGSection; set { _NameIMGSection = value; OnPropertyChanged(); } }
         #region
         private string _ImagePath;
         public string ImagePath { get => _ImagePath; set { _ImagePath = value; OnPropertyChanged(); } }
@@ -148,7 +147,6 @@ namespace matsukifudousan.ViewModel
 
         }
 
-        List<object> mylist = new List<object>();
         public RentalInputViewModel()
         {
             string[] a =ImageObject;
@@ -297,6 +295,24 @@ namespace matsukifudousan.ViewModel
                         //}
                         string conbineCharatar = ";";
                         string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+                        // Get current working directory (..\bin\Debug)
+                        string workingDirectory = Environment.CurrentDirectory;
+
+                        // GEt the current PROJECT directory
+                        string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+
+                        // Create specific path file
+                        string csPath = string.Format(@"{0}\images\RentalImage", projectDirectory);
+
+                        //string appdirect = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+                        //string appdirect1 = AppDomain.CurrentDomain.BaseDirectory;
+
+                        //string appdirect2 = System.IO.Directory.GetCurrentDirectory();
+
+                        //string appdirect3 = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+
                         DrawingGroup imageDrawings = new DrawingGroup();
                         RentalInput ls = new RentalInput();
 
@@ -339,6 +355,11 @@ namespace matsukifudousan.ViewModel
                                 //ls.stackPanel1.Children.Add(image1);
 
                                 //ls.stackPanel1.MouseLeftButtonDown += delegate { DeleteImage(); };
+
+
+
+                               
+
                             }
 
                         }
@@ -347,7 +368,7 @@ namespace matsukifudousan.ViewModel
 
                         foreach (String SaveImageItem in ImageObject)
                         {
-                            File.Copy(SaveImageItem, System.IO.Path.Combine(appDirectory + "\\RentalImage", System.IO.Path.GetFileName(SaveImageItem)), true);
+                            File.Copy(SaveImageItem, System.IO.Path.Combine(csPath, System.IO.Path.GetFileName(SaveImageItem)), true);
 
                         }
 
