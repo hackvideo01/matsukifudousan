@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="457cb3e5ad624a3bb2f4a429b657a7f8" Name="Diagram1">
-        <EntityTypeShape EntityType="matsukiModel.Image" Width="1.5" PointX="5.25" PointY="3.125" />
-        <EntityTypeShape EntityType="matsukiModel.RentalManagementDB" Width="1.5" PointX="3" PointY="0.625" />
+        <EntityTypeShape EntityType="matsukiModel.ImageDB" Width="1.5" PointX="3" PointY="3.75" />
+        <EntityTypeShape EntityType="matsukiModel.RentalManagementDB" Width="1.5" PointX="0.75" PointY="1.25" />
         <AssociationConnector Association="matsukiModel.FK__Image__HouseNo__7C4F7684" />
       </Diagram>
     </edmx:Diagrams>

@@ -15,7 +15,7 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              
              DataContext="{StaticResource RentalInputVM}"
-             
+
              Name="ImageVM"
              
              mc:Ignorable="d" 
@@ -495,7 +495,9 @@
 
                 <!--<Image x:Name="image1" Source="{Binding NameIMG}" Grid.Row="22" Height="100"></Image>-->
 
-                <StackPanel Height="100" Name="stackPanel1" Width="200" />
+                <Grid Grid.Row="22" x:Name="ContentRoot">
+
+                </Grid>
 
                 <!--<Grid Grid.Row="22">
                     <ListView x:Name="ListView12"   VirtualizingStackPanel.IsVirtualizing="True" Height="200" ItemsSource="{Binding NameIMG}">

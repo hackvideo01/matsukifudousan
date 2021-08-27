@@ -17,7 +17,7 @@ namespace matsukifudousan.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RentalManagementDB()
         {
-            this.Image1 = new HashSet<Image>();
+            this.ImageDB = new HashSet<ImageDB>();
         }
     
         public string HouseNo { get; set; }
@@ -54,6 +54,6 @@ namespace matsukifudousan.Model
         public string Image { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Image> Image1 { get; set; }
+        public virtual ICollection<ImageDB> ImageDB { get; set; }
     }
 }

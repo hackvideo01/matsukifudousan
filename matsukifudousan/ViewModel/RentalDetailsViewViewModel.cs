@@ -13,13 +13,13 @@ namespace matsukifudousan.ViewModel
         private ObservableCollection<RentalManagementDB> _RentalDetailsView;
         public ObservableCollection<RentalManagementDB> RentalDetailsView { get => _RentalDetailsView; set { _RentalDetailsView = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Image> _NameIMG;
-        public ObservableCollection<Image> NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged(); } }
+        private ObservableCollection<ImageDB> _NameIMG;
+        public ObservableCollection<ImageDB> NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged(); } }
         public RentalDetailsViewViewModel()
         {
             RentalDetailsView = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == "6"));
 
-            NameIMG = new ObservableCollection<Image>(DataProvider.Ins.DB.Image.Where(v => v.HouseNo == "6"));
+            NameIMG = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(v => v.HouseNo == "6"));
 
 
         }

@@ -18,6 +18,7 @@ using System.Drawing.Printing;
 using DocumentFormat.OpenXml.Wordprocessing;
 using GleamTech.FileSystems.AmazonS3;
 using Spire.Xls;
+using System.Drawing;
 using Spire.Pdf;
 
 namespace matsukifudousan.ViewModel
@@ -29,31 +30,56 @@ namespace matsukifudousan.ViewModel
         public ICommand EXCELButton { get; set; }
 
         public ICommand EXCELButton2 { get; set; }
+
+        private void printPreview_PrintClick(object sender, EventArgs e)
+
+        {
+            PdfDocument doc = new PdfDocument();
+            string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/test.pdf";
+            doc.LoadFromFile(path);
+
+            PrintDialog dialogPrint = new PrintDialog();
+            dialogPrint.AllowPrintToFile = true;
+            dialogPrint.AllowSomePages = true;
+            dialogPrint.PrinterSettings.MinimumPage = 1;
+            dialogPrint.PrinterSettings.MaximumPage = doc.Pages.Count;
+            dialogPrint.PrinterSettings.FromPage = 1;
+            dialogPrint.PrinterSettings.ToPage = doc.Pages.Count;
+            dialogPrint.PrinterSettings.ToPage = doc.Pages.Count;
+
+            PageSetupDialog setupDlg = new PageSetupDialog();
+            PrintDocument printDoc = doc.PrintDocument;
+            setupDlg.AllowMargins = false;
+            setupDlg.AllowOrientation = false;
+            setupDlg.AllowPaper = false;
+            setupDlg.AllowPrinter = false;
+
+            if (dialogPrint.ShowDialog() == DialogResult.OK)
+            {
+                doc.PrintFromPage = dialogPrint.PrinterSettings.FromPage;
+                doc.PrintToPage = dialogPrint.PrinterSettings.ToPage;
+                doc.PrinterName = dialogPrint.PrinterSettings.PrinterName;
+
+                try
+                {
+                    //printDoc.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("A3", 1169, 1654);
+                    
+                    printDoc.PrinterSettings =
+                        dialogPrint.PrinterSettings;
+                    printDoc.Print();
+                }
+                catch (Exception)
+                {
+
+                    System.Windows.MessageBox.Show("プリンターがないです。", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+        }
         public PrintsViewModel()
         {
             PDFButton = new RelayCommand<object>((px) => { return true; }, (px) =>
             {
-                //SpreadsheetInfo.SetLicense("FREE-LIMITED-KEY");
-                //ExcelFile workbook = ExcelFile.Load(path);
-
-                //foreach (ExcelWorksheet worksheet in workbook.Worksheets)
-                //{
-                //    ExcelPrintOptions sheetPrintOptions = worksheet.PrintOptions;
-
-                //    sheetPrintOptions.Portrait = false;
-                //    sheetPrintOptions.HorizontalCentered = true;
-                //    sheetPrintOptions.VerticalCentered = true;
-
-                //    sheetPrintOptions.PrintHeadings = true;
-                //    sheetPrintOptions.PrintGridlines = true;
-                //}
-
-                //PrintOptions printOptions = new PrintOptions();
-                //printOptions.SelectionType = SelectionType.EntireFile;
-
-                //string printerName = null;
-                //workbook.Print(printerName, printOptions);
-
                 Prints prs = new Prints();
 
                 string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/test.pdf";
@@ -72,55 +98,23 @@ namespace matsukifudousan.ViewModel
 
                 PrintDialog dialogPrint = new PrintDialog();
 
-                //PrintPreviewDialog previewDialog = new PrintPreviewDialog();
-                //previewDialog.ClientSize =
-                //    new System.Drawing.Size(400, 300);
-                //previewDialog.Location =
-                //    new System.Drawing.Point(29, 29);
-                //previewDialog.Name = "PrintPreviewDialog1";
-                //PrintDocument printDoc = doc.PrintDocument;
-                //previewDialog.Document = printDoc;
-                //previewDialog.ShowDialog();
+                PrintPreviewDialog previewDialog = new PrintPreviewDialog();
+                previewDialog.ClientSize =
+                    new System.Drawing.Size(400, 300);
+                previewDialog.Location =
+                    new System.Drawing.Point(29, 29);
+                previewDialog.Name = "PrintPreviewDialog1";
+                PrintDocument printDoc = doc.PrintDocument;
+                previewDialog.Document = printDoc;
 
-                dialogPrint.AllowPrintToFile = true;
-                dialogPrint.AllowSomePages = true;
-                dialogPrint.PrinterSettings.MinimumPage = 1;
-                dialogPrint.PrinterSettings.MaximumPage = doc.Pages.Count;
-                dialogPrint.PrinterSettings.FromPage = 1;
-                dialogPrint.PrinterSettings.ToPage = doc.Pages.Count;
-                PageSize pageSize = null;
+                ToolStripButton b = new ToolStripButton();
+                b.Image = Bitmap.FromFile("C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/printer.png");
+                b.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                b.Click += printPreview_PrintClick;
+                ((ToolStrip)(previewDialog.Controls[1])).Items.RemoveAt(0);
+                ((ToolStrip)(previewDialog.Controls[1])).Items.Insert(0, b);
 
-
-
-                if (dialogPrint.ShowDialog() == DialogResult.OK)
-            {
-                    doc.PrintFromPage = dialogPrint.PrinterSettings.FromPage;
-                    doc.PrintToPage = dialogPrint.PrinterSettings.ToPage;
-                    doc.PrinterName = dialogPrint.PrinterSettings.PrinterName;
-                    //doc.PageSettings.Size = PdfPageSize.A3;
-                    //doc.PageSettings.Rotate = PdfPageRotateAngle.RotateAngle90;
-
-
-                    PrintDocument printDoc = doc.PrintDocument;
-
-                    PrinterSettings ps = new PrinterSettings();
-                    printDoc.PrinterSettings = ps;
-
-                    //printDoc.DefaultPageSettings.PaperSize = new PaperSize("Custom", 297, 420);
-
-                    //printDoc.DefaultPageSettings.PaperSize.RawKind = (int)PaperKind.A3Rotated;
-
-                    try
-                    {
-                        printDoc.Print();
-                    }
-                    catch (Exception)
-                    {
-
-                        System.Windows.MessageBox.Show("プリンターがないです。","エラー",MessageBoxButton.OK,MessageBoxImage.Error);
-                        return;
-                    }
-            }
+                previewDialog.ShowDialog();
 
             });
 

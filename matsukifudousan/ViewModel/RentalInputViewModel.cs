@@ -7,12 +7,15 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Org.BouncyCastle.Bcpg.OpenPgp;
-using ImageDB = matsukifudousan.Model.Image;
+using ImageDB = matsukifudousan.Model.ImageDB;
+using Image = System.Windows.Controls.Image;
+
 namespace matsukifudousan.ViewModel
 {
     public class RentalInputViewModel : BaseViewModel
@@ -141,9 +144,7 @@ namespace matsukifudousan.ViewModel
         {
             RentalInput ls = new RentalInput();
 
-            ls.stackPanel1.Children.RemoveAt(0);
-
-            File.Delete(@"C:\Users\Public\Pictures\Sample Pictures\Autumn Leaves - Copy.jpg");
+            File.Delete(@"C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/浪花磨き.jpg");
 
         }
 
@@ -220,7 +221,7 @@ namespace matsukifudousan.ViewModel
                         ImagePath = appDirectory + "\\RentalImage\\" + item,
                         HouseNo = HouseNo
                     };
-                    DataProvider.Ins.DB.Image.Add(AddImage);
+                    DataProvider.Ins.DB.ImageDB.Add(AddImage);
                     DataProvider.Ins.DB.SaveChanges();
                 }
                 Comfirm = 1;
@@ -261,7 +262,7 @@ namespace matsukifudousan.ViewModel
 
                     op.Multiselect = true;
 
-                    List<string> ListImagePath = new List<string>();
+                    List<Image> ListImagePath = new List<Image>();
 
                     if (op.ShowDialog() == true)
                     {
@@ -314,12 +315,12 @@ namespace matsukifudousan.ViewModel
                         //string appdirect3 = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
 
                         DrawingGroup imageDrawings = new DrawingGroup();
-                        RentalInput ls = new RentalInput();
 
+                        var ls = new RentalInput();
 
                         foreach (String item in op.SafeFileNames)
                         {
-                            var displayListImage = DataProvider.Ins.DB.Image.Where(x => x.ImageName == item);
+                            var displayListImage = DataProvider.Ins.DB.ImageDB.Where(x => x.ImageName == item);
                             if (displayListImage == null || displayListImage.Count() != 0)
                             {
                                 var result = MessageBox.Show("ファイル名がありました。この写真を保存しますか？", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
@@ -333,33 +334,12 @@ namespace matsukifudousan.ViewModel
                                 Image += item + conbineCharatar;
                                 ImagePath = op.FileName;
 
-                                NameIMG = op.FileNames;
+                                string filePath = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/浪花磨き.jpg";
 
-                                //ls.ListView1.ItemsSource = mylist;
-                                //imageSource.image1.Source = new BitmapImage(new Uri("images/computer.png", UriKind.Relative));
-
-                                //BitmapImage bi = new BitmapImage();
-
-                                //bi.BeginInit();
-
-                                //bi.CacheOption = BitmapCacheOption.OnLoad;
-
-                                //bi.UriSource = new Uri(@"C:\Users\Public\Pictures\Sample Pictures\Autumn Leaves - Copy.jpg");
-
-                                //bi.EndInit();
-
-                                //Image image1 = new Image();
-
-                                //image1.Source = bi;
-
-                                //ls.stackPanel1.Children.Add(image1);
-
-                                //ls.stackPanel1.MouseLeftButtonDown += delegate { DeleteImage(); };
-
-
-
-                               
-
+                                var webImage = new BitmapImage(new Uri(filePath));
+                                var imageControl = new Image();
+                                imageControl.Source = webImage;
+                                NameIMG = ls.ContentRoot.Children.Add(imageControl);
                             }
 
                         }

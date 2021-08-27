@@ -25,7 +25,7 @@ namespace matsukifudousan.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Image> Image { get; set; }
+        public virtual DbSet<ImageDB> ImageDB { get; set; }
         public virtual DbSet<RentalManagementDB> RentalManagementDB { get; set; }
     }
 }

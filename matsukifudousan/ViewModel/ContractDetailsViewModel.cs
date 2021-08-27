@@ -13,7 +13,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Image = matsukifudousan.Model.Image;
+using Image = matsukifudousan.Model.ImageDB;
 
 namespace matsukifudousan.ViewModel
 {
