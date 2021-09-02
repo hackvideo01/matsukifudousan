@@ -68,7 +68,7 @@ namespace matsukifudousan.ViewModel
             #region PrintsButton
             PrintsButton = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                if (List.Count != 0)
+                if (List.Count != 0) // if List.Count = 0 then Search Result not had 
                 {
 
                     ExcelPackage.LicenseContext = LicenseContext.Commercial;
@@ -175,12 +175,12 @@ namespace matsukifudousan.ViewModel
 
             RentalDetailsView = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                RentalDetailsView wd = new RentalDetailsView(); wd.ShowDialog();
+                RentalDetailsView openWindowDetails = new RentalDetailsView(); openWindowDetails.ShowDialog();
             });
 
             RentalFix = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                RentalFixs wd = new RentalFixs(); wd.ShowDialog();
+                RentalFixs openWindowFixs = new RentalFixs(); openWindowFixs.ShowDialog();
             });
         }
 

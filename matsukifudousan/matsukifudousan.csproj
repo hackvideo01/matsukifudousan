@@ -37,6 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BatchedObservableCollection, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObservableCollection.Batched.1.0.0\lib\net45\BatchedObservableCollection.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
@@ -345,7 +348,7 @@
     <Resource Include="images\bk.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="top.JPG" />
+    <Resource Include="images\top.JPG" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\lookup.png" />

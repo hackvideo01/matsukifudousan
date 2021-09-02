@@ -68,7 +68,7 @@
                 <materialDesign:Card Height="80" Width="900"
                 materialDesign:ShadowAssist.ShadowDepth="Depth3">
                     <materialDesign:Card.Background>
-                        <ImageBrush ImageSource="top.JPG"/>
+                        <ImageBrush ImageSource="images/top.JPG"/>
                     </materialDesign:Card.Background>
                 </materialDesign:Card>
             </Grid>

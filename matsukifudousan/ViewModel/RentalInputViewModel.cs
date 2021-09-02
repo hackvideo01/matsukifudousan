@@ -1,5 +1,4 @@
 ﻿using matsukifudousan.Model;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,14 +6,20 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Org.BouncyCastle.Bcpg.OpenPgp;
 using ImageDB = matsukifudousan.Model.ImageDB;
 using Image = System.Windows.Controls.Image;
+using BatchedObservableCollection.Batch;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using MaterialDesignThemes.Wpf;
+using Button = System.Windows.Controls.Button;
+using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace matsukifudousan.ViewModel
 {
@@ -119,9 +124,6 @@ namespace matsukifudousan.ViewModel
 
         #endregion
 
-        private object _NameIMG;
-        public object NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged(); } }
-
         #region
         private string _ImagePath;
         public string ImagePath { get => _ImagePath; set { _ImagePath = value; OnPropertyChanged(); } }
@@ -135,28 +137,30 @@ namespace matsukifudousan.ViewModel
 
         public ICommand AddImageCommand { get; set; }
 
+        public ICommand deleteAction { get; set; }
+
         public string[] ImageObject;
 
         public string[] ImageNameObject;
 
-        private void DeleteImage()
+        private ObservableCollection<Object> _NameIMG = new ObservableCollection<Object>();
+        public ObservableCollection<Object> NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged(); } }
+
+        ObservableCollection<Object> ImageListPath = new ObservableCollection<Object>();
+
+        private void DeleteImage(string nameImage)
 
         {
-            RentalInput ls = new RentalInput();
 
-            File.Delete(@"C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/浪花磨き.jpg");
+            File.Delete(@"C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/"+nameImage);
 
         }
 
         public RentalInputViewModel()
         {
             string[] a =ImageObject;
-            SessionVM SessionImgRental = new SessionVM();
-
-
 
             ContractDetailsCommandWD = new RelayCommand<object>((p) => { return true; }, (p) => { ContractDetails wd = new ContractDetails(); wd.ShowDialog(); });
-
 
             AddRentalCommand = new RelayCommand<object>((p) =>
             {
@@ -164,7 +168,7 @@ namespace matsukifudousan.ViewModel
                     return false;
 
                 var displayList = DataProvider.Ins.DB.RentalManagementDB.Where(x => x.HouseNo == HouseNo);
-                if (displayList == null || displayList.Count() != 0)
+                if (displayList == null || displayList.Count() != 0) // if displayList = 0 then HouseNo had in database
                     return false;
 
                 return true;
@@ -213,12 +217,12 @@ namespace matsukifudousan.ViewModel
                 DataProvider.Ins.DB.SaveChanges();
                 string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-                foreach (string item in ImageNameObject)
+                foreach (string saveImageDB in ImageNameObject)
                 {
                     var AddImage = new ImageDB()
                     {
-                        ImageName = item,
-                        ImagePath = appDirectory + "\\RentalImage\\" + item,
+                        ImageName = saveImageDB,
+                        ImagePath = appDirectory + "\\RentalImage\\" + saveImageDB,
                         HouseNo = HouseNo
                     };
                     DataProvider.Ins.DB.ImageDB.Add(AddImage);
@@ -227,11 +231,8 @@ namespace matsukifudousan.ViewModel
                 Comfirm = 1;
                 if (Comfirm == 1)
                 {
-                    String imageLocation = "";
-                    RentalInput imageSource = new RentalInput();
-                    OpenFileDialog op = new OpenFileDialog();
-                    op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-                    imageLocation = op.FileName;
+                    OpenFileDialog openDialog = new OpenFileDialog();
+                    openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
 
                     MessageBox.Show("データを保存しました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -239,8 +240,6 @@ namespace matsukifudousan.ViewModel
 
                 #endregion
             });
-
-            
 
             AddImageCommand = new RelayCommand<object>((p) =>
             {
@@ -251,51 +250,19 @@ namespace matsukifudousan.ViewModel
                 try
                 {
 
-                duplicate:
+                    duplicateImage:
 
-                    RentalInput imageSource = new RentalInput();
+                    OpenFileDialog openDialog = new OpenFileDialog();
 
-                    OpenFileDialog op = new OpenFileDialog();
+                    openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
 
+                    openDialog.Multiselect = true;
 
-                    op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-
-                    op.Multiselect = true;
-
-                    List<Image> ListImagePath = new List<Image>();
-
-                    if (op.ShowDialog() == true)
+                    if (openDialog.ShowDialog() == true)
                     {
-                        //imageLocation = op.FileName;
-
-                        //ImagePath = imageLocation;
-
-                        //Image = op.SafeFileName;
-
-                        //imageSource.imagetb.Focus();
-
-                        //ImageFullPath = imageLocation;
-
-                        //var displayListImage = DataProvider.Ins.DB.RentalManagementDB.Where(x => x.Image == Image);
-                        //if (displayListImage == null || displayListImage.Count() != 0)
-                        //{
-                        //    //MessageBox.Show("DA CO ROI", "trung", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                        //    var result = MessageBox.Show("ファイル名がありました。この写真を保存しますか？", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                        //    if (result == MessageBoxResult.No)
-                        //    {
-                        //        //op.ShowDialog();
-                        //        goto duplicate;
-                        //    }
-
-                        //}
-                        //else
-                        //{
-                        //    //string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-                        //    //File.Copy(imageSource.tbPath.Text, System.IO.Path.Combine(appDirectory + "\\RentalImage", System.IO.Path.GetFileName(imageSource.tbPath.Text)), true);
-                        //}
                         string conbineCharatar = ";";
-                        string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+                        string appDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
                         // Get current working directory (..\bin\Debug)
                         string workingDirectory = Environment.CurrentDirectory;
@@ -304,7 +271,7 @@ namespace matsukifudousan.ViewModel
                         string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
 
                         // Create specific path file
-                        string csPath = string.Format(@"{0}\images\RentalImage", projectDirectory);
+                        string SavePath = string.Format(@"{0}\images\RentalImage", projectDirectory);
 
                         //string appdirect = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
@@ -314,54 +281,68 @@ namespace matsukifudousan.ViewModel
 
                         //string appdirect3 = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
 
-                        DrawingGroup imageDrawings = new DrawingGroup();
-
-                        var ls = new RentalInput();
-
-                        foreach (String item in op.SafeFileNames)
+                        foreach (String item in openDialog.SafeFileNames)
                         {
                             var displayListImage = DataProvider.Ins.DB.ImageDB.Where(x => x.ImageName == item);
+
                             if (displayListImage == null || displayListImage.Count() != 0)
                             {
                                 var result = MessageBox.Show("ファイル名がありました。この写真を保存しますか？", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
                                 if (result == MessageBoxResult.No)
                                 {
-                                    goto duplicate;
+                                    goto duplicateImage;
                                 }
                             }
-                            else
-                            {
-                                Image += item + conbineCharatar;
-                                ImagePath = op.FileName;
-
-                                string filePath = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/浪花磨き.jpg";
-
-                                var webImage = new BitmapImage(new Uri(filePath));
-                                var imageControl = new Image();
-                                imageControl.Source = webImage;
-                                NameIMG = ls.ContentRoot.Children.Add(imageControl);
-                            }
-
                         }
-                        ImageObject = op.FileNames;
-                        ImageNameObject = op.SafeFileNames;
+
+                        int i = 1;
+                        foreach (var imageLink in openDialog.FileNames)
+                        {
+                            string imagePath = imageLink;
+
+                            var drawImageBitmap = new BitmapImage(new Uri(imagePath));
+                            var imageControl = new Image();
+                            imageControl.Width = 100;  //set image of width 100 , guest of request
+                            imageControl.Height = 100; //set image of height 100 , quest of request
+                            imageControl.Source = drawImageBitmap;
+
+                            Button deleteButton = new Button();
+                            deleteButton.Content = "X";
+                            deleteButton.Name = "Delete";
+                            deleteButton.Command = deleteAction;
+
+
+                            //ImageListPath.Add(imageControl);
+
+                            //NameIMG = ImageListPath;
+                            NameIMG.Add(imageControl);
+                            NameIMG.Add(deleteButton);
+
+                            i++;
+                        }
+                        
+                        ImageObject = openDialog.FileNames;
+                        ImageNameObject = openDialog.SafeFileNames;
 
                         foreach (String SaveImageItem in ImageObject)
                         {
-                            File.Copy(SaveImageItem, System.IO.Path.Combine(csPath, System.IO.Path.GetFileName(SaveImageItem)), true);
-
+                            File.Copy(SaveImageItem, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(SaveImageItem)), true);
                         }
-
-
                     }
                 }
-                catch (Exception)
+                catch (ArgumentOutOfRangeException  e)
                 {
-
-                    MessageBox.Show("Fix!", "ERROR!!!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Fix!"+e, "ERROR!!!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
             });
+
+            deleteAction = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                //NameIMG.RemoveAt(index:);
+            });
+
         }
+
     }
 }

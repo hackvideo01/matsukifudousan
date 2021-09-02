@@ -29,26 +29,16 @@ namespace matsukifudousan
         public RentalInput()
         {
             InitializeComponent();
-
-            //string filePath = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/浪花磨き.jpg";
-
-            //var webImage = new BitmapImage(new Uri(filePath));
-            //var imageControl = new Image();
-            //imageControl.Source = webImage;
-            //ContentRoot.Children.Add(imageControl);
-
-            
         }
-
 
         //private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         //{
-        //    //string filePath2 = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/桜御影JB.jpg";
+        //    string filePath2 = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/桜御影JB.jpg";
 
-        //    //var webImage2 = new BitmapImage(new Uri(filePath2));
-        //    //var imageControl2 = new Image();
-        //    //imageControl2.Source = webImage2;
-        //    //ContentRoot.Children.Add(imageControl2);
+        //    var webImage2 = new BitmapImage(new Uri(filePath2));
+        //    var imageControl2 = new Image();
+        //    imageControl2.Source = webImage2;
+        //    ContentRoot.Children.Add(imageControl2);
         //}
     }
 }

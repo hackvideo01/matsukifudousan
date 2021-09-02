@@ -488,28 +488,38 @@
                             </Grid.ColumnDefinitions>
                             <TextBox IsReadOnly="True" x:Name="imagetb" Grid.Column="0" Text="{Binding Image}"></TextBox>
                             <TextBox x:Name="tbPath" Text="{Binding ImageFullPath}" Visibility="Hidden"></TextBox>
-                            <Button Grid.Column="1" Command="{Binding AddImageCommand}" Content="アップロード" Margin="0 0 5 0" ></Button>
+                            <Button Grid.Column="1" Command="{Binding AddImageCommand}" Content="アップロード" Margin="0 0 5 0"></Button>
                         </Grid>
                     </Grid>
                 </Border>
 
                 <!--<Image x:Name="image1" Source="{Binding NameIMG}" Grid.Row="22" Height="100"></Image>-->
 
-                <Grid Grid.Row="22" x:Name="ContentRoot">
+                <!--<Grid Grid.Row="22" x:Name="ContentRoot">
+                    <ContentPresenter
+                        Name="AccountGrid"              
+                        Content="{Binding NameIMG}">
+                    </ContentPresenter>
+                </Grid>-->
 
-                </Grid>
+                <ScrollViewer Grid.Row="22" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding NameIMG}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
 
-                <!--<Grid Grid.Row="22">
-                    <ListView x:Name="ListView12"   VirtualizingStackPanel.IsVirtualizing="True" Height="200" ItemsSource="{Binding NameIMG}">
-                        <ListView.ItemTemplate>
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image x:Name="Image_GridViewColumnName" Width="100" Height="50" Source="{Binding}" />
+                                <StackPanel>
+                                    <!--<Image Source="{Binding}" Margin="10"/>-->
+                                    <!--<Button Content="X" Width="20" Height="20" FontSize="20" Foreground="Black"></Button>-->
                                 </StackPanel>
                             </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Grid>-->
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
 
                 <Button Grid.Row="23" Command="{Binding AddRentalCommand}" Content="登録" Width="150" Height="42"></Button>
 
