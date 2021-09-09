@@ -16,4 +16,6 @@
 
     <viewmodel:PrintsViewModel x:Key="PrintsVM"></viewmodel:PrintsViewModel>
 
+    <viewmodel:RentalFixViewModel x:Key="RentalFixVM"></viewmodel:RentalFixViewModel>
+
 </ResourceDictionary>

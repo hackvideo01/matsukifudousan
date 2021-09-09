@@ -39,6 +39,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
             <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}" Width="auto">
                 <Grid Grid.Row="0">
@@ -53,12 +54,15 @@
                     <TextBox Text="{Binding Search, Mode=TwoWay}" Grid.Column="0"></TextBox>
                     <Button Grid.Column="1" Command="{Binding SearchButton}" Content="検索" Margin="0 0 3 0"></Button>
                     <Button Grid.Column="2" Command="{Binding RentalDetailsView}" Content="詳細" Margin="0 0 2 0"></Button>
-                    <Button Grid.Column="3" Command="{Binding RentalFix}" Content="修正" Margin="0 0 2 0"></Button>
+                    <Button Grid.Column="3" x:Name="fixButton" Command="{Binding RentalFix}" Content="修正" Margin="0 0 2 0"></Button>
                     <Button Grid.Column="4" Command="{Binding RentalDelete}" Content="削除" Margin="0 0 2 0"></Button>
                     <Button Grid.Column="5" Command="{Binding PrintsButton}" Content="プリント"></Button>
                 </Grid>
             </Border>
-            <materialDesign:Card Grid.Row="1" Margin="5" VerticalAlignment="Stretch">
+
+            <TextBox x:Name="House" Grid.Row="1" Text="{Binding HouseNo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" materialDesign:HintAssist.Hint="物件番号" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ListView x:Name="RentalList" ItemsSource="{Binding List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                         <ListView.View>

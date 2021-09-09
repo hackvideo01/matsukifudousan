@@ -76,7 +76,7 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" DataContext="{Binding RentalDetailsView}">
+                <Grid Grid.Row="0" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="42"></RowDefinition>
                     <RowDefinition Height="42"></RowDefinition>

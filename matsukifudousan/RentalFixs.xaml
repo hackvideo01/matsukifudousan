@@ -21,8 +21,11 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="None"
+
+        DataContext="{StaticResource RentalFixVM}"
         
-        x:Name="RentalFixVM"
+        x:Name="RentalFixWD"
+
         Title="物件詳細" Height="450" Width="835">
 
     <Window.Resources>
@@ -67,7 +70,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <uc:UserControlUC Tag="{Binding Title, ElementName=RentalFixVM}"></uc:UserControlUC>
+            <uc:UserControlUC Tag="{Binding Title, ElementName=RentalFixWD}"></uc:UserControlUC>
             <materialDesign:PackIcon Kind="BorderColor" Height="30" Width="30" VerticalAlignment="Center" Margin="8 0 0 0"/>
         </Grid>
         <ScrollViewer  Grid.Row="1">
@@ -95,7 +98,7 @@
                     <RowDefinition Height="42"></RowDefinition>
                     <RowDefinition Height="100"></RowDefinition>
                     <RowDefinition Height="42"></RowDefinition>
-                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}">
@@ -108,7 +111,7 @@
                             <TextBlock Text="物件番号" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBox Text="{Binding HouseNo}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0"/>
+                            <TextBox Text="{Binding HouseNo}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0" IsReadOnly="True"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -490,14 +493,35 @@
                                 <ColumnDefinition Width="80*"></ColumnDefinition>
                                 <ColumnDefinition Width="20*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBox IsReadOnly="True" x:Name="imagetb" Grid.Column="0" Text="{Binding Image}"></TextBox>
-                            <TextBox x:Name="tbPath" Text="{Binding ImageFullPath}" Visibility="Hidden"></TextBox>
-                            <Button Grid.Column="1" Command="{Binding AddImageCommand}" Content="アップロード" Margin="0 0 5 0" ></Button>
+                            <TextBox IsReadOnly="True" x:Name="imagetb" Grid.Column="0" Text="{Binding Image,Mode=TwoWay}"></TextBox>
+                            <!--<TextBox x:Name="tbPath" Text="{Binding ImageFullPath}" Visibility="Hidden"></TextBox>-->
+                            <Button Grid.Column="1" Command="{Binding AddImageCommand}" Content="アップロード" Margin="0 0 5 0"></Button>
                         </Grid>
                     </Grid>
                 </Border>
 
-                <Image x:Name="image1" Source="{Binding ImagePath}" Grid.Row="22" Height="100"></Image>
+                <ScrollViewer Grid.Row="22" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                    <ItemsControl x:Name="listImage" ItemsSource="{Binding NameIMG,Mode=TwoWay}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <DataTemplate.Resources>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Height" Value="100"/>
+                                    </Style>
+                                </DataTemplate.Resources>
+                                <StackPanel>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
 
                 <Button Grid.Row="23" Command="{Binding AddRentalCommand}" Content="登録" Width="150" Height="42"></Button>
 

@@ -4,8 +4,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
+using System.IO.Ports;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -15,11 +19,20 @@ using Org.BouncyCastle.Bcpg.OpenPgp;
 using ImageDB = matsukifudousan.Model.ImageDB;
 using Image = System.Windows.Controls.Image;
 using BatchedObservableCollection.Batch;
+using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Office2013.PowerPoint;
+using GleamTech.Util;
+using ImageProcessor.Common.Extensions;
 using MaterialDesignThemes.Wpf;
+using Spire.Presentation;
+using Brushes = System.Windows.Media.Brushes;
 using Button = System.Windows.Controls.Button;
+using Control = System.Windows.Controls.Control;
+using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using Orientation = System.Windows.Controls.Orientation;
 
 namespace matsukifudousan.ViewModel
 {
@@ -146,18 +159,44 @@ namespace matsukifudousan.ViewModel
         private ObservableCollection<Object> _NameIMG = new ObservableCollection<Object>();
         public ObservableCollection<Object> NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged(); } }
 
-        ObservableCollection<Object> ImageListPath = new ObservableCollection<Object>();
+        private ObservableCollection<Object> _ImageListPath = new ObservableCollection<Object>();
+        public ObservableCollection<Object> ImageListPath { get => _ImageListPath; set { _ImageListPath = value; OnPropertyChanged(); } }
 
-        private void DeleteImage(string nameImage)
+        //private List<object> ImageListPath = new List<object>();
 
+        string conbineCharatarBefore = "[";
+
+        string conbineCharatarAfter = "] ";
+
+        public int Comfirm = 0;
+
+        public void ClearTextBoxes(System.Windows.Forms.Control.ControlCollection ctrlCollection)
         {
-
-            File.Delete(@"C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/"+nameImage);
-
+            foreach (System.Windows.Forms.Control ctrl in ctrlCollection)
+            {
+                if (ctrl is TextBoxBase)
+                {
+                    ctrl.Text = String.Empty;
+                }
+                else
+                {
+                    ClearTextBoxes(ctrl.Controls);
+                }
+            }
         }
 
         public RentalInputViewModel()
         {
+
+            // Get current working directory (..\bin\Debug)
+            string workingDirectory = Environment.CurrentDirectory;
+
+            // GEt the current PROJECT directory
+            string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+
+            // Create specific path file
+            string SavePath = string.Format(@"{0}\images\RentalImage", projectDirectory);
+
             string[] a =ImageObject;
 
             ContractDetailsCommandWD = new RelayCommand<object>((p) => { return true; }, (p) => { ContractDetails wd = new ContractDetails(); wd.ShowDialog(); });
@@ -175,7 +214,6 @@ namespace matsukifudousan.ViewModel
             }, (p) =>
 
             {
-                int Comfirm = 0;
                 #region Value Form RentalMangement
                 var AddRental = new RentalManagementDB()
                 {
@@ -215,20 +253,23 @@ namespace matsukifudousan.ViewModel
 
                 DataProvider.Ins.DB.RentalManagementDB.Add(AddRental);
                 DataProvider.Ins.DB.SaveChanges();
-                string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-                foreach (string saveImageDB in ImageNameObject)
+                //string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                int nameImageCount = 0;
+                foreach (string saveImageDB in ImageListPath)
                 {
                     var AddImage = new ImageDB()
                     {
                         ImageName = saveImageDB,
-                        ImagePath = appDirectory + "\\RentalImage\\" + saveImageDB,
+                        ImagePath = SavePath + "\\" +saveImageDB,
                         HouseNo = HouseNo
                     };
                     DataProvider.Ins.DB.ImageDB.Add(AddImage);
                     DataProvider.Ins.DB.SaveChanges();
+
+                    nameImageCount++;
                 }
                 Comfirm = 1;
+
                 if (Comfirm == 1)
                 {
                     OpenFileDialog openDialog = new OpenFileDialog();
@@ -238,8 +279,19 @@ namespace matsukifudousan.ViewModel
 
                 }
 
+
+                if (Comfirm==1)
+                {
+                    for (int i = nameImageCount * 2-1; i >= 0 ; i--)
+                    {
+                        NameIMG.RemoveAt(i);
+                        ImagePath = "";
+                    }
+                }
+
                 #endregion
             });
+
 
             AddImageCommand = new RelayCommand<object>((p) =>
             {
@@ -250,9 +302,9 @@ namespace matsukifudousan.ViewModel
                 try
                 {
 
-                    duplicateImage:
+                duplicateImage:
 
-                    OpenFileDialog openDialog = new OpenFileDialog();
+                OpenFileDialog openDialog = new OpenFileDialog();
 
                     openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
 
@@ -260,18 +312,10 @@ namespace matsukifudousan.ViewModel
 
                     if (openDialog.ShowDialog() == true)
                     {
-                        string conbineCharatar = ";";
 
                         string appDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-                        // Get current working directory (..\bin\Debug)
-                        string workingDirectory = Environment.CurrentDirectory;
-
-                        // GEt the current PROJECT directory
-                        string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
-                        // Create specific path file
-                        string SavePath = string.Format(@"{0}\images\RentalImage", projectDirectory);
+                        
 
                         //string appdirect = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
@@ -310,19 +354,40 @@ namespace matsukifudousan.ViewModel
                             deleteButton.Content = "X";
                             deleteButton.Name = "Delete";
                             deleteButton.Command = deleteAction;
+                            deleteButton.Background = Brushes.Red;
+                            deleteButton.Click += new RoutedEventHandler(home_read_click);
 
+                            //StackPanel stackPnl = new StackPanel();
+                            //stackPnl.Orientation = Orientation.Vertical;
+                            //stackPnl.Height = 150;
+                            //stackPnl.Width = 150;
+                            //stackPnl.Children.Add(imageControl);
+                            //stackPnl.Children.Add(deleteButton);
 
-                            //ImageListPath.Add(imageControl);
-
-                            //NameIMG = ImageListPath;
                             NameIMG.Add(imageControl);
                             NameIMG.Add(deleteButton);
 
-                            i++;
+                            //NameIMG.Add(stackPnl);
+
+
+                            i +=2;
                         }
                         
                         ImageObject = openDialog.FileNames;
                         ImageNameObject = openDialog.SafeFileNames;
+
+                        foreach (String saveImageName in ImageNameObject)
+                        {
+                            ImageListPath.Add(saveImageName);
+                        }
+
+                        ImagePath = "";
+
+                        foreach (var saveImageName in ImageListPath)
+                        {
+                            ImagePath += conbineCharatarBefore +  saveImageName + conbineCharatarAfter;
+
+                        }
 
                         foreach (String SaveImageItem in ImageObject)
                         {
@@ -337,12 +402,79 @@ namespace matsukifudousan.ViewModel
 
             });
 
-            deleteAction = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                //NameIMG.RemoveAt(index:);
-            });
+            //deleteAction = new RelayCommand<object>((p) => { return true; }, (p) =>
+            //{
+            //    var x = _NameIMG[(_NameIMG.IndexOf(1) + 1)];
+            //});
 
         }
 
+        private void home_read_click(object sender, RoutedEventArgs e)
+        {
+
+            FrameworkElement parent = (FrameworkElement)((Button)sender);
+
+            int comfirmDeleteImage = Comfirm;
+
+            var button = sender as Button;
+
+            //string n = ((Button) sender).Content.ToString();
+
+            //int index = Int32.Parse(n);
+
+            var indexBtn = NameIMG.IndexOf(button);
+
+            var indexImg = indexBtn - 1;
+
+            NameIMG.RemoveAt(index: indexBtn);
+            NameIMG.RemoveAt(index: indexImg);
+
+            if (indexImg == 0)
+            {
+                string nameImage = ImageListPath.ElementAt(0).ToString();
+                ImageListPath.RemoveAt(0);
+
+                if (comfirmDeleteImage == 0)
+                {
+                    DeleteImage(nameImage);
+                }
+      
+            }
+            else
+            {
+                string nameImage = ImageListPath.ElementAt(indexImg/2).ToString();
+                ImageListPath.RemoveAt(indexImg/2);
+
+                if (comfirmDeleteImage == 0)
+                {
+                    DeleteImage(nameImage);
+                }
+            }
+
+            ImagePath = "";
+
+            foreach (var saveImageName in ImageListPath)
+            {
+                ImagePath += conbineCharatarBefore + saveImageName + conbineCharatarAfter;
+
+            }
+
+        }
+
+        private void DeleteImage(string nameImage)
+
+        {
+            // Get current working directory (..\bin\Debug)
+            string workingDirectory = Environment.CurrentDirectory;
+
+            // GEt the current PROJECT directory
+            string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+
+            // Create specific path file
+            string SavePath = string.Format(@"{0}\images\RentalImage\", projectDirectory);
+
+            File.Delete(SavePath + nameImage);
+
+        }
     }
 }

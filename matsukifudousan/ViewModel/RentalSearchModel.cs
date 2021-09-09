@@ -17,6 +17,8 @@ namespace matsukifudousan.ViewModel
 {
     public class RentalSearchModel : BaseViewModel
     {
+        public static bool AddItem = false; //This must be public and static so that it can be called from your second Window
+
         private ObservableCollection<RentalManagementDB> _List;
         public ObservableCollection<RentalManagementDB> List { get=>_List; set { _List = value; OnPropertyChanged();} }
 
@@ -31,12 +33,24 @@ namespace matsukifudousan.ViewModel
 
         public ICommand RentalFix { get; set; }
 
-        public class UserInfo
+        private RentalManagementDB _SelectedItem;
+        public RentalManagementDB SelectedItem
         {
-            public string HouseNo { get; set; }
-            public string HouseName { get; set; }
-            public string HouseAddress { get; set; }
+            get => _SelectedItem;
+            set
+            {
+                _SelectedItem = value;
+                OnPropertyChanged();
+                if (SelectedItem != null)
+                {
+                    HouseNo = SelectedItem.HouseNo;
+                }
+            }
         }
+
+        private string _HouseNo;
+        public string HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
+
         public RentalSearchModel()
         {
             string Result = null;

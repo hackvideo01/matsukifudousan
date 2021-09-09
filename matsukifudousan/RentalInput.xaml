@@ -91,7 +91,7 @@
                     <RowDefinition Height="42"></RowDefinition>
                     <RowDefinition Height="100"></RowDefinition>
                     <RowDefinition Height="42"></RowDefinition>
-                    <RowDefinition Height="200"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}">
@@ -486,35 +486,31 @@
                                 <ColumnDefinition Width="80*"></ColumnDefinition>
                                 <ColumnDefinition Width="20*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBox IsReadOnly="True" x:Name="imagetb" Grid.Column="0" Text="{Binding Image}"></TextBox>
+                            <TextBox IsReadOnly="True" x:Name="imagetb" Grid.Column="0" Text="{Binding ImagePath,Mode=TwoWay}"></TextBox>
                             <TextBox x:Name="tbPath" Text="{Binding ImageFullPath}" Visibility="Hidden"></TextBox>
                             <Button Grid.Column="1" Command="{Binding AddImageCommand}" Content="アップロード" Margin="0 0 5 0"></Button>
                         </Grid>
                     </Grid>
                 </Border>
 
-                <!--<Image x:Name="image1" Source="{Binding NameIMG}" Grid.Row="22" Height="100"></Image>-->
-
-                <!--<Grid Grid.Row="22" x:Name="ContentRoot">
-                    <ContentPresenter
-                        Name="AccountGrid"              
-                        Content="{Binding NameIMG}">
-                    </ContentPresenter>
-                </Grid>-->
-
                 <ScrollViewer Grid.Row="22" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                    <ItemsControl ItemsSource="{Binding NameIMG}">
+                    <ItemsControl x:Name="listImage" ItemsSource="{Binding NameIMG}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Vertical"/>
+                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
+                                <DataTemplate.Resources>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Height" Value="100"/>
+                                    </Style>
+                                </DataTemplate.Resources>
                                 <StackPanel>
-                                    <!--<Image Source="{Binding}" Margin="10"/>-->
-                                    <!--<Button Content="X" Width="20" Height="20" FontSize="20" Foreground="Black"></Button>-->
+                                    <Image></Image>
+                                    <Button></Button>
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

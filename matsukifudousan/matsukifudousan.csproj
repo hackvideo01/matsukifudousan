@@ -237,7 +237,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PrintsViewModel.cs" />
     <Compile Include="ViewModel\RentalDetailsViewViewModel.cs" />
-    <Compile Include="ViewModel\RentalFix.cs" />
+    <Compile Include="ViewModel\RentalFixViewModel.cs" />
     <Compile Include="ViewModel\RentalInputViewModel.cs" />
     <Compile Include="ViewModel\RentalSearchModel.cs" />
     <Compile Include="ViewModel\SessionVM.cs" />
