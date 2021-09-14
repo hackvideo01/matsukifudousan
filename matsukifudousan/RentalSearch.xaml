@@ -52,11 +52,11 @@
                         <ColumnDefinition Width="10*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Search, Mode=TwoWay}" Grid.Column="0"></TextBox>
-                    <Button Grid.Column="1" Command="{Binding SearchButton}" Content="検索" Margin="0 0 3 0"></Button>
-                    <Button Grid.Column="2" Command="{Binding RentalDetailsView}" Content="詳細" Margin="0 0 2 0"></Button>
-                    <Button Grid.Column="3" x:Name="fixButton" Command="{Binding RentalFix}" Content="修正" Margin="0 0 2 0"></Button>
-                    <Button Grid.Column="4" Command="{Binding RentalDelete}" Content="削除" Margin="0 0 2 0"></Button>
-                    <Button Grid.Column="5" Command="{Binding PrintsButton}" Content="プリント"></Button>
+                    <Button Grid.Column="1" Command="{Binding SearchButton}" Content="検索" Margin="0 0 3 0" Background="#FE8181"></Button>
+                    <Button Grid.Column="2" Command="{Binding RentalDetailsView}" Content="詳細" Margin="0 0 2 0" Background="#80B2FE"></Button>
+                    <Button Grid.Column="3" x:Name="fixButton" Command="{Binding RentalFix}" Content="修正" Margin="0 0 2 0" Background="#CA5100"></Button>
+                    <Button Grid.Column="4" Command="{Binding RentalDelete}" Content="削除" Margin="0 0 2 0" Background="#E51400"></Button>
+                    <Button Grid.Column="5" Command="{Binding PrintsButton}" Content="プリント" Background="#8CD25F"></Button>
                 </Grid>
             </Border>
 

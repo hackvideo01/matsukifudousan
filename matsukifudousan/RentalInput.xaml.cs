@@ -29,6 +29,8 @@ namespace matsukifudousan
         public RentalInput()
         {
             InitializeComponent();
+
+            DataContext = new RentalInputViewModel();
         }
 
         //private void ButtonBase_OnClick(object sender, RoutedEventArgs e)

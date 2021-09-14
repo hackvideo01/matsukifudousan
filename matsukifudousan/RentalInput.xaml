@@ -517,7 +517,7 @@
                     </ItemsControl>
                 </ScrollViewer>
 
-                <Button Grid.Row="23" Command="{Binding AddRentalCommand}" Content="登録" Width="150" Height="42"></Button>
+                <Button Grid.Row="23" Command="{Binding AddRentalCommand}" Content="登録" Width="150" Height="42" Background="#333333"></Button>
 
             </Grid>
         </ScrollViewer>

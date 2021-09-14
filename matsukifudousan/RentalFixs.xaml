@@ -26,7 +26,7 @@
         
         x:Name="RentalFixWD"
 
-        Title="物件詳細" Height="450" Width="835">
+        Title="修正" Height="450" Width="835">
 
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Textblock">
@@ -493,7 +493,7 @@
                                 <ColumnDefinition Width="80*"></ColumnDefinition>
                                 <ColumnDefinition Width="20*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBox IsReadOnly="True" x:Name="imagetb" Grid.Column="0" Text="{Binding Image,Mode=TwoWay}"></TextBox>
+                            <TextBox IsReadOnly="True" x:Name="imagetb" Grid.Column="0" Text="{Binding ImagePath,Mode=TwoWay}"></TextBox>
                             <!--<TextBox x:Name="tbPath" Text="{Binding ImageFullPath}" Visibility="Hidden"></TextBox>-->
                             <Button Grid.Column="1" Command="{Binding AddImageCommand}" Content="アップロード" Margin="0 0 5 0"></Button>
                         </Grid>
@@ -523,7 +523,7 @@
                     </ItemsControl>
                 </ScrollViewer>
 
-                <Button Grid.Row="23" Command="{Binding AddRentalCommand}" Content="登録" Width="150" Height="42"></Button>
+                <Button Grid.Row="23" Command="{Binding AddRentalCommand}" Content="登録" Width="150" Height="42" Background="#333333"></Button>
 
             </Grid>
         </ScrollViewer>

@@ -17,9 +17,9 @@ using System.Threading;
 using System.Drawing.Printing;
 using DocumentFormat.OpenXml.Wordprocessing;
 using GleamTech.FileSystems.AmazonS3;
-using Spire.Xls;
 using System.Drawing;
 using Spire.Pdf;
+using Spire.Xls;
 
 namespace matsukifudousan.ViewModel
 {
@@ -35,7 +35,7 @@ namespace matsukifudousan.ViewModel
 
         {
             PdfDocument doc = new PdfDocument();
-            string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/test.pdf";
+            string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/files/test.pdf";
             doc.LoadFromFile(path);
 
             PrintDialog dialogPrint = new PrintDialog();
@@ -82,7 +82,7 @@ namespace matsukifudousan.ViewModel
             {
                 Prints prs = new Prints();
 
-                string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/test.pdf";
+                string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/files/test.pdf";
 
                 PdfDocument doc = new PdfDocument();
                 try
@@ -123,7 +123,7 @@ namespace matsukifudousan.ViewModel
 
                 Prints prs = new Prints();
 
-                string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/tuvung1.xlsx";
+                string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/files/test.xls";
 
                 Workbook workbook = new Workbook();
                 try
@@ -171,7 +171,7 @@ namespace matsukifudousan.ViewModel
 
                 Prints prs = new Prints();
 
-                string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/tuvung1.xlsx";
+                string path = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/files/test.xls";
 
                 Workbook workbook = new Workbook();
                 try

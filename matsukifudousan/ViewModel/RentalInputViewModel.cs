@@ -25,7 +25,6 @@ using DocumentFormat.OpenXml.Office2013.PowerPoint;
 using GleamTech.Util;
 using ImageProcessor.Common.Extensions;
 using MaterialDesignThemes.Wpf;
-using Spire.Presentation;
 using Brushes = System.Windows.Media.Brushes;
 using Button = System.Windows.Controls.Button;
 using Control = System.Windows.Controls.Control;
@@ -198,7 +197,7 @@ namespace matsukifudousan.ViewModel
             string SavePath = string.Format(@"{0}\images\RentalImage", projectDirectory);
 
             string[] a =ImageObject;
-
+            string ImageNameString = ImageListPath.ToString();
             ContractDetailsCommandWD = new RelayCommand<object>((p) => { return true; }, (p) => { ContractDetails wd = new ContractDetails(); wd.ShowDialog(); });
 
             AddRentalCommand = new RelayCommand<object>((p) =>
@@ -426,14 +425,12 @@ namespace matsukifudousan.ViewModel
 
             var indexImg = indexBtn - 1;
 
-            NameIMG.RemoveAt(index: indexBtn);
-            NameIMG.RemoveAt(index: indexImg);
-
             if (indexImg == 0)
             {
                 string nameImage = ImageListPath.ElementAt(0).ToString();
                 ImageListPath.RemoveAt(0);
-
+                NameIMG.RemoveAt(index: indexBtn);
+                NameIMG.RemoveAt(index: indexImg);
                 if (comfirmDeleteImage == 0)
                 {
                     DeleteImage(nameImage);
@@ -444,7 +441,8 @@ namespace matsukifudousan.ViewModel
             {
                 string nameImage = ImageListPath.ElementAt(indexImg/2).ToString();
                 ImageListPath.RemoveAt(indexImg/2);
-
+                NameIMG.RemoveAt(index: indexBtn);
+                NameIMG.RemoveAt(index: indexImg);
                 if (comfirmDeleteImage == 0)
                 {
                     DeleteImage(nameImage);
