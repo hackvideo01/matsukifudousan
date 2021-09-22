@@ -534,7 +534,7 @@ namespace matsukifudousan.ViewModel
                 #endregion
 
 
-                rentalImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.HouseNo == detachedSearchHouseNo));
+                rentalImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.DetachedHouseNo == detachedSearchHouseNo));
 
 
                 foreach (var imagePathDB in rentalImageView)
