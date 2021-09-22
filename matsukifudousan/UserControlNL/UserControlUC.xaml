@@ -50,6 +50,7 @@
                              <materialDesign:PackIcon Kind="WindowMaximize" />
                     </Button>-->
                     <Button 
+                            Name="CloseUC"
                             Command="{Binding CloseWindowCommand}"
                             CommandParameter="{Binding ElementName=ucControlBar}"
                             ToolTip="Close" ToolBar.OverflowMode="AsNeeded"  Background="Red">

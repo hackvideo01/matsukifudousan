@@ -153,10 +153,18 @@ namespace matsukifudousan.ViewModel
 
         public string[] ImageObject;
 
+        public string[] ImageObject2;
+
         public string[] ImageNameObject;
+
+        //private ObservableCollection<Object> _ImageObject = new ObservableCollection<Object>();
+        //public ObservableCollection<Object> ImageObject { get => _ImageObject; set { _ImageObject = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Object> _NameIMG = new ObservableCollection<Object>();
         public ObservableCollection<Object> NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<Object> _NameIMG2 = new ObservableCollection<Object>();
+        public ObservableCollection<Object> NameIMG2 { get => _NameIMG2; set { _NameIMG2 = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Object> _ImageListPath = new ObservableCollection<Object>();
         public ObservableCollection<Object> ImageListPath { get => _ImageListPath; set { _ImageListPath = value; OnPropertyChanged(); } }
@@ -196,7 +204,6 @@ namespace matsukifudousan.ViewModel
             // Create specific path file
             string SavePath = string.Format(@"{0}\images\RentalImage", projectDirectory);
 
-            string[] a =ImageObject;
             string ImageNameString = ImageListPath.ToString();
             ContractDetailsCommandWD = new RelayCommand<object>((p) => { return true; }, (p) => { ContractDetails wd = new ContractDetails(); wd.ShowDialog(); });
 
@@ -284,7 +291,12 @@ namespace matsukifudousan.ViewModel
                     for (int i = nameImageCount * 2-1; i >= 0 ; i--)
                     {
                         NameIMG.RemoveAt(i);
+                        if (i % 2 == 0)
+                        {
+                            ImageListPath.RemoveAt(i / 2);
+                        }
                         ImagePath = "";
+                        Comfirm = 0;
                     }
                 }
 
@@ -297,7 +309,6 @@ namespace matsukifudousan.ViewModel
                 return true;
             }, (p) =>
             {
-                String imageLocation = "";
                 try
                 {
 
@@ -324,21 +335,50 @@ namespace matsukifudousan.ViewModel
 
                         //string appdirect3 = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
 
-                        foreach (String item in openDialog.SafeFileNames)
+                        foreach (String item in openDialog.FileNames)
                         {
-                            var displayListImage = DataProvider.Ins.DB.ImageDB.Where(x => x.ImageName == item);
+                            //var displayListImage = DataProvider.Ins.DB.ImageDB.Where(x => x.ImageName == item);
 
-                            if (displayListImage == null || displayListImage.Count() != 0)
+                            //if (displayListImage == null || displayListImage.Count() != 0)
+                            //{
+
+                            //    var result = MessageBox.Show("がありました。この写真を保存しますか？", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            //    if (result == MessageBoxResult.No)
+                            //    {
+                            //        goto duplicateImage;
+                            //    }
+                            //}
+
+                            string fileNameRandom = item;
+                            int count = 0;
+                            string filePathWithoutName = Path.GetDirectoryName(fileNameRandom);
+                            string fileName = Path.GetFileName(fileNameRandom);
+                            string filenamewithoutextension = Path.GetFileNameWithoutExtension(fileNameRandom);
+                            string extension = Path.GetExtension(fileNameRandom);
+
+                            if (File.Exists(SavePath + "\\" + fileName))
                             {
-                                var result = MessageBox.Show("ファイル名がありました。この写真を保存しますか？", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                                if (result == MessageBoxResult.No)
+
+                                var result = MessageBox.Show("【" + fileName + "】 " + "がありました。\nもう一度写真を選択或いはアップデートしたい写真の名前を変更ください！", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                                if (result == MessageBoxResult.OK)
                                 {
                                     goto duplicateImage;
                                 }
                             }
+
+                            //while (File.Exists(SavePath + "\\" + fileName))
+                            //{
+                            //    MessageBox.Show("ありました!");
+
+                            //    fileName = filenamewithoutextension + count + extension;
+                            //}
+
+                            //ImageObject.Add(filePathWithoutName + "\\" + fileName);
+                            //File.Copy(fileNameRandom, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(fileNameRandom)), true);
+                            //string curDir = Path.GetDirectoryName(fileNameRandom);
+                            //File.Move(fileNameRandom, Path.Combine(curDir, "NewNameForFile.txt"));
                         }
 
-                        int i = 1;
                         foreach (var imageLink in openDialog.FileNames)
                         {
                             string imagePath = imageLink;
@@ -368,10 +408,9 @@ namespace matsukifudousan.ViewModel
 
                             //NameIMG.Add(stackPnl);
 
-
-                            i +=2;
                         }
-                        
+
+
                         ImageObject = openDialog.FileNames;
                         ImageNameObject = openDialog.SafeFileNames;
 

@@ -46,7 +46,7 @@ namespace matsukifudousan
                     GridMain.Children.Add(usc);
                     break;
                 case "DetachedHouse":
-                    usc = new DetachedHouse();
+                    usc = new DetachedHouseInput();
                     GridMain.Children.Add(usc);
                     break;
 

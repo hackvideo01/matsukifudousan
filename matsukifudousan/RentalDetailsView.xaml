@@ -23,8 +23,11 @@
         WindowStyle="None"
         
         DataContext="{StaticResource RentalDetailsViewVM}"
+        
         x:Name="RentalDetailsViewVM"
-        Title="物件詳細" Height="450" Width="835">
+        Tag="賃貸詳細"
+        Title="賃貸詳細" Height="450" Width="835">
+
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Textblock">
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
@@ -67,17 +70,12 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <uc:UserControlUC Tag="{Binding Title, ElementName=RentalDetailsViewVM}"></uc:UserControlUC>
-            <materialDesign:PackIcon Kind="Certificate" Height="30" Width="30" VerticalAlignment="Center" Margin="8 0 0 0"/>
+            <uc:UserControlUC Tag="{Binding Tag, ElementName=RentalDetailsViewVM}"></uc:UserControlUC>
+            <materialDesign:PackIcon Kind="BorderColor" Height="30" Width="30" VerticalAlignment="Center" Margin="8 0 0 0"/>
         </Grid>
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer  Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
-                <Grid.RowDefinitions>
                     <RowDefinition Height="42"></RowDefinition>
                     <RowDefinition Height="42"></RowDefinition>
                     <RowDefinition Height="42"></RowDefinition>
@@ -100,10 +98,10 @@
                     <RowDefinition Height="42"></RowDefinition>
                     <RowDefinition Height="100"></RowDefinition>
                     <RowDefinition Height="42"></RowDefinition>
-                    <!--<RowDefinition Height="100"></RowDefinition>-->
+                    <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -113,7 +111,7 @@
                             <TextBlock Text="物件番号" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding HouseNo}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0"/>
+                            <TextBox Text="{Binding HouseNo,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0" IsReadOnly="True"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -128,7 +126,7 @@
                             <TextBlock Text="物件名" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding HouseName}" materialDesign:HintAssist.Hint="物件名" FontSize="19" Margin="0 3 0 0"/>
+                            <TextBox Text="{Binding HouseName}" materialDesign:HintAssist.Hint="物件名" FontSize="19" Margin="0 3 0 0"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -147,9 +145,9 @@
                                 <ColumnDefinition Width="20*"></ColumnDefinition>
                                 <ColumnDefinition Width="80*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{Binding HousePost}" materialDesign:HintAssist.Hint="郵便局番号" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Grid.Column="0" Text="{Binding HousePost}" materialDesign:HintAssist.Hint="郵便局番号" FontSize="19" Margin="0 3 0 0" />
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBlock Text="{Binding HouseAddress}" materialDesign:HintAssist.Hint="所在地" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox Text="{Binding HouseAddress}" materialDesign:HintAssist.Hint="所在地" FontSize="19" Margin="0 3 0 0" />
                             </Border>
                         </Grid>
                     </Grid>
@@ -165,7 +163,7 @@
                             <TextBlock Text="最寄り駅" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding NearestSation}" materialDesign:HintAssist.Hint="最寄り駅" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding NearestSation}" materialDesign:HintAssist.Hint="最寄り駅" FontSize="19" Margin="0 3 0 0" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -184,9 +182,9 @@
                                 <ColumnDefinition Width="20*"></ColumnDefinition>
                                 <ColumnDefinition Width="80*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding HouseType}" Grid.Column="0" materialDesign:HintAssist.Hint="種類" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding HouseType}" Grid.Column="0" materialDesign:HintAssist.Hint="種類" FontSize="19" Margin="0 3 0 0" />
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBlock Text="{Binding Construction}" materialDesign:HintAssist.Hint="構造" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox Text="{Binding Construction}" materialDesign:HintAssist.Hint="構造" FontSize="19" Margin="0 3 0 0" />
                             </Border>
                         </Grid>
                     </Grid>
@@ -207,12 +205,12 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding YearConstruction}" Grid.Column="0" materialDesign:HintAssist.Hint="築年" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding YearConstruction}" Grid.Column="0" materialDesign:HintAssist.Hint="築年" FontSize="19" Margin="0 3 0 0" />
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBlock Text="{Binding Decorate}" materialDesign:HintAssist.Hint="間取り" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox Text="{Binding Decorate}" materialDesign:HintAssist.Hint="間取り" FontSize="19" Margin="0 3 0 0" />
                             </Border>
                             <Border Grid.Column="2" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBlock Text="{Binding TotalArea}" materialDesign:HintAssist.Hint="総面積" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox Text="{Binding TotalArea}" materialDesign:HintAssist.Hint="総面積" FontSize="19" Margin="0 3 0 0" />
                             </Border>
                         </Grid>
                     </Grid>
@@ -232,9 +230,9 @@
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding Parking}" Grid.Column="0" materialDesign:HintAssist.Hint="駐車場" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding Parking}" Grid.Column="0" materialDesign:HintAssist.Hint="駐車場" FontSize="19" Margin="0 3 0 0" />
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBlock Text="{Binding Pets}" materialDesign:HintAssist.Hint="ペット" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox Text="{Binding Pets}" materialDesign:HintAssist.Hint="ペット" FontSize="19" Margin="0 3 0 0" />
                             </Border>
                         </Grid>
                     </Grid>
@@ -250,7 +248,7 @@
                             <TextBlock Text="その他設備" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding OtherEquipment}" materialDesign:HintAssist.Hint="その他設備" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding OtherEquipment}" materialDesign:HintAssist.Hint="その他設備" FontSize="19" Margin="0 3 0 0" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -265,7 +263,7 @@
                             <TextBlock Text="備考" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding HouseRemarks}" materialDesign:HintAssist.Hint="備考" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding HouseRemarks}" materialDesign:HintAssist.Hint="備考" FontSize="19" Margin="0 3 0 0" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -284,9 +282,9 @@
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{Binding SecurityDeposit}" materialDesign:HintAssist.Hint="敷金" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Grid.Column="0" Text="{Binding SecurityDeposit}" materialDesign:HintAssist.Hint="敷金" FontSize="19" Margin="0 3 0 0" />
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBlock Text="{Binding KeyMoney}" materialDesign:HintAssist.Hint="礼金" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox Text="{Binding KeyMoney}" materialDesign:HintAssist.Hint="礼金" FontSize="19" Margin="0 3 0 0" />
                             </Border>
                         </Grid>
                     </Grid>
@@ -306,9 +304,9 @@
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{Binding CommonFee}" materialDesign:HintAssist.Hint="共益費" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Grid.Column="0" Text="{Binding CommonFee}" materialDesign:HintAssist.Hint="共益費" FontSize="19" Margin="0 3 0 0" />
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBlock Text="{Binding ManagementFee}" materialDesign:HintAssist.Hint="管理費" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox Text="{Binding ManagementFee}" materialDesign:HintAssist.Hint="管理費" FontSize="19" Margin="0 3 0 0" />
                             </Border>
                         </Grid>
                     </Grid>
@@ -328,9 +326,9 @@
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{Binding Rent}" materialDesign:HintAssist.Hint="家賃" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Grid.Column="0" Text="{Binding Rent}" materialDesign:HintAssist.Hint="家賃" FontSize="19" Margin="0 3 0 0" />
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBlock Text="{Binding ParkingFee}" materialDesign:HintAssist.Hint="駐車料" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox Text="{Binding ParkingFee}" materialDesign:HintAssist.Hint="駐車料" FontSize="19" Margin="0 3 0 0" />
                             </Border>
                         </Grid>
                     </Grid>
@@ -346,7 +344,7 @@
                             <TextBlock Text="その他諸費用" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding OtherFee}" materialDesign:HintAssist.Hint="その他諸費用" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding OtherFee}" materialDesign:HintAssist.Hint="その他諸費用" FontSize="19" Margin="0 3 0 0" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -361,7 +359,7 @@
                             <TextBlock Text="管理会社名" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding MNGMTCOName}" materialDesign:HintAssist.Hint="管理会社名" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding MNGMTCOName}" materialDesign:HintAssist.Hint="管理会社名" FontSize="19" Margin="0 3 0 0" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -376,7 +374,7 @@
                             <TextBlock Text="会社住所" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding CompanyAddress}" materialDesign:HintAssist.Hint="会社住所" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding CompanyAddress}" materialDesign:HintAssist.Hint="会社住所" FontSize="19" Margin="0 3 0 0" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -395,8 +393,8 @@
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{Binding COPhone}" materialDesign:HintAssist.Hint="TEL" FontSize="19" Margin="0 3 0 0" />
-                            <TextBlock Grid.Column="1" Text="{Binding COFax}" materialDesign:HintAssist.Hint="FAX" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Grid.Column="0" Text="{Binding COPhone}" materialDesign:HintAssist.Hint="TEL" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Grid.Column="1" Text="{Binding COFax}" materialDesign:HintAssist.Hint="FAX" FontSize="19" Margin="0 3 0 0" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -411,7 +409,7 @@
                             <TextBlock Text="名前" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding Name}" materialDesign:HintAssist.Hint="名前" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding Name}" materialDesign:HintAssist.Hint="名前" FontSize="19" Margin="0 3 0 0" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -426,7 +424,7 @@
                             <TextBlock Text="住所" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding Address}" materialDesign:HintAssist.Hint="住所" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding Address}" materialDesign:HintAssist.Hint="住所" FontSize="19" Margin="0 3 0 0" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -445,8 +443,8 @@
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{Binding Phone}" materialDesign:HintAssist.Hint="TEL" FontSize="19" Margin="0 3 0 0" />
-                            <TextBlock Grid.Column="1" Text="{Binding Fax}" materialDesign:HintAssist.Hint="FAX" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Grid.Column="0" Text="{Binding Phone}" materialDesign:HintAssist.Hint="TEL" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Grid.Column="1" Text="{Binding Fax}" materialDesign:HintAssist.Hint="FAX" FontSize="19" Margin="0 3 0 0" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -461,7 +459,7 @@
                             <TextBlock Text="管理形態" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding MNGMTForm}" materialDesign:HintAssist.Hint="管理形態" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding MNGMTForm}" materialDesign:HintAssist.Hint="管理形態" FontSize="19" Margin="0 3 0 0" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -476,7 +474,7 @@
                             <TextBlock Text="備考" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="{Binding Remarks}" materialDesign:HintAssist.Hint="備考" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Text="{Binding Remarks}" materialDesign:HintAssist.Hint="備考" FontSize="19" Margin="0 3 0 0" />
                         </Grid>
                     </Grid>
                 </Border>
@@ -491,30 +489,34 @@
                             <TextBlock Text="写真アップロード" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="80*"></ColumnDefinition>
-                                <ColumnDefinition Width="20*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="imagetb" Grid.Column="0" Text="{Binding Image}"></TextBlock>
+                            <TextBox IsReadOnly="True" x:Name="imagetb" Text="{Binding ImagePath,Mode=TwoWay}"></TextBox>
                         </Grid>
                     </Grid>
                 </Border>
 
-                <!--<Image x:Name="image1" Source="{Binding Image}" Grid.Row="22" Height="100"></Image>-->
-                
-            </Grid>
-                <Grid Grid.Row="1">
-                    <!--<Image x:Name="image1" Source="{Binding ImagePath}" Height="100"></Image>-->
-                    <ListView x:Name="ListView1"   VirtualizingStackPanel.IsVirtualizing="True" Height="200"  ItemsSource="{Binding NameIMG}">
-                        <ListView.ItemTemplate>
+                <ScrollViewer Grid.Row="22" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                    <ItemsControl x:Name="listImage" ItemsSource="{Binding NameIMG,Mode=TwoWay}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" IsItemsHost="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image x:Name="Image_GridViewColumnName" Width="100" Height="50" Source="{Binding ImagePath}" />
+                                <DataTemplate.Resources>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Height" Value="100"/>
+                                    </Style>
+                                </DataTemplate.Resources>
+                                <StackPanel>
+
                                 </StackPanel>
                             </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Grid>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
             </Grid>
         </ScrollViewer>
     </Grid>

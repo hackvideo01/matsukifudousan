@@ -5,8 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="457cb3e5ad624a3bb2f4a429b657a7f8" Name="Diagram1">
-        <EntityTypeShape EntityType="matsukiModel.ImageDB" Width="1.5" PointX="3" PointY="3.75" />
-        <EntityTypeShape EntityType="matsukiModel.RentalManagementDB" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="matsukiModel.DetachedDB" Width="1.5" PointX="8.125" PointY="1.125" />
+        <EntityTypeShape EntityType="matsukiModel.ImageDB" Width="1.5" PointX="4.875" PointY="3.375" />
+        <EntityTypeShape EntityType="matsukiModel.RentalManagementDB" Width="1.5" PointX="2.625" PointY="1" />
+        <EntityTypeShape EntityType="matsukiModel.sysdiagrams" Width="1.5" PointX="4.625" PointY="0.5" />
+        <AssociationConnector Association="matsukiModel.FK_ImageDB_DetachedDB" />
         <AssociationConnector Association="matsukiModel.FK__Image__HouseNo__7C4F7684" />
       </Diagram>
     </edmx:Diagrams>

@@ -14,12 +14,19 @@ using System.Windows.Media.Imaging;
 using MaterialDesignThemes.Wpf;
 using Button = System.Windows.Controls.Button;
 using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using System.IO;
+using System.Diagnostics;
+using System.Threading;
+using GleamTech.Reflection;
+using ImageProcessor.Common.Extensions;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace matsukifudousan.ViewModel
 {
-    public class RentalFixViewModel : BaseViewModel
+    public class RentalFixViewModel : BaseViewModel, System.ComponentModel.INotifyPropertyChanged
     {
+        
 
         #region Rental Item Input
         private string _HouseNo;
@@ -126,6 +133,9 @@ namespace matsukifudousan.ViewModel
 
         private string _ImageFullPath;
         public string ImageFullPath { get => _ImageFullPath; set { _ImageFullPath = value; OnPropertyChanged(); } }
+
+        private string _rentalSearchHouseNo;
+        public string rentalSearchHouseNo { get => _rentalSearchHouseNo; set { _rentalSearchHouseNo = value; OnPropertyChanged(); } }
         #endregion
         public ICommand ContractDetailsCommandWD { get; set; }
 
@@ -140,7 +150,7 @@ namespace matsukifudousan.ViewModel
         public string[] ImageNameObject;
 
         private ObservableCollection<Object> _NameIMG = new ObservableCollection<Object>();
-        public ObservableCollection<Object> NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged(); } }
+        public ObservableCollection<Object> NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged("NameIMG"); } }
 
         private ObservableCollection<Object> _ImageListPath = new ObservableCollection<Object>();
         public ObservableCollection<Object> ImageListPath { get => _ImageListPath; set { _ImageListPath = value; OnPropertyChanged(); } }
@@ -154,8 +164,8 @@ namespace matsukifudousan.ViewModel
         private ObservableCollection<Object> _NameIMGDeleteList = new ObservableCollection<Object>();
         public ObservableCollection<Object> NameIMGDeleteList { get => _NameIMGDeleteList; set { _NameIMGDeleteList = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<Object> _NameIMGDeleteListTextbox = new ObservableCollection<Object>();
-        public ObservableCollection<Object> NameIMGDeleteListTextbox { get => _NameIMGDeleteListTextbox; set { _NameIMGDeleteListTextbox = value; OnPropertyChanged(); } }
+        private ObservableCollection<Object> _ImageData = new ObservableCollection<Object>();
+        public ObservableCollection<Object> ImageData { get => _ImageData; set { _ImageData = value; OnPropertyChanged(); } }
 
         string conbineCharatarBefore = "[";
 
@@ -178,73 +188,148 @@ namespace matsukifudousan.ViewModel
 
             RentalSearch rentalSearch = new RentalSearch();
 
-            var rentalSearchHouseNo = rentalSearch.House.Text;
+            rentalSearchHouseNo = rentalSearch.House.Text;
 
-            #region Display Column of value
+            reload();
 
-            RentalDetailsView = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo));
-
-            HouseNo = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseNo;
-            HouseName = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseName;
-            HousePost = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HousePost;
-            HouseAddress = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseAddress;
-            NearestSation = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().NearestSation;
-            HouseType = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseType;
-            Construction = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Construction;
-            YearConstruction = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().YearConstruction;
-            Decorate = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Decorate;
-            TotalArea = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().TotalArea;
-            Parking = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Parking;
-            Pets = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Pets;
-            OtherEquipment = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().OtherEquipment;
-            HouseRemarks = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseRemarks;
-            SecurityDeposit = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().SecurityDeposit;
-            KeyMoney = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().KeyMoney;
-            CommonFee = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().CommonFee;
-            ManagementFee = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().ManagementFee;
-            Rent = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Rent;
-            ParkingFee = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().ParkingFee;
-            OtherFee = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().OtherFee;
-            MNGMTCOName = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().MNGMTCOName;
-            CompanyAddress = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().CompanyAddress;
-            COPhone = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().COPhone;
-            COFax = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().COFax;
-            Name = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Name;
-            Address = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Address;
-            Phone = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Phone;
-            Fax = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Fax;
-            MNGMTForm = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().MNGMTForm;
-            Remarks = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Remarks;
-
-            #endregion
-
-
-            rentalImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.HouseNo == rentalSearchHouseNo));
-
-
-            foreach (var imagePathDB in rentalImageView)
+            AddImageCommand = new RelayCommand<object>((p) =>
             {
-                string imagePath = imagePathDB.ImagePath;
-                string imageName = imagePathDB.ImageName;
-                ImageFullPath = imagePath;
-                var drawImageBitmap = new BitmapImage(new Uri(imagePath));
-                var imageControl = new Image();
-                imageControl.Width = 100;  //set image of width 100 , guest of request
-                imageControl.Height = 100; //set image of height 100 , quest of request
-                imageControl.Source = drawImageBitmap;
+                return true;
+            }, (p) =>
+            {
 
-                Button deleteButton = new Button();
-                deleteButton.Content = "X";
-                deleteButton.Name = "Delete";
-                deleteButton.Command = deleteAction;
-                deleteButton.Background = Brushes.Red;
-                deleteButton.Click += new RoutedEventHandler(home_read_click);
+                try
+                {
 
-                NameIMG.Add(imageControl);
-                NameIMG.Add(deleteButton);
-                ImagePath += conbineCharatarBefore + imageName + conbineCharatarAfter;
-                ImageListPath.Add(imageName);
-            }
+                duplicateImage:
+
+                    OpenFileDialog openDialog = new OpenFileDialog();
+
+                    openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
+
+                    openDialog.Multiselect = true;
+
+                    if (openDialog.ShowDialog() == true)
+                    {
+
+                        string appDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+
+
+                        //string appdirect = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+                        //string appdirect1 = AppDomain.CurrentDomain.BaseDirectory;
+
+                        //string appdirect2 = System.IO.Directory.GetCurrentDirectory();
+
+                        //string appdirect3 = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+
+                        foreach (String item in openDialog.FileNames)
+                        {
+                            //var displayListImage = DataProvider.Ins.DB.ImageDB.Where(x => x.ImageName == item);
+
+                            //if (displayListImage == null || displayListImage.Count() != 0)
+                            //{
+
+                            //    var result = MessageBox.Show("がありました。この写真を保存しますか？", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                            //    if (result == MessageBoxResult.No)
+                            //    {
+                            //        goto duplicateImage;
+                            //    }
+                            //}
+
+                            string fileNameRandom = item;
+                            int count = 0;
+                            string filePathWithoutName = Path.GetDirectoryName(fileNameRandom);
+                            string fileName = Path.GetFileName(fileNameRandom);
+                            string filenamewithoutextension = Path.GetFileNameWithoutExtension(fileNameRandom);
+                            string extension = Path.GetExtension(fileNameRandom);
+
+                            if (File.Exists(SavePath + "\\" + fileName))
+                            {
+
+                                var result = MessageBox.Show("【" + fileName + "】 " + "がありました。\nもう一度写真を選択或いはアップデートしたい写真の名前を変更ください！", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
+                                if (result == MessageBoxResult.OK)
+                                {
+                                    goto duplicateImage;
+                                }
+                            }
+
+                            //while (File.Exists(SavePath + "\\" + fileName))
+                            //{
+                            //    MessageBox.Show("ありました!");
+
+                            //    fileName = filenamewithoutextension + count + extension;
+                            //}
+
+                            //ImageObject.Add(filePathWithoutName + "\\" + fileName);
+                            //File.Copy(fileNameRandom, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(fileNameRandom)), true);
+                            //string curDir = Path.GetDirectoryName(fileNameRandom);
+                            //File.Move(fileNameRandom, Path.Combine(curDir, "NewNameForFile.txt"));
+                        }
+
+                        int i = 1;
+                        foreach (var imageLink in openDialog.FileNames)
+                        {
+                            string imagePath = imageLink;
+
+                            var drawImageBitmap = new BitmapImage(new Uri(imagePath));
+                            var imageControl = new Image();
+                            imageControl.Width = 100;  //set image of width 100 , guest of request
+                            imageControl.Height = 100; //set image of height 100 , quest of request
+                            imageControl.Source = drawImageBitmap;
+
+                            Button deleteButton = new Button();
+                            deleteButton.Content = "X";
+                            deleteButton.Name = "Delete";
+                            deleteButton.Command = deleteAction;
+                            deleteButton.Background = Brushes.Red;
+                            deleteButton.Click += new RoutedEventHandler(home_read_click);
+
+                            //StackPanel stackPnl = new StackPanel();
+                            //stackPnl.Orientation = Orientation.Vertical;
+                            //stackPnl.Height = 150;
+                            //stackPnl.Width = 150;
+                            //stackPnl.Children.Add(imageControl);
+                            //stackPnl.Children.Add(deleteButton);
+
+                            NameIMG.Add(imageControl);
+                            NameIMG.Add(deleteButton);
+
+                            //NameIMG.Add(stackPnl);
+
+
+                            i += 2;
+                        }
+
+                        ImageObject = openDialog.FileNames;
+                        ImageNameObject = openDialog.SafeFileNames;
+
+                        foreach (String saveImageName in ImageNameObject)
+                        {
+                            ImageListPath.Add(saveImageName);
+                        }
+
+                        ImagePath = "";
+
+                        foreach (var saveImageName in ImageListPath)
+                        {
+                            ImagePath += conbineCharatarBefore + saveImageName + conbineCharatarAfter;
+
+                        }
+
+                        foreach (String SaveImageItem in ImageObject)
+                        {
+                            File.Copy(SaveImageItem, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(SaveImageItem)), true);
+                        }
+                    }
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    MessageBox.Show("Fix!" + e, "ERROR!!!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            });
 
             AddRentalCommand = new RelayCommand<object>((p) =>
             {
@@ -297,40 +382,42 @@ namespace matsukifudousan.ViewModel
                 AddRental.Image = Image;
 
                 DataProvider.Ins.DB.SaveChanges();
-                //string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                //int nameImageCount = 0;
-                //foreach (string saveImageDB in ImageListPath)
-                //{
-                //    var AddImage = new ImageDB()
-                //    {
-                //        ImageName = saveImageDB,
-                //        ImagePath = SavePath + "\\" + saveImageDB,
-                //        HouseNo = HouseNo
-                //    };
-                //    DataProvider.Ins.DB.ImageDB.Add(AddImage);
-                //    DataProvider.Ins.DB.SaveChanges();
+                string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                int nameImageCount = 0;
 
-                //    nameImageCount++;
-                //}
+                rentalImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.HouseNo == rentalSearchHouseNo));
+                DataProvider.Ins.DB.ImageDB.RemoveRange(rentalImageView);
+                DataProvider.Ins.DB.SaveChanges();
+                foreach (string saveImageDB in ImageListPath)
+                {
+                    var AddImage = new ImageDB()
+                    {
+                        ImageName = saveImageDB,
+                        ImagePath = SavePath + "\\" + saveImageDB,
+                        HouseNo = HouseNo
+                    };
+                    DataProvider.Ins.DB.ImageDB.Add(AddImage);
+                    DataProvider.Ins.DB.SaveChanges();
+
+                    nameImageCount++;
+                }
                 Comfirm = 1;
 
                 if (Comfirm == 1)
                 {
 
-
-                    var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(d => d.HouseNo == "2");
-
-
-                    DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);
-                    DataProvider.Ins.DB.SaveChanges();
+                    //foreach (string VARIABLE in NameIMGDeleteList)
+                    //{
+                    //    DeleteImage(VARIABLE);
+                    //}
 
                     OpenFileDialog openDialog = new OpenFileDialog();
                     openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
 
                     MessageBox.Show("データを修正されました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
 
+                    Comfirm = 0;
                 }
-
 
                 //if (Comfirm == 1)
                 //{
@@ -345,6 +432,7 @@ namespace matsukifudousan.ViewModel
             });
 
         }
+
         private void home_read_click(object sender, RoutedEventArgs e)
         {
             FrameworkElement parent = (FrameworkElement)((Button)sender);
@@ -370,8 +458,17 @@ namespace matsukifudousan.ViewModel
 
                 if (comfirmDeleteImage == 0)
                 {
-                    DeleteImage(nameImage);
                     //NameIMGDeleteList.Add(nameImage);
+                    var resultButtonDeleteImg = MessageBox.Show("本当にこの物件（画像：" + nameImage + "）を削除したいでしょうか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (resultButtonDeleteImg == MessageBoxResult.Yes)
+                    {
+                        DeleteImage(nameImage);
+                        
+                        var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(d => d.HouseNo == rentalSearchHouseNo && d.ImageName == nameImage);
+                        DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);
+                        DataProvider.Ins.DB.SaveChanges();
+                    }
                 }
 
             }
@@ -384,9 +481,19 @@ namespace matsukifudousan.ViewModel
 
                 if (comfirmDeleteImage == 0)
                 {
-                    DeleteImage(nameImage);
                     //NameIMGDeleteList.Add(nameImage);
+                    var resultButtonDeleteImg = MessageBox.Show("本当にこの物件（画像：" + nameImage + "）を削除したいでしょうか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (resultButtonDeleteImg == MessageBoxResult.Yes)
+                    {
+                        DeleteImage(nameImage);
+
+                        var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(d => d.HouseNo == rentalSearchHouseNo && d.ImageName == nameImage);
+                        DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);
+                        DataProvider.Ins.DB.SaveChanges();
+                    }
                 }
+
             }
 
             ImagePath = "";
@@ -395,6 +502,95 @@ namespace matsukifudousan.ViewModel
             {
                 ImagePath += conbineCharatarBefore + saveImageName + conbineCharatarAfter;
 
+            }
+        }
+
+        private void reload()
+        {
+            if (rentalSearchHouseNo != "")
+            {
+                #region Display Column of value
+
+                RentalDetailsView = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo));
+
+                HouseNo = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseNo;
+                HouseName = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseName;
+                HousePost = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HousePost;
+                HouseAddress = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseAddress;
+                NearestSation = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().NearestSation;
+                HouseType = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseType;
+                Construction = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Construction;
+                YearConstruction = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().YearConstruction;
+                Decorate = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Decorate;
+                TotalArea = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().TotalArea;
+                Parking = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Parking;
+                Pets = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Pets;
+                OtherEquipment = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().OtherEquipment;
+                HouseRemarks = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseRemarks;
+                SecurityDeposit = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().SecurityDeposit;
+                KeyMoney = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().KeyMoney;
+                CommonFee = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().CommonFee;
+                ManagementFee = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().ManagementFee;
+                Rent = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Rent;
+                ParkingFee = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().ParkingFee;
+                OtherFee = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().OtherFee;
+                MNGMTCOName = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().MNGMTCOName;
+                CompanyAddress = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().CompanyAddress;
+                COPhone = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().COPhone;
+                COFax = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().COFax;
+                Name = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Name;
+                Address = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Address;
+                Phone = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Phone;
+                Fax = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Fax;
+                MNGMTForm = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().MNGMTForm;
+                Remarks = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Remarks;
+
+                #endregion
+
+
+                rentalImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.HouseNo == rentalSearchHouseNo));
+
+
+                foreach (var imagePathDB in rentalImageView)
+                {
+                    string imagePath = imagePathDB.ImagePath;
+                    string imageName = imagePathDB.ImageName;
+                    ImageFullPath = imagePath;
+
+                    //var drawImageBitmap = new BitmapImage(new Uri(imagePath));
+                    //drawImageBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    //var imageControl = new Image();
+                    //imageControl.Width = 100;  //set image of width 100 , guest of request
+                    //imageControl.Height = 100; //set image of height 100 , quest of request
+                    //imageControl.Source = drawImageBitmap;
+
+                    var bitmap = new BitmapImage();
+                    var stream = File.OpenRead(imagePath);
+                    bitmap.BeginInit();
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.StreamSource = stream;
+                    bitmap.EndInit();
+                    stream.Close();
+                    stream.Dispose();
+                    bitmap.Freeze();
+                    var imageControl = new Image();
+                    imageControl.Width = 100;  //set image of width 100 , guest of request
+                    imageControl.Height = 100; //set image of height 100 , quest of request
+                    imageControl.Source = bitmap;
+
+                    Button deleteButton = new Button();
+                    deleteButton.Content = "X";
+                    deleteButton.Name = "Delete";
+                    //deleteButton.Command = deleteAction;
+                    deleteButton.Background = Brushes.Red;
+                    deleteButton.Click += new RoutedEventHandler(home_read_click);
+
+                    NameIMG.Add(imageControl);
+                    NameIMG.Add(deleteButton);
+                    ImagePath += conbineCharatarBefore + imageName + conbineCharatarAfter;
+                    ImageListPath.Add(imageName);
+
+                }
             }
         }
         private void DeleteImage(string nameImage)
@@ -410,17 +606,23 @@ namespace matsukifudousan.ViewModel
             string SavePath = string.Format(@"{0}\images\RentalImage\", projectDirectory);
 
             string path = SavePath + nameImage;
-            var bitmap = new BitmapImage();
-            var stream = File.OpenRead(path);
+            try
+            {
+                if (File.Exists(path))
+                {
 
-            bitmap.BeginInit();
-            bitmap.CacheOption = BitmapCacheOption.OnLoad;
-            bitmap.StreamSource = stream;
-            bitmap.EndInit();
-            stream.Close();
-            stream.Dispose();
-            bitmap.Freeze();
-            File.Delete(path);
+                    System.GC.Collect();
+                    System.GC.WaitForPendingFinalizers();
+                    GC.Collect();
+                    System.IO.File.Delete(path);
+
+                }
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("" + ex);
+            }
+
         }
 
     }

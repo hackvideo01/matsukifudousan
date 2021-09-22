@@ -63,7 +63,7 @@ namespace matsukifudousan
                     break;
 
                 case "Prints":
-                    usc = new Prints();
+                    usc = new RentalPrints();
                     RentalContain.Children.Add(usc);
                     break;
 

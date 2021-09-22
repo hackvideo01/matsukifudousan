@@ -20,40 +20,41 @@ namespace matsukifudousan.ViewModel
 
         public  ControlBarViewModel()
         {
-            CloseWindowCommand = new RelayCommand<UserControl>((p)=> { return p == null? false : true; }, (p)=> {
-                FrameworkElement window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
-                {
-                    w.Close();
-                }
+            CloseWindowCommand = new RelayCommand<UserControl>((p) => { return p == null ? false : true; }, (p) =>
+                  {
+                    FrameworkElement window = GetWindowParent(p);
+                    var w = window as Window;
+                    if (w != null)
+                    {
+                        w.Close();
+                    }
                 }
             );
             MaximizeWindowCommand = new RelayCommand<UserControl>((p) => { return p == null ? false : true; }, (p) =>
-            {
-                FrameworkElement window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
                 {
-                    if (w.WindowState != WindowState.Maximized)
-                        w.WindowState = WindowState.Maximized;
-                    else
-                        w.WindowState = WindowState.Normal;
+                    FrameworkElement window = GetWindowParent(p);
+                    var w = window as Window;
+                    if (w != null)
+                    {
+                        if (w.WindowState != WindowState.Maximized)
+                            w.WindowState = WindowState.Maximized;
+                        else
+                            w.WindowState = WindowState.Normal;
+                    }
                 }
-            }
             );
             MinimizeWindowCommand = new RelayCommand<UserControl>((p) => { return p == null ? false : true; }, (p) =>
-            {
-                FrameworkElement window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
                 {
-                    if (w.WindowState != WindowState.Minimized)
-                        w.WindowState = WindowState.Minimized;
-                    else
-                        w.WindowState = WindowState.Maximized;
+                    FrameworkElement window = GetWindowParent(p);
+                    var w = window as Window;
+                    if (w != null)
+                    {
+                        if (w.WindowState != WindowState.Minimized)
+                            w.WindowState = WindowState.Minimized;
+                        else
+                            w.WindowState = WindowState.Maximized;
+                    }
                 }
-            }
             );
             MouseMoveWindowCommand = new RelayCommand<UserControl>((p) => { return p == null ? false : true; }, (p) =>
             {                

@@ -38,7 +38,7 @@ namespace matsukifudousan
         private void DetachedHouse_Click(object sender, RoutedEventArgs e)
         {
             MainWindow parentWindow = (MainWindow)Window.GetWindow(this);
-            usc = new DetachedHouse();
+            usc = new DetachedHouseManagement();
             parentWindow.GridMain.Children.Add(usc);
         }
     }

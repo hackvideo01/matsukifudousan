@@ -26,6 +26,7 @@ namespace matsukifudousan.UserControlNL
         {
             InitializeComponent();
             this.DataContext = ViewModel = new ControlBarViewModel();
+
         }
 
     }

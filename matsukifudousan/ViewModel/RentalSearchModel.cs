@@ -20,7 +20,7 @@ namespace matsukifudousan.ViewModel
         public static bool AddItem = false; //This must be public and static so that it can be called from your second Window
 
         private ObservableCollection<RentalManagementDB> _List;
-        public ObservableCollection<RentalManagementDB> List { get=>_List; set { _List = value; OnPropertyChanged();} }
+        public ObservableCollection<RentalManagementDB> List { get => _List; set { _List = value; OnPropertyChanged(); } }
 
         private string _Search;
         public string Search { get => _Search; set { _Search = value; OnPropertyChanged(); } }
@@ -69,7 +69,7 @@ namespace matsukifudousan.ViewModel
 
                     if (List.Count == 0)
                     {
-                        MessageBox.Show("検索の結果がなかったです。","警告",MessageBoxButton.OK,MessageBoxImage.Warning);
+                        MessageBox.Show("検索の結果がなかったです。", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
                 else
@@ -101,7 +101,7 @@ namespace matsukifudousan.ViewModel
 
                     if (string.IsNullOrEmpty(filePath))
                     {
-                        MessageBox.Show("回線（パス）には正しくないです。","回線とパス",MessageBoxButton.OK,MessageBoxImage.Warning);
+                        MessageBox.Show("回線（パス）には正しくないです。", "回線とパス", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
                     try
@@ -171,16 +171,16 @@ namespace matsukifudousan.ViewModel
                             Byte[] bin = pa.GetAsByteArray();
                             File.WriteAllBytes(filePath, bin);
                         }
-                        MessageBox.Show("一覧表示からリスト印刷出来ました❣","成功",MessageBoxButton.OK,MessageBoxImage.Information);
+                        MessageBox.Show("一覧表示からリスト印刷出来ました❣", "成功", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception EE)
                     {
-                        MessageBox.Show("エラーがありました❕" + EE,"エラー",MessageBoxButton.OK,MessageBoxImage.Error);
+                        MessageBox.Show("エラーがありました❕" + EE, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("一覧表示がなかったです。検索のは検索してください❕","検索しなかった",MessageBoxButton.OK,MessageBoxImage.Hand);
+                    MessageBox.Show("一覧表示がなかったです。検索のは検索してください❕", "検索しなかった", MessageBoxButton.OK, MessageBoxImage.Hand);
                 }
 
             });
@@ -194,7 +194,29 @@ namespace matsukifudousan.ViewModel
 
             RentalFix = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                RentalFixs openWindowFixs = new RentalFixs(); openWindowFixs.ShowDialog();
+                RentalSearch rentalSearch = new RentalSearch();
+
+                var rentalSearchHouseNo = rentalSearch.House.Text;
+
+                if (rentalSearchHouseNo != "")
+                {
+                    Window window = new Window
+                    {
+                        Title = "修正",
+                        Width = 835,
+                        Height = 450,
+                        Content = new RentalFixs(),
+                        ResizeMode = ResizeMode.NoResize,
+                        WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                        WindowStyle = WindowStyle.None
+                    };
+                    window.ShowDialog();
+
+                }
+                else
+                {
+                    MessageBox.Show("物件を選択下さい！", "Warring", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             });
         }
 

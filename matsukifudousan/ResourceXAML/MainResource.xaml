@@ -14,8 +14,16 @@
 
     <viewmodel:RentalDetailsViewViewModel x:Key="RentalDetailsViewVM"></viewmodel:RentalDetailsViewViewModel>
 
-    <viewmodel:PrintsViewModel x:Key="PrintsVM"></viewmodel:PrintsViewModel>
+    <viewmodel:RentalPrintsViewModel x:Key="PrintsVM"></viewmodel:RentalPrintsViewModel>
 
     <viewmodel:RentalFixViewModel x:Key="RentalFixVM"></viewmodel:RentalFixViewModel>
+
+    <viewmodel:DetachedInputViewModel x:Key="DetachedInputVM"></viewmodel:DetachedInputViewModel>
+
+    <viewmodel:DetachedSearchViews x:Key="DetachedSearchVM"></viewmodel:DetachedSearchViews>
+
+    <viewmodel:DetachedDetailsViewViewModel x:Key="DetachedDetailsViewVM"></viewmodel:DetachedDetailsViewViewModel>
+
+    <viewmodel:DetachedFixsViewModel x:Key="DetachedFixsVM"></viewmodel:DetachedFixsViewModel>
 
 </ResourceDictionary>

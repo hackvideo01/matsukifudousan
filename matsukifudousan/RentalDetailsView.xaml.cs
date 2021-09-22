@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using matsukifudousan.ViewModel;
 
 namespace matsukifudousan
 {
@@ -22,6 +23,8 @@ namespace matsukifudousan
         public RentalDetailsView()
         {
             InitializeComponent();
+
+            DataContext = new RentalDetailsViewViewModel();
         }
     }
 }
