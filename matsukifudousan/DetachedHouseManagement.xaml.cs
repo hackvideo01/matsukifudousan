@@ -32,7 +32,7 @@ namespace matsukifudousan
             InitializeComponent();
 
             usc = new DetachedHouseInput();
-            RentalContain.Children.Add(usc);
+            DetachedContain.Children.Add(usc);
 
             this.DataContext = ViewModel = new DetachedHouseInput();
 
@@ -47,24 +47,24 @@ namespace matsukifudousan
                     parentWindow.GridMain.Children.Add(usc);
                     break;
 
-                case "RentalInput":
+                case "DetachedInput":
                     usc = new DetachedHouseInput();
-                    RentalContain.Children.Add(usc);
+                    DetachedContain.Children.Add(usc);
                     break;
 
-                case "RentalSearch":
+                case "DetachedSearch":
                     usc = new DetachedSearch();
-                    RentalContain.Children.Add(usc);
+                    DetachedContain.Children.Add(usc);
                     break;
 
                 case "DepositBusiness":
                     usc = new DepositBusiness();
-                    RentalContain.Children.Add(usc);
+                    DetachedContain.Children.Add(usc);
                     break;
 
                 case "Prints":
                     usc = new DetachedPrints();
-                    RentalContain.Children.Add(usc);
+                    DetachedContain.Children.Add(usc);
                     break;
 
                 default:

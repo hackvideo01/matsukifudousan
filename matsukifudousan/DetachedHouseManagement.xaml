@@ -19,7 +19,7 @@
              
              d:DesignHeight="550" d:DesignWidth="1000"
              Tag="戸建管理"
-             Name="RentalMN">
+             Name="DetachedMN">
     <UserControl.Resources>
 
         <Style x:Key="wdButton" TargetType="Button">
@@ -62,7 +62,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <uc:UserControlUC Tag="{Binding Tag, ElementName=RentalMN}"></uc:UserControlUC>
+            <uc:UserControlUC Tag="{Binding Tag, ElementName=DetachedMN}"></uc:UserControlUC>
         </Grid>
 
         <Grid Grid.Row="1">
@@ -80,12 +80,12 @@
                             <TextBlock Text="メニューへ" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="RentalInput" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
+                    <ListViewItem x:Name="DetachedInput" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
                         <StackPanel x:Name="RentalInputBGChange" Background="#1294F4" Orientation="Horizontal" Margin="10 0" Width="135">
                             <TextBlock Text="戸建入力" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="RentalSearch" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
+                    <ListViewItem x:Name="DetachedSearch" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
                         <StackPanel x:Name="RentalSearchBGChange" Background="#1294F4" Orientation="Horizontal" Margin="10 0" Width="135">
                             <TextBlock Text="戸建検索" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
@@ -111,7 +111,7 @@
 
             </StackPanel>
 
-            <Grid x:Name="RentalContain"  Grid.Column="1">
+            <Grid x:Name="DetachedContain"  Grid.Column="1">
 
             </Grid>
 

@@ -130,7 +130,7 @@ namespace matsukifudousan.ViewModel
         #endregion
         public ICommand ContractDetailsCommandWD { get; set; }
 
-        public ICommand AddRentalCommand { get; set; }
+        public ICommand AddDetachedCommand { get; set; }
 
         public ICommand AddImageCommand { get; set; }
 
@@ -149,8 +149,8 @@ namespace matsukifudousan.ViewModel
         private ObservableCollection<DetachedDB> _DetachedDetailsView;
         public ObservableCollection<DetachedDB> DetachedDetailsView { get => _DetachedDetailsView; set { _DetachedDetailsView = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<ImageDB> _rentalImageView;
-        public ObservableCollection<ImageDB> rentalImageView { get => _rentalImageView; set { _rentalImageView = value; OnPropertyChanged(); } }
+        private ObservableCollection<ImageDB> _detachedImageView;
+        public ObservableCollection<ImageDB> detachedImageView { get => _detachedImageView; set { _detachedImageView = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Object> _NameIMGDeleteList = new ObservableCollection<Object>();
         public ObservableCollection<Object> NameIMGDeleteList { get => _NameIMGDeleteList; set { _NameIMGDeleteList = value; OnPropertyChanged(); } }
@@ -322,7 +322,7 @@ namespace matsukifudousan.ViewModel
 
             });
 
-            AddRentalCommand = new RelayCommand<object>((p) =>
+            AddDetachedCommand = new RelayCommand<object>((p) =>
             {
                 //if (string.IsNullOrEmpty(HouseNo))
                 //    return false;
@@ -337,44 +337,44 @@ namespace matsukifudousan.ViewModel
             {
                 #region Value Form RentalMangement
 
-                var AddRental = DataProvider.Ins.DB.DetachedDB.Where(hno => hno.DetachedHouseNo == detachedSearchHouseNo).SingleOrDefault();
+                var AddDetached = DataProvider.Ins.DB.DetachedDB.Where(hno => hno.DetachedHouseNo == detachedSearchHouseNo).SingleOrDefault();
 
                 //HouseNo = HouseNo,
-                AddRental.DetachedHouseName = DetachedHouseName;
-                AddRental.DetachedPost = DetachedPost;
-                AddRental.DetachedAddress = DetachedAddress;
-                AddRental.NearestSation = NearestSation;
-                AddRental.Price = Price;
-                AddRental.FloorPlanType = FloorPlanType;
-                AddRental.FloorPlanDetails = FloorPlanDetails;
-                AddRental.LandArea = LandArea;
-                AddRental.BuildingArea = BuildingArea;
-                AddRental.BuildingStructure = BuildingStructure;
-                AddRental.DateConstruction = DateConstruction;
-                AddRental.LandRights = LandRights;
-                AddRental.Ground = Ground;
-                AddRental.CityPlanning = CityPlanning;
-                AddRental.UseDistrict = UseDistrict;
-                AddRental.BuildingCoverageRatio = BuildingCoverageRatio;
-                AddRental.FloorAreaRatio = FloorAreaRatio;
-                AddRental.OtherLegalRestrictions = OtherLegalRestrictions;
-                AddRental.Terrain = Terrain;
-                AddRental.CurrentSituation = CurrentSituation;
-                AddRental.DeliveryConditionTime = DeliveryConditionTime;
-                AddRental.Parking = Parking;
-                AddRental.TransactionMode = TransactionMode;
-                AddRental.RoadsideSituation = RoadsideSituation;
-                AddRental.Facility = Facility;
-                AddRental.SchoolDistrict = SchoolDistrict;
-                AddRental.NeighborhoodInformation = NeighborhoodInformation;
-                AddRental.Remarks = Remarks;
+                AddDetached.DetachedHouseName = DetachedHouseName;
+                AddDetached.DetachedPost = DetachedPost;
+                AddDetached.DetachedAddress = DetachedAddress;
+                AddDetached.NearestSation = NearestSation;
+                AddDetached.Price = Price;
+                AddDetached.FloorPlanType = FloorPlanType;
+                AddDetached.FloorPlanDetails = FloorPlanDetails;
+                AddDetached.LandArea = LandArea;
+                AddDetached.BuildingArea = BuildingArea;
+                AddDetached.BuildingStructure = BuildingStructure;
+                AddDetached.DateConstruction = DateConstruction;
+                AddDetached.LandRights = LandRights;
+                AddDetached.Ground = Ground;
+                AddDetached.CityPlanning = CityPlanning;
+                AddDetached.UseDistrict = UseDistrict;
+                AddDetached.BuildingCoverageRatio = BuildingCoverageRatio;
+                AddDetached.FloorAreaRatio = FloorAreaRatio;
+                AddDetached.OtherLegalRestrictions = OtherLegalRestrictions;
+                AddDetached.Terrain = Terrain;
+                AddDetached.CurrentSituation = CurrentSituation;
+                AddDetached.DeliveryConditionTime = DeliveryConditionTime;
+                AddDetached.Parking = Parking;
+                AddDetached.TransactionMode = TransactionMode;
+                AddDetached.RoadsideSituation = RoadsideSituation;
+                AddDetached.Facility = Facility;
+                AddDetached.SchoolDistrict = SchoolDistrict;
+                AddDetached.NeighborhoodInformation = NeighborhoodInformation;
+                AddDetached.Remarks = Remarks;
 
                 DataProvider.Ins.DB.SaveChanges();
                 string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
                 int nameImageCount = 0;
 
-                rentalImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.HouseNo == detachedSearchHouseNo));
-                DataProvider.Ins.DB.ImageDB.RemoveRange(rentalImageView);
+                detachedImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.DetachedHouseNo == detachedSearchHouseNo));
+                DataProvider.Ins.DB.ImageDB.RemoveRange(detachedImageView);
                 DataProvider.Ins.DB.SaveChanges();
                 foreach (string saveImageDB in ImageListPath)
                 {
@@ -453,7 +453,7 @@ namespace matsukifudousan.ViewModel
                     {
                         DeleteImage(nameImage);
 
-                        var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(d => d.HouseNo == detachedSearchHouseNo && d.ImageName == nameImage);
+                        var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(d => d.DetachedHouseNo == detachedSearchHouseNo && d.ImageName == nameImage);
                         DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);
                         DataProvider.Ins.DB.SaveChanges();
                     }
@@ -476,7 +476,7 @@ namespace matsukifudousan.ViewModel
                     {
                         DeleteImage(nameImage);
 
-                        var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(d => d.HouseNo == detachedSearchHouseNo && d.ImageName == nameImage);
+                        var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(d => d.DetachedHouseNo == detachedSearchHouseNo && d.ImageName == nameImage);
                         DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);
                         DataProvider.Ins.DB.SaveChanges();
                     }
@@ -534,10 +534,10 @@ namespace matsukifudousan.ViewModel
                 #endregion
 
 
-                rentalImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.DetachedHouseNo == detachedSearchHouseNo));
+                detachedImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.DetachedHouseNo == detachedSearchHouseNo));
 
 
-                foreach (var imagePathDB in rentalImageView)
+                foreach (var imagePathDB in detachedImageView)
                 {
                     string imagePath = imagePathDB.ImagePath;
                     string imageName = imagePathDB.ImageName;

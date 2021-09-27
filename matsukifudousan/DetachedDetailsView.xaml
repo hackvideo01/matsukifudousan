@@ -97,7 +97,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}"  DataContext="{Binding detachedDetailsView,Mode=TwoWay}">
+                <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding detachedDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>

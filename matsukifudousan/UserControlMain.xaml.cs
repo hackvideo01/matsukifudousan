@@ -25,7 +25,6 @@ namespace matsukifudousan
         public UserControlMain()
         {
             InitializeComponent();
-            
         }
 
         private void RentalManagement_Click(object sender, RoutedEventArgs e)
@@ -39,6 +38,12 @@ namespace matsukifudousan
         {
             MainWindow parentWindow = (MainWindow)Window.GetWindow(this);
             usc = new DetachedHouseManagement();
+            parentWindow.GridMain.Children.Add(usc);
+        }
+        private void Apartment_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow parentWindow = (MainWindow)Window.GetWindow(this);
+            usc = new ApartmentManagement();
             parentWindow.GridMain.Children.Add(usc);
         }
     }

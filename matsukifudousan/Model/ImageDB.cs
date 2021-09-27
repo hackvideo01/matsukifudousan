@@ -20,7 +20,9 @@ namespace matsukifudousan.Model
         public string ImageType { get; set; }
         public string HouseNo { get; set; }
         public string DetachedHouseNo { get; set; }
+        public string ApartmentHouseNo { get; set; }
     
+        public virtual ApartmentDB ApartmentDB { get; set; }
         public virtual DetachedDB DetachedDB { get; set; }
         public virtual RentalManagementDB RentalManagementDB { get; set; }
     }

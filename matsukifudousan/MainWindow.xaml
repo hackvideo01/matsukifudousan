@@ -22,7 +22,7 @@
         
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        WindowStyle="None">
+        WindowStyle="None" x:Name="main1" Loaded="Window_Loaded">
 
     <Window.Resources>
         <!--<ResourceDictionary Source="StyleResource.xaml"></ResourceDictionary>-->
@@ -101,7 +101,7 @@
                             <TextBlock Text="賃貸管理" Margin="10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="DetachedHouse" Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
+                    <ListViewItem x:Name="DetachedHouseManagement" Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
                         <StackPanel Orientation="Horizontal" Margin="10 0">
                             <!--<materialDesign:PackIcon Kind="FileDocument" Width="20" Height="20" Foreground="#FFF08033" Margin="5" VerticalAlignment="Center"/>-->
                             <Image Grid.Column="0" Source="images/document.png" Height="30">
@@ -147,6 +147,20 @@
                             <Image Grid.Column="0" Source="images/computer.png" Height="30">
                             </Image>
                             <TextBlock Text="会社情報" Margin="10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="version" Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
+                        <StackPanel Orientation="Horizontal" Margin="10 0">
+                            <!--<materialDesign:PackIcon Kind="Settings" Width="20" Height="20" Foreground="#FF0069C1" Margin="5" VerticalAlignment="Center"/>-->
+                            <Image Grid.Column="0" Source="images/computer.png" Height="30">
+                            </Image>
+                            <TextBlock Text="バージョン" Margin="10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
+                        <StackPanel Orientation="Horizontal" Margin="10 0">
+                            <!--<materialDesign:PackIcon Kind="Settings" Width="20" Height="20" Foreground="#FF0069C1" Margin="5" VerticalAlignment="Center"/>-->
+                            <TextBlock x:Name="versionNo" Margin="10"/>
                         </StackPanel>
                     </ListViewItem>
                 </ListView>

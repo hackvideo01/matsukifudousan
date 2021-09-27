@@ -26,4 +26,12 @@
 
     <viewmodel:DetachedFixsViewModel x:Key="DetachedFixsVM"></viewmodel:DetachedFixsViewModel>
 
+    <viewmodel:ApartmentInputViewModel x:Key="ApartmentInputVM"></viewmodel:ApartmentInputViewModel>
+
+    <viewmodel:ApartmentFixsViewModel x:Key="ApartmentFixVM"></viewmodel:ApartmentFixsViewModel>
+
+    <viewmodel:ApartmentSearchViewModel x:Key="ApartmentSearchVM"></viewmodel:ApartmentSearchViewModel>
+
+    <viewmodel:ApartmentDetailsViewViewModel x:Key="ApartmentDetailsViewVM"></viewmodel:ApartmentDetailsViewViewModel>
+
 </ResourceDictionary>

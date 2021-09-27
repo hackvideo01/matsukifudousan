@@ -121,6 +121,7 @@
                     </Button>
 
                     <Button
+                        Click="Apartment_Click"
                         Style="{StaticResource ResourceKey=btnmain}"
                         Grid.Column="2"      
                         ToolTip="マンション管理">

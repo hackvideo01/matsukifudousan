@@ -5,6 +5,41 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="matsukiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ApartmentDB">
+          <Key>
+            <PropertyRef Name="ApartmentHouseNo" />
+          </Key>
+          <Property Name="ApartmentHouseNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApartmentHouseName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ApartmentPost" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApartmentAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="NearestSation" Type="nvarchar" MaxLength="500" />
+          <Property Name="Price" Type="nvarchar" MaxLength="200" />
+          <Property Name="FloorPlanType" Type="nvarchar" MaxLength="200" />
+          <Property Name="FloorPlanDetails" Type="nvarchar" MaxLength="500" />
+          <Property Name="OccupiedArea" Type="nvarchar" MaxLength="250" />
+          <Property Name="BalconyArea" Type="nvarchar" MaxLength="250" />
+          <Property Name="LocationNumberFloors" Type="nvarchar" MaxLength="250" />
+          <Property Name="TotalUnits" Type="nvarchar" MaxLength="200" />
+          <Property Name="BuildingStructure" Type="nvarchar" MaxLength="250" />
+          <Property Name="DateConstruction" Type="nvarchar" MaxLength="250" />
+          <Property Name="ConstructionCompany" Type="nvarchar" MaxLength="500" />
+          <Property Name="ManagementCompany" Type="nvarchar" MaxLength="500" />
+          <Property Name="ManagementForm" Type="nvarchar" MaxLength="50" />
+          <Property Name="ManagementFee" Type="nvarchar" MaxLength="50" />
+          <Property Name="RepairReserveFund" Type="nvarchar" MaxLength="100" />
+          <Property Name="OtherFee" Type="nvarchar" MaxLength="100" />
+          <Property Name="Parking" Type="nvarchar" MaxLength="100" />
+          <Property Name="CurrentSituation" Type="nvarchar" MaxLength="250" />
+          <Property Name="DeliveryConditionTime" Type="nvarchar" MaxLength="200" />
+          <Property Name="TransactionMode" Type="nvarchar" MaxLength="200" />
+          <Property Name="RoadsideSituation" Type="nvarchar" MaxLength="250" />
+          <Property Name="MainEquipment" Type="nvarchar" MaxLength="500" />
+          <Property Name="EquipmentEachHouse" Type="nvarchar" MaxLength="250" />
+          <Property Name="SchoolDistrict" Type="nvarchar" MaxLength="500" />
+          <Property Name="NeighborhoodInformation" Type="nvarchar" MaxLength="500" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="DetachedDB">
           <Key>
             <PropertyRef Name="DetachedHouseNo" />
@@ -49,6 +84,7 @@
           <Property Name="ImageType" Type="nvarchar" MaxLength="50" />
           <Property Name="HouseNo" Type="varchar" MaxLength="100" />
           <Property Name="DetachedHouseNo" Type="nchar" MaxLength="50" />
+          <Property Name="ApartmentHouseNo" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="RentalManagementDB">
           <Key>
@@ -109,6 +145,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ImageDB_ApartmentDB">
+          <End Role="ApartmentDB" Type="Self.ApartmentDB" Multiplicity="0..1" />
+          <End Role="ImageDB" Type="Self.ImageDB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApartmentDB">
+              <PropertyRef Name="ApartmentHouseNo" />
+            </Principal>
+            <Dependent Role="ImageDB">
+              <PropertyRef Name="ApartmentHouseNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ImageDB_DetachedDB">
           <End Role="DetachedDB" Type="Self.DetachedDB" Multiplicity="0..1" />
           <End Role="ImageDB" Type="Self.ImageDB" Multiplicity="*" />
@@ -122,12 +170,17 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="matsukiModelStoreContainer">
+          <EntitySet Name="ApartmentDB" EntityType="Self.ApartmentDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetachedDB" EntityType="Self.DetachedDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImageDB" EntityType="Self.ImageDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RentalManagementDB" EntityType="Self.RentalManagementDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Image__HouseNo__7C4F7684" Association="Self.FK__Image__HouseNo__7C4F7684">
             <End Role="RentalManagementDB" EntitySet="RentalManagementDB" />
+            <End Role="ImageDB" EntitySet="ImageDB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImageDB_ApartmentDB" Association="Self.FK_ImageDB_ApartmentDB">
+            <End Role="ApartmentDB" EntitySet="ApartmentDB" />
             <End Role="ImageDB" EntitySet="ImageDB" />
           </AssociationSet>
           <AssociationSet Name="FK_ImageDB_DetachedDB" Association="Self.FK_ImageDB_DetachedDB">
@@ -140,10 +193,15 @@
     <edmx:ConceptualModels>
       <Schema Namespace="matsukiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="matsukiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ApartmentDB" EntityType="matsukiModel.ApartmentDB" />
           <EntitySet Name="DetachedDB" EntityType="matsukiModel.DetachedDB" />
           <EntitySet Name="ImageDB" EntityType="matsukiModel.ImageDB" />
           <EntitySet Name="RentalManagementDB" EntityType="matsukiModel.RentalManagementDB" />
           <EntitySet Name="sysdiagrams" EntityType="matsukiModel.sysdiagrams" />
+          <AssociationSet Name="FK_ImageDB_ApartmentDB" Association="matsukiModel.FK_ImageDB_ApartmentDB">
+            <End Role="ApartmentDB" EntitySet="ApartmentDB" />
+            <End Role="ImageDB" EntitySet="ImageDB" />
+          </AssociationSet>
           <AssociationSet Name="FK_ImageDB_DetachedDB" Association="matsukiModel.FK_ImageDB_DetachedDB">
             <End Role="DetachedDB" EntitySet="DetachedDB" />
             <End Role="ImageDB" EntitySet="ImageDB" />
@@ -153,6 +211,42 @@
             <End Role="ImageDB" EntitySet="ImageDB" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ApartmentDB">
+          <Key>
+            <PropertyRef Name="ApartmentHouseNo" />
+          </Key>
+          <Property Name="ApartmentHouseNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApartmentHouseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ApartmentPost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApartmentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NearestSation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FloorPlanType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FloorPlanDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OccupiedArea" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="BalconyArea" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LocationNumberFloors" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TotalUnits" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BuildingStructure" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DateConstruction" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ConstructionCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ManagementCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ManagementForm" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ManagementFee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RepairReserveFund" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OtherFee" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Parking" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentSituation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryConditionTime" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionMode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="RoadsideSituation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MainEquipment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EquipmentEachHouse" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolDistrict" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NeighborhoodInformation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ImageDB" Relationship="matsukiModel.FK_ImageDB_ApartmentDB" FromRole="ApartmentDB" ToRole="ImageDB" />
+        </EntityType>
         <EntityType Name="DetachedDB">
           <Key>
             <PropertyRef Name="DetachedHouseNo" />
@@ -198,6 +292,8 @@
           <Property Name="ImageType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HouseNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DetachedHouseNo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="ApartmentHouseNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ApartmentDB" Relationship="matsukiModel.FK_ImageDB_ApartmentDB" FromRole="ImageDB" ToRole="ApartmentDB" />
           <NavigationProperty Name="DetachedDB" Relationship="matsukiModel.FK_ImageDB_DetachedDB" FromRole="ImageDB" ToRole="DetachedDB" />
           <NavigationProperty Name="RentalManagementDB" Relationship="matsukiModel.FK__Image__HouseNo__7C4F7684" FromRole="ImageDB" ToRole="RentalManagementDB" />
         </EntityType>
@@ -249,6 +345,18 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <Association Name="FK_ImageDB_ApartmentDB">
+          <End Type="matsukiModel.ApartmentDB" Role="ApartmentDB" Multiplicity="0..1" />
+          <End Type="matsukiModel.ImageDB" Role="ImageDB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApartmentDB">
+              <PropertyRef Name="ApartmentHouseNo" />
+            </Principal>
+            <Dependent Role="ImageDB">
+              <PropertyRef Name="ApartmentHouseNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ImageDB_DetachedDB">
           <End Type="matsukiModel.DetachedDB" Role="DetachedDB" Multiplicity="0..1" />
           <End Type="matsukiModel.ImageDB" Role="ImageDB" Multiplicity="*" />
@@ -273,12 +381,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="matsukiModelStoreContainer" CdmEntityContainer="matsukiEntities">
+          <EntitySetMapping Name="ApartmentDB">
+            <EntityTypeMapping TypeName="matsukiModel.ApartmentDB">
+              <MappingFragment StoreEntitySet="ApartmentDB">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="NeighborhoodInformation" ColumnName="NeighborhoodInformation" />
+                <ScalarProperty Name="SchoolDistrict" ColumnName="SchoolDistrict" />
+                <ScalarProperty Name="EquipmentEachHouse" ColumnName="EquipmentEachHouse" />
+                <ScalarProperty Name="MainEquipment" ColumnName="MainEquipment" />
+                <ScalarProperty Name="RoadsideSituation" ColumnName="RoadsideSituation" />
+                <ScalarProperty Name="TransactionMode" ColumnName="TransactionMode" />
+                <ScalarProperty Name="DeliveryConditionTime" ColumnName="DeliveryConditionTime" />
+                <ScalarProperty Name="CurrentSituation" ColumnName="CurrentSituation" />
+                <ScalarProperty Name="Parking" ColumnName="Parking" />
+                <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
+                <ScalarProperty Name="RepairReserveFund" ColumnName="RepairReserveFund" />
+                <ScalarProperty Name="ManagementFee" ColumnName="ManagementFee" />
+                <ScalarProperty Name="ManagementForm" ColumnName="ManagementForm" />
+                <ScalarProperty Name="ManagementCompany" ColumnName="ManagementCompany" />
+                <ScalarProperty Name="ConstructionCompany" ColumnName="ConstructionCompany" />
+                <ScalarProperty Name="DateConstruction" ColumnName="DateConstruction" />
+                <ScalarProperty Name="BuildingStructure" ColumnName="BuildingStructure" />
+                <ScalarProperty Name="TotalUnits" ColumnName="TotalUnits" />
+                <ScalarProperty Name="LocationNumberFloors" ColumnName="LocationNumberFloors" />
+                <ScalarProperty Name="BalconyArea" ColumnName="BalconyArea" />
+                <ScalarProperty Name="OccupiedArea" ColumnName="OccupiedArea" />
+                <ScalarProperty Name="FloorPlanDetails" ColumnName="FloorPlanDetails" />
+                <ScalarProperty Name="FloorPlanType" ColumnName="FloorPlanType" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="NearestSation" ColumnName="NearestSation" />
+                <ScalarProperty Name="ApartmentAddress" ColumnName="ApartmentAddress" />
+                <ScalarProperty Name="ApartmentPost" ColumnName="ApartmentPost" />
+                <ScalarProperty Name="ApartmentHouseName" ColumnName="ApartmentHouseName" />
+                <ScalarProperty Name="ApartmentHouseNo" ColumnName="ApartmentHouseNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DetachedDB">
             <EntityTypeMapping TypeName="matsukiModel.DetachedDB">
               <MappingFragment StoreEntitySet="DetachedDB">
@@ -317,6 +461,7 @@
           <EntitySetMapping Name="ImageDB">
             <EntityTypeMapping TypeName="matsukiModel.ImageDB">
               <MappingFragment StoreEntitySet="ImageDB">
+                <ScalarProperty Name="ApartmentHouseNo" ColumnName="ApartmentHouseNo" />
                 <ScalarProperty Name="DetachedHouseNo" ColumnName="DetachedHouseNo" />
                 <ScalarProperty Name="HouseNo" ColumnName="HouseNo" />
                 <ScalarProperty Name="ImageType" ColumnName="ImageType" />
