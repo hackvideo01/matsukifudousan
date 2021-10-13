@@ -19,13 +19,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="835">
     <UserControl.Resources>
-        
+
         <Style TargetType="Border" x:Key="BorderGrid">
             <Setter Property="BorderThickness" Value="1"></Setter>
             <Setter Property="BorderBrush" Value="Gray"></Setter>
             <Setter Property="Margin" Value="0,3,0,0"></Setter>
         </Style>
-        
+
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -44,7 +44,8 @@
             <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}" Width="auto">
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                        <ColumnDefinition Width="35*"></ColumnDefinition>
+                        <ColumnDefinition Width="10*"></ColumnDefinition>
                         <ColumnDefinition Width="10*"></ColumnDefinition>
                         <ColumnDefinition Width="10*"></ColumnDefinition>
                         <ColumnDefinition Width="10*"></ColumnDefinition>
@@ -56,25 +57,52 @@
                     <Button Grid.Column="2" Command="{Binding RentalDetailsView}" Content="詳細" Margin="0 0 2 0" Background="#80B2FE"></Button>
                     <Button Grid.Column="3" x:Name="fixButton" Command="{Binding RentalFix}" Content="修正" Margin="0 0 2 0" Background="#CA5100"></Button>
                     <Button Grid.Column="4" Command="{Binding RentalDelete}" Content="削除" Margin="0 0 2 0" Background="#E51400"></Button>
-                    <Button Grid.Column="5" Command="{Binding PrintsButton}" Content="プリント" Background="#8CD25F"></Button>
+                    <Button Grid.Column="5" Command="{Binding PrintsButton}" Content="プリント" Margin="0 0 2 0" Background="#8CD25F"></Button>
+                    <Button Grid.Column="6" Command="{Binding RentalDetailsInput}" Content="詳細入力" Background="#8CD25F"></Button>
                 </Grid>
             </Border>
 
-            <TextBox x:Name="House" Grid.Row="1" Text="{Binding HouseNo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" materialDesign:HintAssist.Hint="物件番号" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox x:Name="House" Grid.Row="1" Text="{Binding HouseNo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" materialDesign:HintAssist.Hint="物件番号" Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True"/>
+
+            <!--<Button x:Name="btnPrevious" Content="PRE" HorizontalAlignment="Left" Margin="466,257,0,-4" Grid.Row="2" VerticalAlignment="Top" Width="75"/>
+            <Button x:Name="btnNext" Content="NEXT" HorizontalAlignment="Left" Margin="609,257,0,-2" Grid.Row="2" VerticalAlignment="Top" Width="75"/>-->
 
             <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListView x:Name="RentalList" ItemsSource="{Binding List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="物件番号" DisplayMemberBinding="{Binding HouseNo}"></GridViewColumn>
-                                <GridViewColumn Header="物件名" DisplayMemberBinding="{Binding HouseName}"></GridViewColumn>
-                                <GridViewColumn Header="住所地" DisplayMemberBinding="{Binding HouseAddress}"></GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                <DataGrid Name="dataGrid" Grid.Row="2" ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem,Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Height="335">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="物件番号" Binding="{Binding HouseNo}" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="物件名">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding HouseName}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="住所地">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding HouseAddress}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!--<ScrollViewer VerticalScrollBarVisibility="Auto" Height="350">
+                        <ListView x:Name="RentalList" ItemsSource="{Binding List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="物件番号" DisplayMemberBinding="{Binding HouseNo}"></GridViewColumn>
+                                    <GridViewColumn Header="物件名" DisplayMemberBinding="{Binding HouseName}"></GridViewColumn>
+                                    <GridViewColumn Header="住所地" DisplayMemberBinding="{Binding HouseAddress}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
 
-                </ScrollViewer>
+                </ScrollViewer>-->
             </materialDesign:Card>
         </Grid>
     </Grid>

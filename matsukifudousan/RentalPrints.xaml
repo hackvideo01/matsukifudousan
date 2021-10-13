@@ -18,6 +18,15 @@
              
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="835">
+    <UserControl.Resources>
+
+        <Style TargetType="Border" x:Key="BorderGrid">
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="BorderBrush" Value="Gray"></Setter>
+            <Setter Property="Margin" Value="0,3,0,0"></Setter>
+        </Style>
+
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -28,22 +37,66 @@
         </Grid>
         <Grid Grid.Row="1" Margin="15,15,0,0">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
-            
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="30*"/>
-                </Grid.ColumnDefinitions>
-                
-                <Button Grid.Column="0" x:Name="printPDF" Content="請求書" Width="100" Height="80" Command="{Binding PDFButton}"></Button>
-                <Button Grid.Column="1" x:Name="printEXCEL" Content="取引台帳" Width="100" Height="80" Command="{Binding EXCELButton}"></Button>
-                <Button Grid.Column="2" x:Name="printEXCEL2" Content="賃貸契約書" Width="100" Height="80" Command="{Binding EXCELButton2}"></Button>
-                
-            </Grid>
+            <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}" Width="auto">
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="35*"></ColumnDefinition>
+                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                        <ColumnDefinition Width="35*"></ColumnDefinition>
+                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Text="{Binding Search, Mode=TwoWay}" Grid.Column="0"></TextBox>
+                    <Button Grid.Column="1" Command="{Binding SearchButton}" Content="検索" Margin="0 0 3 0" Background="#FE8181"></Button>
+                    <ComboBox Grid.Column="2" x:Name="SelectPrints" ItemsSource="{Binding Combox,Mode=TwoWay}" SelectedItem="{Binding SelectedPrints,Mode=TwoWay}" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                        <!--<ComboBoxItem>物件賃貸契約書</ComboBoxItem>-->
+                    </ComboBox>
+                    <Button Grid.Column="3" Command="{Binding EXCELButton}" Content="印刷" Background="#8CD25F"></Button>
+                </Grid>
+            </Border>
+
+            <TextBox x:Name="House" Grid.Row="1" Text="{Binding HouseNo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" materialDesign:HintAssist.Hint="物件番号" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
+                <DataGrid Name="dataGrid" Grid.Row="2" ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem,Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Height="335">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="物件番号" Binding="{Binding HouseNo}" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="物件名">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding HouseName}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="住所地">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding HouseAddress}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!--<ScrollViewer VerticalScrollBarVisibility="Auto" Height="350">
+                        <ListView x:Name="RentalList" ItemsSource="{Binding List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="物件番号" DisplayMemberBinding="{Binding HouseNo}"></GridViewColumn>
+                                    <GridViewColumn Header="物件名" DisplayMemberBinding="{Binding HouseName}"></GridViewColumn>
+                                    <GridViewColumn Header="住所地" DisplayMemberBinding="{Binding HouseAddress}"></GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+                </ScrollViewer>-->
+            </materialDesign:Card>
         </Grid>
     </Grid>
 </UserControl>

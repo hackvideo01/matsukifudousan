@@ -26,9 +26,6 @@
 
     <Window.Resources>
         <!--<ResourceDictionary Source="StyleResource.xaml"></ResourceDictionary>-->
-
-        
-
         <Style TargetType="ListViewItem" x:Key="cursor">
             <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -109,7 +106,7 @@
                             <TextBlock Text="戸建管理" Margin="10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
+                    <ListViewItem x:Name="ApartmentManagement" Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
                         <StackPanel Orientation="Horizontal" Margin="10 0">
                             <!--<materialDesign:PackIcon Kind="FileDocument" Width="20" Height="20" Foreground="Green" Margin="5" VerticalAlignment="Center"/>-->
                             <Image Grid.Column="0" Source="images/document.png" Height="30">
@@ -117,7 +114,7 @@
                             <TextBlock Text="マンション管理" Margin="10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
+                    <ListViewItem x:Name="LandManagement" Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
                         <StackPanel Orientation="Horizontal" Margin="10 0">
                             <!--<materialDesign:PackIcon Kind="FileDocument" Width="20" Height="20" Foreground="#FFD41515" Margin="5" VerticalAlignment="Center"/>-->
                             <Image Grid.Column="0" Source="images/document.png" Height="30">

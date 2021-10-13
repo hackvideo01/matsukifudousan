@@ -26,8 +26,6 @@ namespace matsukifudousan.ViewModel
 {
     public class DetachedFixsViewModel : BaseViewModel, System.ComponentModel.INotifyPropertyChanged
     {
-
-
         #region Detached Item ViewsFixs
         private string _DetachedHouseNo;
         public string DetachedHouseNo { get => _DetachedHouseNo; set { _DetachedHouseNo = value; OnPropertyChanged(); } }
@@ -163,50 +161,33 @@ namespace matsukifudousan.ViewModel
         string conbineCharatarAfter = "] ";
 
         public int Comfirm = 0;
-
         public DetachedFixsViewModel()
         {
             // Get current working directory (..\bin\Debug)
             string workingDirectory = Environment.CurrentDirectory;
-
             // GEt the current PROJECT directory
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
             // Create specific path file
             string SavePath = string.Format(@"{0}\images\RentalImage", projectDirectory);
-
             string[] a = ImageObject;
 
             DetachedSearch detachedSearch = new DetachedSearch();
-
             detachedSearchHouseNo = detachedSearch.House.Text;
-
             reload();
-
             AddImageCommand = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
             {
-
                 try
                 {
-
                 duplicateImage:
-
                     OpenFileDialog openDialog = new OpenFileDialog();
-
                     openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-
                     openDialog.Multiselect = true;
-
                     if (openDialog.ShowDialog() == true)
                     {
-
                         string appDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-
-
                         //string appdirect = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
                         //string appdirect1 = AppDomain.CurrentDomain.BaseDirectory;
@@ -228,9 +209,7 @@ namespace matsukifudousan.ViewModel
                             //        goto duplicateImage;
                             //    }
                             //}
-
                             string fileNameRandom = item;
-                            int count = 0;
                             string filePathWithoutName = Path.GetDirectoryName(fileNameRandom);
                             string fileName = Path.GetFileName(fileNameRandom);
                             string filenamewithoutextension = Path.GetFileNameWithoutExtension(fileNameRandom);
@@ -238,14 +217,12 @@ namespace matsukifudousan.ViewModel
 
                             if (File.Exists(SavePath + "\\" + fileName))
                             {
-
                                 var result = MessageBox.Show("【" + fileName + "】 " + "がありました。\nもう一度写真を選択或いはアップデートしたい写真の名前を変更ください！", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
                                 if (result == MessageBoxResult.OK)
                                 {
                                     goto duplicateImage;
                                 }
                             }
-
                             //while (File.Exists(SavePath + "\\" + fileName))
                             //{
                             //    MessageBox.Show("ありました!");
@@ -263,7 +240,6 @@ namespace matsukifudousan.ViewModel
                         foreach (var imageLink in openDialog.FileNames)
                         {
                             string imagePath = imageLink;
-
                             var drawImageBitmap = new BitmapImage(new Uri(imagePath));
                             var imageControl = new Image();
                             imageControl.Width = 100;  //set image of width 100 , guest of request
@@ -277,36 +253,21 @@ namespace matsukifudousan.ViewModel
                             deleteButton.Background = Brushes.Red;
                             deleteButton.Click += new RoutedEventHandler(home_read_click);
 
-                            //StackPanel stackPnl = new StackPanel();
-                            //stackPnl.Orientation = Orientation.Vertical;
-                            //stackPnl.Height = 150;
-                            //stackPnl.Width = 150;
-                            //stackPnl.Children.Add(imageControl);
-                            //stackPnl.Children.Add(deleteButton);
-
                             NameIMG.Add(imageControl);
                             NameIMG.Add(deleteButton);
-
-                            //NameIMG.Add(stackPnl);
-
-
                             i += 2;
                         }
-
                         ImageObject = openDialog.FileNames;
                         ImageNameObject = openDialog.SafeFileNames;
-
                         foreach (String saveImageName in ImageNameObject)
                         {
                             ImageListPath.Add(saveImageName);
                         }
 
                         ImagePath = "";
-
                         foreach (var saveImageName in ImageListPath)
                         {
                             ImagePath += conbineCharatarBefore + saveImageName + conbineCharatarAfter;
-
                         }
 
                         foreach (String SaveImageItem in ImageObject)
@@ -319,7 +280,6 @@ namespace matsukifudousan.ViewModel
                 {
                     MessageBox.Show("Fix!" + e, "ERROR!!!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
             });
 
             AddDetachedCommand = new RelayCommand<object>((p) =>
@@ -336,10 +296,8 @@ namespace matsukifudousan.ViewModel
 
             {
                 #region Value Form RentalMangement
-
                 var AddDetached = DataProvider.Ins.DB.DetachedDB.Where(hno => hno.DetachedHouseNo == detachedSearchHouseNo).SingleOrDefault();
 
-                //HouseNo = HouseNo,
                 AddDetached.DetachedHouseName = DetachedHouseName;
                 AddDetached.DetachedPost = DetachedPost;
                 AddDetached.DetachedAddress = DetachedAddress;
@@ -386,57 +344,28 @@ namespace matsukifudousan.ViewModel
                     };
                     DataProvider.Ins.DB.ImageDB.Add(AddImage);
                     DataProvider.Ins.DB.SaveChanges();
-
                     nameImageCount++;
                 }
                 Comfirm = 1;
 
                 if (Comfirm == 1)
                 {
-
-                    //foreach (string VARIABLE in NameIMGDeleteList)
-                    //{
-                    //    DeleteImage(VARIABLE);
-                    //}
-
                     OpenFileDialog openDialog = new OpenFileDialog();
                     openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-
                     MessageBox.Show("データを修正されました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
-
                     Comfirm = 0;
                 }
-
-                //if (Comfirm == 1)
-                //{
-                //    for (int i = nameImageCount * 2 - 1; i >= 0; i--)
-                //    {
-                //        NameIMG.RemoveAt(i);
-                //        ImagePath = "";
-                //    }
-                //}
-
                 #endregion
             });
-
         }
 
         private void home_read_click(object sender, RoutedEventArgs e)
         {
             FrameworkElement parent = (FrameworkElement)((Button)sender);
-
             int comfirmDeleteImage = Comfirm;
-
             var button = sender as Button;
-
-            //string n = ((Button) sender).Content.ToString();
-
-            //int index = Int32.Parse(n);
-
             var indexBtn = NameIMG.IndexOf(button);
-
             var indexImg = indexBtn - 1;
-
             if (indexImg == 0)
             {
                 string nameImage = ImageListPath.ElementAt(0).ToString();
@@ -446,19 +375,16 @@ namespace matsukifudousan.ViewModel
 
                 if (comfirmDeleteImage == 0)
                 {
-                    //NameIMGDeleteList.Add(nameImage);
                     var resultButtonDeleteImg = MessageBox.Show("本当にこの物件（画像：" + nameImage + "）を削除したいでしょうか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (resultButtonDeleteImg == MessageBoxResult.Yes)
                     {
                         DeleteImage(nameImage);
-
                         var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(d => d.DetachedHouseNo == detachedSearchHouseNo && d.ImageName == nameImage);
                         DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);
                         DataProvider.Ins.DB.SaveChanges();
                     }
                 }
-
             }
             else
             {
@@ -469,27 +395,22 @@ namespace matsukifudousan.ViewModel
 
                 if (comfirmDeleteImage == 0)
                 {
-                    //NameIMGDeleteList.Add(nameImage);
                     var resultButtonDeleteImg = MessageBox.Show("本当にこの物件（画像：" + nameImage + "）を削除したいでしょうか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (resultButtonDeleteImg == MessageBoxResult.Yes)
                     {
                         DeleteImage(nameImage);
-
                         var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(d => d.DetachedHouseNo == detachedSearchHouseNo && d.ImageName == nameImage);
                         DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);
                         DataProvider.Ins.DB.SaveChanges();
                     }
                 }
-
             }
 
             ImagePath = "";
-
             foreach (var saveImageName in ImageListPath)
             {
                 ImagePath += conbineCharatarBefore + saveImageName + conbineCharatarAfter;
-
             }
         }
 
@@ -532,24 +453,12 @@ namespace matsukifudousan.ViewModel
                 Remarks = DataProvider.Ins.DB.DetachedDB.Where(v => v.DetachedHouseNo == detachedSearchHouseNo).First().Remarks;
 
                 #endregion
-
-
                 detachedImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.DetachedHouseNo == detachedSearchHouseNo));
-
-
                 foreach (var imagePathDB in detachedImageView)
                 {
                     string imagePath = imagePathDB.ImagePath;
                     string imageName = imagePathDB.ImageName;
                     ImageFullPath = imagePath;
-
-                    //var drawImageBitmap = new BitmapImage(new Uri(imagePath));
-                    //drawImageBitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    //var imageControl = new Image();
-                    //imageControl.Width = 100;  //set image of width 100 , guest of request
-                    //imageControl.Height = 100; //set image of height 100 , quest of request
-                    //imageControl.Source = drawImageBitmap;
-
                     var bitmap = new BitmapImage();
                     var stream = File.OpenRead(imagePath);
                     bitmap.BeginInit();
@@ -575,7 +484,6 @@ namespace matsukifudousan.ViewModel
                     NameIMG.Add(deleteButton);
                     ImagePath += conbineCharatarBefore + imageName + conbineCharatarAfter;
                     ImageListPath.Add(imageName);
-
                 }
             }
         }
@@ -584,33 +492,25 @@ namespace matsukifudousan.ViewModel
         {
             // Get current working directory (..\bin\Debug)
             string workingDirectory = Environment.CurrentDirectory;
-
             // GEt the current PROJECT directory
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
             // Create specific path file
             string SavePath = string.Format(@"{0}\images\RentalImage\", projectDirectory);
-
             string path = SavePath + nameImage;
             try
             {
                 if (File.Exists(path))
                 {
-
                     System.GC.Collect();
                     System.GC.WaitForPendingFinalizers();
                     GC.Collect();
                     System.IO.File.Delete(path);
-
                 }
             }
             catch (IOException ex)
             {
                 MessageBox.Show("" + ex);
             }
-
         }
-
     }
-
 }

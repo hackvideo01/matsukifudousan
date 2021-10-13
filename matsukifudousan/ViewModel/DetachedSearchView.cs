@@ -58,7 +58,6 @@ namespace matsukifudousan.ViewModel
         {
             string Result = null;
             List = new ObservableCollection<DetachedDB>(DataProvider.Ins.DB.DetachedDB.Where(t => t.DetachedHouseNo.Contains(Result) || t.DetachedHouseName.Contains(Result) || t.DetachedAddress.Contains(Result)));
-
             #region SearchButton
             SearchButton = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -81,30 +80,57 @@ namespace matsukifudousan.ViewModel
                 }
             });
             #endregion
-
             PrintsButton = new RelayCommand<object>((p) => { return true; }, (p) => { printsButton(); });
+            DetachedDetailsView = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                DetachedSearch selectDetachedNo = new DetachedSearch();
 
-            DetachedDetailsView = new RelayCommand<object>((p) => { return true; }, (p) => { DetachedDetailsView openWindowDetails = new DetachedDetailsView(); openWindowDetails.ShowDialog(); });
+                if (selectDetachedNo.House.Text != "")
+                {
+                    DetachedDetailsView openWindowDetails = new DetachedDetailsView(); openWindowDetails.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+            });
+            DetachedFix = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
 
-            DetachedFix = new RelayCommand<object>((p) => { return true; }, (p) => { detachedFixOpenWithWindow(); });
+                DetachedSearch selectDetachedNo = new DetachedSearch();
 
-            DetachedDelete = new RelayCommand<object>((p) => { return true; }, (p) => { detachedDelete(); });
+                if (selectDetachedNo.House.Text != "")
+                {
+                    detachedFixOpenWithWindow();
+                }
+                else
+                {
+                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+            });
+            DetachedDelete = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                DetachedSearch selectDetachedNo = new DetachedSearch();
 
+                if (selectDetachedNo.House.Text != "")
+                {
+                    detachedDelete();
+                }
+                else
+                {
+                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+            });
         }
         private void printsButton()
         {
             if (List.Count != 0) // if List.Count = 0 then Search Result not had 
             {
-
                 ExcelPackage.LicenseContext = LicenseContext.Commercial;
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
                 string filePath = "";
-
                 SaveFileDialog dialog = new SaveFileDialog();
-
                 dialog.Filter = "Excel | *.xlsx | Excel 2003 | *.xls";
-
                 if (dialog.ShowDialog() == true)
                 {
                     filePath = dialog.FileName;
@@ -120,65 +146,48 @@ namespace matsukifudousan.ViewModel
                     using (ExcelPackage pa = new ExcelPackage())
                     {
                         pa.Workbook.Properties.Author = "マツキ不動産賃貸管理";
-
                         pa.Workbook.Properties.Title = "賃貸物件詳細";
-
                         ExcelWorksheet ws = pa.Workbook.Worksheets.Add("賃貸一覧");
 
                         ws.Name = "賃貸物件詳細";
                         ws.Cells.Style.Font.Size = 11;
                         ws.Cells.Style.Font.Name = "Calibri";
-
                         string[] arrColumnHeader = {
                                                         "物件番号",
                                                         "物件名",
                                                         "所在地"
                                                         };
-
                         var countColHeader = arrColumnHeader.Count();
-
                         ws.Cells[1, 1].Value = "賃貸管理の一覧表示";
                         ws.Cells[1, 1, 1, countColHeader].Merge = true;
                         ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
                         ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                        //ws.Cells[1, 1, 1, countColHeader].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
-
                         int colIndex = 1;
                         int rowIndex = 2;
 
                         foreach (var item in arrColumnHeader)
                         {
                             var cell = ws.Cells[rowIndex, colIndex];
-
                             var fill = cell.Style.Fill;
                             fill.PatternType = ExcelFillStyle.Solid;
                             fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
-
                             var border = cell.Style.Border;
                             border.Bottom.Style =
                             border.Top.Style =
                             border.Left.Style =
                             border.Right.Style = ExcelBorderStyle.Thin;
-
                             cell.Value = item;
-
                             colIndex++;
                         }
 
                         foreach (var item in List)
                         {
                             colIndex = 1;
-
                             rowIndex++;
-
                             ws.Cells[rowIndex, colIndex++].Value = item.DetachedHouseNo;
-
                             ws.Cells[rowIndex, colIndex++].Value = item.DetachedHouseName;
-
                             ws.Cells[rowIndex, colIndex++].Value = item.DetachedAddress;
-
                         }
-
                         Byte[] bin = pa.GetAsByteArray();
                         File.WriteAllBytes(filePath, bin);
                     }
@@ -198,9 +207,7 @@ namespace matsukifudousan.ViewModel
         private void detachedFixOpenWithWindow()
         {
             DetachedSearch detachedtalSearch = new DetachedSearch();
-
             var detachedSearchDetachedHouseNo = detachedtalSearch.House.Text;
-
             if (detachedSearchDetachedHouseNo != "")
             {
                 Window window = new Window
@@ -214,7 +221,6 @@ namespace matsukifudousan.ViewModel
                     WindowStyle = WindowStyle.None
                 };
                 window.ShowDialog();
-
             }
             else
             {
@@ -226,9 +232,7 @@ namespace matsukifudousan.ViewModel
         {
             DetachedSearch detachedtalSearch = new DetachedSearch();
             var detachedDelete = detachedtalSearch.House.Text;
-
             var resultButtonDeleteHouse = MessageBox.Show("本当にこの物件（物件番号：" + detachedDelete + "）を削除したいでしょうか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
             if (resultButtonDeleteHouse == MessageBoxResult.OK)
             {
                 var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(imgDelete => imgDelete.DetachedHouseNo == detachedDelete);
@@ -240,14 +244,11 @@ namespace matsukifudousan.ViewModel
                 DataProvider.Ins.DB.SaveChanges();
 
                 MessageBox.Show("削除しました！");
-
             }
             else
             {
                 MessageBox.Show("削除しなかったです。");
             }
-
         }
-
     }
 }

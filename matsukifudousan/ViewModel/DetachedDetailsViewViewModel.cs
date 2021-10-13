@@ -31,7 +31,6 @@ namespace matsukifudousan.ViewModel
         public ObservableCollection<Object> NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged("NameIMG"); } }
 
         string conbineCharatarBefore = "[";
-
         string conbineCharatarAfter = "] ";
         public DetachedDetailsViewViewModel()
         {
@@ -46,10 +45,7 @@ namespace matsukifudousan.ViewModel
         {
             if (detachedNoView != "")
             {
-
                 detachedImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.DetachedHouseNo == detachedNoView));
-
-
                 foreach (var imagePathDB in detachedImageView)
                 {
                     string imagePath = imagePathDB.ImagePath;

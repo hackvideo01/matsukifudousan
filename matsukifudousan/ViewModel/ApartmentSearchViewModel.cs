@@ -83,12 +83,45 @@ namespace matsukifudousan.ViewModel
             #endregion
 
             PrintsButton = new RelayCommand<object>((p) => { return true; }, (p) => { printsButton(); });
+            ApartmentDetailsView = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                ApartmentSearch selectApartmentNo = new ApartmentSearch();
 
-            ApartmentDetailsView = new RelayCommand<object>((p) => { return true; }, (p) => { ApartmentDetailsView openWindowDetails = new ApartmentDetailsView(); openWindowDetails.ShowDialog(); });
+                if (selectApartmentNo.House.Text != "")
+                {
+                    ApartmentDetailsView openWindowDetails = new ApartmentDetailsView(); openWindowDetails.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+            });
+            ApartmentFix = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                ApartmentSearch selectApartmentNo = new ApartmentSearch();
 
-            ApartmentFix = new RelayCommand<object>((p) => { return true; }, (p) => { apartmentFixOpenWithWindow(); });
+                if (selectApartmentNo.House.Text != "")
+                {
+                    apartmentFixOpenWithWindow();
+                }
+                else
+                {
+                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+            });
+            ApartmentDelete = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                ApartmentSearch selectApartmentNo = new ApartmentSearch();
 
-            ApartmentDelete = new RelayCommand<object>((p) => { return true; }, (p) => { apartmentDelete(); });
+                if (selectApartmentNo.House.Text != "")
+                {
+                    apartmentDelete();
+                }
+                else
+                {
+                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+            });
 
         }
         private void printsButton()
@@ -232,7 +265,7 @@ namespace matsukifudousan.ViewModel
 
             if (resultButtonDeleteHouse == MessageBoxResult.OK)
             {
-                var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(imgDelete => imgDelete.DetachedHouseNo == apartmentDeleteHouseNo);
+                var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(imgDelete => imgDelete.ApartmentHouseNo == apartmentDeleteHouseNo);
                 DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);
                 DataProvider.Ins.DB.SaveChanges();
 

@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="matsukiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="matsukiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ApartmentDB">
           <Key>
             <PropertyRef Name="ApartmentHouseNo" />
           </Key>
-          <Property Name="ApartmentHouseNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApartmentHouseNo" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="ApartmentHouseName" Type="nvarchar" MaxLength="100" />
           <Property Name="ApartmentPost" Type="nvarchar" MaxLength="50" />
           <Property Name="ApartmentAddress" Type="nvarchar" MaxLength="50" />
@@ -40,6 +40,115 @@
           <Property Name="NeighborhoodInformation" Type="nvarchar" MaxLength="500" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <!--生成中に見つかったエラー:
+警告 6013: テーブル/ビュー 'matsuki.dbo.ContractDetailsDB' に主キーが定義されておらず、有効な主キーを推論できませんでした。このテーブル/ビューは除外されました。エンティティを使用するには、スキーマを確認し、正しいキーを追加して、コメントを解除する必要があります。
+        <EntityType Name="ContractDetailsDB">
+          <Property Name="ContractId" Type="int" />
+          <Property Name="ContractType" Type="varchar" MaxLength="50" />
+          <Property Name="PickupMode" Type="nvarchar" MaxLength="200" />
+          <Property Name="DateCurrent" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContractDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContractBegin" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContractEnd" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContractOpenDays" Type="nvarchar" MaxLength="50" />
+          <Property Name="OwnerName" Type="nvarchar" MaxLength="250" />
+          <Property Name="OwnerBirthday" Type="nvarchar" MaxLength="50" />
+          <Property Name="OwnerAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="OwnerAddressNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="OwnerTel" Type="nvarchar" MaxLength="100" />
+          <Property Name="RenterName" Type="nvarchar" MaxLength="250" />
+          <Property Name="RenterBirthday" Type="nvarchar" MaxLength="50" />
+          <Property Name="RenterAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="RenterAddressNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="RenterTel" Type="nvarchar" MaxLength="100" />
+          <Property Name="RentName" Type="nvarchar" MaxLength="250" />
+          <Property Name="RentBirthday" Type="nvarchar" MaxLength="50" />
+          <Property Name="RentAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="RentTel" Type="nvarchar" MaxLength="100" />
+          <Property Name="ResidentName1" Type="nvarchar" MaxLength="250" />
+          <Property Name="ResidentBirthday1" Type="nvarchar" MaxLength="50" />
+          <Property Name="ResidentName2" Type="nvarchar" MaxLength="250" />
+          <Property Name="ResidentBirthday2" Type="nvarchar" MaxLength="50" />
+          <Property Name="ResidentName3" Type="nvarchar" MaxLength="250" />
+          <Property Name="ResidentBirthday3" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location" Type="nvarchar" MaxLength="250" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="500" />
+          <Property Name="IssueRoom" Type="nvarchar" MaxLength="50" />
+          <Property Name="HouseNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Structure" Type="nvarchar" MaxLength="150" />
+          <Property Name="OuterWall" Type="nvarchar" MaxLength="150" />
+          <Property Name="FloorPlan1" Type="nvarchar" MaxLength="250" />
+          <Property Name="FloorPlan2" Type="nvarchar" MaxLength="250" />
+          <Property Name="PakingYesNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParkingForm" Type="nvarchar" MaxLength="50" />
+          <Property Name="UsedNumber1" Type="nvarchar" MaxLength="50" />
+          <Property Name="UsedNumber2" Type="nvarchar" MaxLength="50" />
+          <Property Name="UsedNumber3" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParkingLocation" Type="nvarchar" MaxLength="500" />
+          <Property Name="Electricity" Type="nvarchar" MaxLength="20" />
+          <Property Name="CurrentSupplier" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gas" Type="nvarchar" MaxLength="50" />
+          <Property Name="GasType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Supplier" Type="nvarchar" MaxLength="50" />
+          <Property Name="WaterCrew" Type="nvarchar" MaxLength="50" />
+          <Property Name="WaterTank" Type="nvarchar" MaxLength="50" />
+          <Property Name="Toilet" Type="nvarchar" MaxLength="150" />
+          <Property Name="ProcessEquipment" Type="nvarchar" MaxLength="250" />
+          <Property Name="Sink" Type="nvarchar" MaxLength="150" />
+          <Property Name="Faucet" Type="nvarchar" MaxLength="250" />
+          <Property Name="Kitchen" Type="nvarchar" MaxLength="250" />
+          <Property Name="WaterHeater" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stove" Type="nvarchar" MaxLength="150" />
+          <Property Name="Bathroom" Type="nvarchar" MaxLength="150" />
+          <Property Name="Shower" Type="nvarchar" MaxLength="150" />
+          <Property Name="Reheating" Type="nvarchar" MaxLength="150" />
+          <Property Name="ShowerWith" Type="nvarchar" MaxLength="150" />
+          <Property Name="Bathtub" Type="nvarchar" MaxLength="150" />
+          <Property Name="WashingMachine" Type="nvarchar" MaxLength="150" />
+          <Property Name="ConnectionBracket" Type="nvarchar" MaxLength="150" />
+          <Property Name="LightingEquipment" Type="nvarchar" MaxLength="150" />
+          <Property Name="LightBulbBall" Type="nvarchar" MaxLength="250" />
+          <Property Name="TelevisionAntenna" Type="nvarchar" MaxLength="150" />
+          <Property Name="FixedTelephone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="InternetEquipment" Type="nvarchar" MaxLength="50" />
+          <Property Name="Provider" Type="nvarchar" MaxLength="50" />
+          <Property Name="Router" Type="nvarchar" MaxLength="50" />
+          <Property Name="AirConditioning" Type="nvarchar" MaxLength="50" />
+          <Property Name="Elevator" Type="nvarchar" MaxLength="50" />
+          <Property Name="GarbageStorage" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pet" Type="nvarchar" MaxLength="50" />
+          <Property Name="EvacutionLadder" Type="nvarchar" MaxLength="50" />
+          <Property Name="BicycleParkingSpace" Type="nvarchar" MaxLength="50" />
+          <Property Name="DoorPocket" Type="nvarchar" MaxLength="50" />
+          <Property Name="ScreenDoor" Type="nvarchar" MaxLength="50" />
+          <Property Name="FireAlarm" Type="nvarchar" MaxLength="50" />
+          <Property Name="FireExtinguisher" Type="nvarchar" MaxLength="50" />
+          <Property Name="FireHydrant" Type="nvarchar" MaxLength="50" />
+          <Property Name="Storage" Type="nvarchar" MaxLength="50" />
+          <Property Name="InstallationSunlight" Type="nvarchar" MaxLength="150" />
+          <Property Name="UseNoYes" Type="nvarchar" MaxLength="150" />
+          <Property Name="HotSpring" Type="nvarchar" MaxLength="50" />
+          <Property Name="OtherBuildings" Type="nvarchar" MaxLength="50" />
+          <Property Name="OtherConditions" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransportationFacilities" Type="nvarchar" MaxLength="150" />
+          <Property Name="Rent" Type="nvarchar" MaxLength="150" />
+          <Property Name="CommonServiceFee" Type="nvarchar" MaxLength="150" />
+          <Property Name="CATVFee" Type="nvarchar" MaxLength="150" />
+          <Property Name="ParkingFee" Type="nvarchar" MaxLength="50" />
+          <Property Name="SecurityDeposit" Type="nvarchar" MaxLength="50" />
+          <Property Name="KeyMoney" Type="nvarchar" MaxLength="50" />
+          <Property Name="RentForMonth" Type="nvarchar" MaxLength="50" />
+          <Property Name="CommonServiceFeeMonth" Type="nvarchar" MaxLength="50" />
+          <Property Name="CATVFeeMonth" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParkingFeeMonth" Type="nvarchar" MaxLength="50" />
+          <Property Name="NextMonthFee" Type="nvarchar" MaxLength="50" />
+          <Property Name="RentalInsurancePremium" Type="nvarchar" MaxLength="50" />
+          <Property Name="RentalGuaranteeFee" Type="nvarchar" MaxLength="50" />
+          <Property Name="FeeTaxIncluded" Type="nvarchar" MaxLength="50" />
+          <Property Name="Total" Type="nvarchar" MaxLength="150" />
+        </EntityType>-->
         <EntityType Name="DetachedDB">
           <Key>
             <PropertyRef Name="DetachedHouseNo" />
@@ -84,7 +193,39 @@
           <Property Name="ImageType" Type="nvarchar" MaxLength="50" />
           <Property Name="HouseNo" Type="varchar" MaxLength="100" />
           <Property Name="DetachedHouseNo" Type="nchar" MaxLength="50" />
-          <Property Name="ApartmentHouseNo" Type="varchar" MaxLength="50" />
+          <Property Name="ApartmentHouseNo" Type="nchar" MaxLength="50" />
+          <Property Name="LandNo" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LandDB">
+          <Key>
+            <PropertyRef Name="LandNo" />
+          </Key>
+          <Property Name="LandNo" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="LandName" Type="nvarchar" MaxLength="150" />
+          <Property Name="LandPost" Type="nvarchar" MaxLength="50" />
+          <Property Name="LandAddress" Type="nvarchar" MaxLength="250" />
+          <Property Name="NearestSation" Type="nvarchar" MaxLength="250" />
+          <Property Name="Price" Type="nvarchar" MaxLength="50" />
+          <Property Name="UnitPrice" Type="nvarchar" MaxLength="150" />
+          <Property Name="LandArea" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoadBurden" Type="nvarchar" MaxLength="50" />
+          <Property Name="LandRights" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ground" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityPlan" Type="nvarchar" MaxLength="150" />
+          <Property Name="UseDistrict" Type="nvarchar" MaxLength="150" />
+          <Property Name="BuildingCoverage" Type="nvarchar" MaxLength="50" />
+          <Property Name="VolumeRaito" Type="nvarchar" MaxLength="150" />
+          <Property Name="OtherLegalRestrictions" Type="nvarchar" MaxLength="150" />
+          <Property Name="Terrain" Type="nvarchar" MaxLength="150" />
+          <Property Name="CurrentSituation" Type="nvarchar" MaxLength="150" />
+          <Property Name="DeliveryConditionTime" Type="nvarchar" MaxLength="150" />
+          <Property Name="BuildingConditions" Type="nvarchar" MaxLength="250" />
+          <Property Name="TransactionMode" Type="nvarchar" MaxLength="250" />
+          <Property Name="RoadsideSituation" Type="nvarchar" MaxLength="150" />
+          <Property Name="Facility" Type="nvarchar" MaxLength="250" />
+          <Property Name="SchoolDistrict" Type="nvarchar" MaxLength="250" />
+          <Property Name="NeighborhoodInformation" Type="nvarchar" MaxLength="150" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="RentalManagementDB">
           <Key>
@@ -169,10 +310,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ImageDB_LandDB">
+          <End Role="LandDB" Type="Self.LandDB" Multiplicity="0..1" />
+          <End Role="ImageDB" Type="Self.ImageDB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LandDB">
+              <PropertyRef Name="LandNo" />
+            </Principal>
+            <Dependent Role="ImageDB">
+              <PropertyRef Name="LandNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="matsukiModelStoreContainer">
           <EntitySet Name="ApartmentDB" EntityType="Self.ApartmentDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetachedDB" EntityType="Self.DetachedDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImageDB" EntityType="Self.ImageDB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LandDB" EntityType="Self.LandDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RentalManagementDB" EntityType="Self.RentalManagementDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Image__HouseNo__7C4F7684" Association="Self.FK__Image__HouseNo__7C4F7684">
@@ -187,35 +341,21 @@
             <End Role="DetachedDB" EntitySet="DetachedDB" />
             <End Role="ImageDB" EntitySet="ImageDB" />
           </AssociationSet>
+          <AssociationSet Name="FK_ImageDB_LandDB" Association="Self.FK_ImageDB_LandDB">
+            <End Role="LandDB" EntitySet="LandDB" />
+            <End Role="ImageDB" EntitySet="ImageDB" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="matsukiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="matsukiEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ApartmentDB" EntityType="matsukiModel.ApartmentDB" />
-          <EntitySet Name="DetachedDB" EntityType="matsukiModel.DetachedDB" />
-          <EntitySet Name="ImageDB" EntityType="matsukiModel.ImageDB" />
-          <EntitySet Name="RentalManagementDB" EntityType="matsukiModel.RentalManagementDB" />
-          <EntitySet Name="sysdiagrams" EntityType="matsukiModel.sysdiagrams" />
-          <AssociationSet Name="FK_ImageDB_ApartmentDB" Association="matsukiModel.FK_ImageDB_ApartmentDB">
-            <End Role="ApartmentDB" EntitySet="ApartmentDB" />
-            <End Role="ImageDB" EntitySet="ImageDB" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ImageDB_DetachedDB" Association="matsukiModel.FK_ImageDB_DetachedDB">
-            <End Role="DetachedDB" EntitySet="DetachedDB" />
-            <End Role="ImageDB" EntitySet="ImageDB" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Image__HouseNo__7C4F7684" Association="matsukiModel.FK__Image__HouseNo__7C4F7684">
-            <End Role="RentalManagementDB" EntitySet="RentalManagementDB" />
-            <End Role="ImageDB" EntitySet="ImageDB" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="ApartmentDB">
           <Key>
             <PropertyRef Name="ApartmentHouseNo" />
           </Key>
-          <Property Name="ApartmentHouseNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApartmentHouseNo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="ApartmentHouseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ApartmentPost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ApartmentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -245,13 +385,13 @@
           <Property Name="SchoolDistrict" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="NeighborhoodInformation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ImageDB" Relationship="matsukiModel.FK_ImageDB_ApartmentDB" FromRole="ApartmentDB" ToRole="ImageDB" />
+          <NavigationProperty Name="ImageDB" Relationship="Self.FK_ImageDB_ApartmentDB" FromRole="ApartmentDB" ToRole="ImageDB" />
         </EntityType>
         <EntityType Name="DetachedDB">
           <Key>
             <PropertyRef Name="DetachedHouseNo" />
           </Key>
-          <Property Name="DetachedHouseNo" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="DetachedHouseNo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="DetachedHouseName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="DetachedPost" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="DetachedAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -280,7 +420,7 @@
           <Property Name="SchoolDistrict" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="NeighborhoodInformation" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ImageDB" Relationship="matsukiModel.FK_ImageDB_DetachedDB" FromRole="DetachedDB" ToRole="ImageDB" />
+          <NavigationProperty Name="ImageDB" Relationship="Self.FK_ImageDB_DetachedDB" FromRole="DetachedDB" ToRole="ImageDB" />
         </EntityType>
         <EntityType Name="ImageDB">
           <Key>
@@ -292,16 +432,50 @@
           <Property Name="ImageType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HouseNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DetachedHouseNo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="ApartmentHouseNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ApartmentDB" Relationship="matsukiModel.FK_ImageDB_ApartmentDB" FromRole="ImageDB" ToRole="ApartmentDB" />
-          <NavigationProperty Name="DetachedDB" Relationship="matsukiModel.FK_ImageDB_DetachedDB" FromRole="ImageDB" ToRole="DetachedDB" />
-          <NavigationProperty Name="RentalManagementDB" Relationship="matsukiModel.FK__Image__HouseNo__7C4F7684" FromRole="ImageDB" ToRole="RentalManagementDB" />
+          <Property Name="ApartmentHouseNo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="LandNo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ApartmentDB" Relationship="Self.FK_ImageDB_ApartmentDB" FromRole="ImageDB" ToRole="ApartmentDB" />
+          <NavigationProperty Name="DetachedDB" Relationship="Self.FK_ImageDB_DetachedDB" FromRole="ImageDB" ToRole="DetachedDB" />
+          <NavigationProperty Name="RentalManagementDB" Relationship="Self.FK__Image__HouseNo__7C4F7684" FromRole="ImageDB" ToRole="RentalManagementDB" />
+          <NavigationProperty Name="LandDB" Relationship="Self.FK_ImageDB_LandDB" FromRole="ImageDB" ToRole="LandDB" />
+        </EntityType>
+        <EntityType Name="LandDB">
+          <Key>
+            <PropertyRef Name="LandNo" />
+          </Key>
+          <Property Name="LandNo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="LandName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LandPost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LandAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="NearestSation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UnitPrice" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LandArea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoadBurden" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LandRights" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ground" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CityPlan" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="UseDistrict" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="BuildingCoverage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VolumeRaito" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OtherLegalRestrictions" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Terrain" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentSituation" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryConditionTime" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="BuildingConditions" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionMode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="RoadsideSituation" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Facility" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolDistrict" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="NeighborhoodInformation" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ImageDB" Relationship="Self.FK_ImageDB_LandDB" FromRole="LandDB" ToRole="ImageDB" />
         </EntityType>
         <EntityType Name="RentalManagementDB">
           <Key>
             <PropertyRef Name="HouseNo" />
           </Key>
-          <Property Name="HouseNo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HouseNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="HouseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="HousePost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HouseAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -333,21 +507,21 @@
           <Property Name="MNGMTForm" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Remarks" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ImageDB" Relationship="matsukiModel.FK__Image__HouseNo__7C4F7684" FromRole="RentalManagementDB" ToRole="ImageDB" />
+          <NavigationProperty Name="ImageDB" Relationship="Self.FK__Image__HouseNo__7C4F7684" FromRole="RentalManagementDB" ToRole="ImageDB" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_ImageDB_ApartmentDB">
-          <End Type="matsukiModel.ApartmentDB" Role="ApartmentDB" Multiplicity="0..1" />
-          <End Type="matsukiModel.ImageDB" Role="ImageDB" Multiplicity="*" />
+          <End Role="ApartmentDB" Type="Self.ApartmentDB" Multiplicity="0..1" />
+          <End Role="ImageDB" Type="Self.ImageDB" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ApartmentDB">
               <PropertyRef Name="ApartmentHouseNo" />
@@ -358,8 +532,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ImageDB_DetachedDB">
-          <End Type="matsukiModel.DetachedDB" Role="DetachedDB" Multiplicity="0..1" />
-          <End Type="matsukiModel.ImageDB" Role="ImageDB" Multiplicity="*" />
+          <End Role="DetachedDB" Type="Self.DetachedDB" Multiplicity="0..1" />
+          <End Role="ImageDB" Type="Self.ImageDB" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DetachedDB">
               <PropertyRef Name="DetachedHouseNo" />
@@ -370,8 +544,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Image__HouseNo__7C4F7684">
-          <End Type="matsukiModel.RentalManagementDB" Role="RentalManagementDB" Multiplicity="0..1" />
-          <End Type="matsukiModel.ImageDB" Role="ImageDB" Multiplicity="*" />
+          <End Role="RentalManagementDB" Type="Self.RentalManagementDB" Multiplicity="0..1" />
+          <End Role="ImageDB" Type="Self.ImageDB" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RentalManagementDB">
               <PropertyRef Name="HouseNo" />
@@ -381,7 +555,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <Association Name="FK_ImageDB_LandDB">
+          <End Role="LandDB" Type="Self.LandDB" Multiplicity="0..1" />
+          <End Role="ImageDB" Type="Self.ImageDB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LandDB">
+              <PropertyRef Name="LandNo" />
+            </Principal>
+            <Dependent Role="ImageDB">
+              <PropertyRef Name="LandNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="matsukiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ApartmentDB" EntityType="Self.ApartmentDB" />
+          <EntitySet Name="DetachedDB" EntityType="Self.DetachedDB" />
+          <EntitySet Name="ImageDB" EntityType="Self.ImageDB" />
+          <EntitySet Name="LandDB" EntityType="Self.LandDB" />
+          <EntitySet Name="RentalManagementDB" EntityType="Self.RentalManagementDB" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_ImageDB_ApartmentDB" Association="Self.FK_ImageDB_ApartmentDB">
+            <End Role="ApartmentDB" EntitySet="ApartmentDB" />
+            <End Role="ImageDB" EntitySet="ImageDB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImageDB_DetachedDB" Association="Self.FK_ImageDB_DetachedDB">
+            <End Role="DetachedDB" EntitySet="DetachedDB" />
+            <End Role="ImageDB" EntitySet="ImageDB" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Image__HouseNo__7C4F7684" Association="Self.FK__Image__HouseNo__7C4F7684">
+            <End Role="RentalManagementDB" EntitySet="RentalManagementDB" />
+            <End Role="ImageDB" EntitySet="ImageDB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImageDB_LandDB" Association="Self.FK_ImageDB_LandDB">
+            <End Role="LandDB" EntitySet="LandDB" />
+            <End Role="ImageDB" EntitySet="ImageDB" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -390,133 +600,166 @@
           <EntitySetMapping Name="ApartmentDB">
             <EntityTypeMapping TypeName="matsukiModel.ApartmentDB">
               <MappingFragment StoreEntitySet="ApartmentDB">
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="NeighborhoodInformation" ColumnName="NeighborhoodInformation" />
-                <ScalarProperty Name="SchoolDistrict" ColumnName="SchoolDistrict" />
-                <ScalarProperty Name="EquipmentEachHouse" ColumnName="EquipmentEachHouse" />
-                <ScalarProperty Name="MainEquipment" ColumnName="MainEquipment" />
-                <ScalarProperty Name="RoadsideSituation" ColumnName="RoadsideSituation" />
-                <ScalarProperty Name="TransactionMode" ColumnName="TransactionMode" />
-                <ScalarProperty Name="DeliveryConditionTime" ColumnName="DeliveryConditionTime" />
-                <ScalarProperty Name="CurrentSituation" ColumnName="CurrentSituation" />
-                <ScalarProperty Name="Parking" ColumnName="Parking" />
-                <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
-                <ScalarProperty Name="RepairReserveFund" ColumnName="RepairReserveFund" />
-                <ScalarProperty Name="ManagementFee" ColumnName="ManagementFee" />
-                <ScalarProperty Name="ManagementForm" ColumnName="ManagementForm" />
-                <ScalarProperty Name="ManagementCompany" ColumnName="ManagementCompany" />
-                <ScalarProperty Name="ConstructionCompany" ColumnName="ConstructionCompany" />
-                <ScalarProperty Name="DateConstruction" ColumnName="DateConstruction" />
-                <ScalarProperty Name="BuildingStructure" ColumnName="BuildingStructure" />
-                <ScalarProperty Name="TotalUnits" ColumnName="TotalUnits" />
-                <ScalarProperty Name="LocationNumberFloors" ColumnName="LocationNumberFloors" />
-                <ScalarProperty Name="BalconyArea" ColumnName="BalconyArea" />
-                <ScalarProperty Name="OccupiedArea" ColumnName="OccupiedArea" />
-                <ScalarProperty Name="FloorPlanDetails" ColumnName="FloorPlanDetails" />
-                <ScalarProperty Name="FloorPlanType" ColumnName="FloorPlanType" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="NearestSation" ColumnName="NearestSation" />
-                <ScalarProperty Name="ApartmentAddress" ColumnName="ApartmentAddress" />
-                <ScalarProperty Name="ApartmentPost" ColumnName="ApartmentPost" />
-                <ScalarProperty Name="ApartmentHouseName" ColumnName="ApartmentHouseName" />
                 <ScalarProperty Name="ApartmentHouseNo" ColumnName="ApartmentHouseNo" />
+                <ScalarProperty Name="ApartmentHouseName" ColumnName="ApartmentHouseName" />
+                <ScalarProperty Name="ApartmentPost" ColumnName="ApartmentPost" />
+                <ScalarProperty Name="ApartmentAddress" ColumnName="ApartmentAddress" />
+                <ScalarProperty Name="NearestSation" ColumnName="NearestSation" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="FloorPlanType" ColumnName="FloorPlanType" />
+                <ScalarProperty Name="FloorPlanDetails" ColumnName="FloorPlanDetails" />
+                <ScalarProperty Name="OccupiedArea" ColumnName="OccupiedArea" />
+                <ScalarProperty Name="BalconyArea" ColumnName="BalconyArea" />
+                <ScalarProperty Name="LocationNumberFloors" ColumnName="LocationNumberFloors" />
+                <ScalarProperty Name="TotalUnits" ColumnName="TotalUnits" />
+                <ScalarProperty Name="BuildingStructure" ColumnName="BuildingStructure" />
+                <ScalarProperty Name="DateConstruction" ColumnName="DateConstruction" />
+                <ScalarProperty Name="ConstructionCompany" ColumnName="ConstructionCompany" />
+                <ScalarProperty Name="ManagementCompany" ColumnName="ManagementCompany" />
+                <ScalarProperty Name="ManagementForm" ColumnName="ManagementForm" />
+                <ScalarProperty Name="ManagementFee" ColumnName="ManagementFee" />
+                <ScalarProperty Name="RepairReserveFund" ColumnName="RepairReserveFund" />
+                <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
+                <ScalarProperty Name="Parking" ColumnName="Parking" />
+                <ScalarProperty Name="CurrentSituation" ColumnName="CurrentSituation" />
+                <ScalarProperty Name="DeliveryConditionTime" ColumnName="DeliveryConditionTime" />
+                <ScalarProperty Name="TransactionMode" ColumnName="TransactionMode" />
+                <ScalarProperty Name="RoadsideSituation" ColumnName="RoadsideSituation" />
+                <ScalarProperty Name="MainEquipment" ColumnName="MainEquipment" />
+                <ScalarProperty Name="EquipmentEachHouse" ColumnName="EquipmentEachHouse" />
+                <ScalarProperty Name="SchoolDistrict" ColumnName="SchoolDistrict" />
+                <ScalarProperty Name="NeighborhoodInformation" ColumnName="NeighborhoodInformation" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DetachedDB">
             <EntityTypeMapping TypeName="matsukiModel.DetachedDB">
               <MappingFragment StoreEntitySet="DetachedDB">
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="NeighborhoodInformation" ColumnName="NeighborhoodInformation" />
-                <ScalarProperty Name="SchoolDistrict" ColumnName="SchoolDistrict" />
-                <ScalarProperty Name="Facility" ColumnName="Facility" />
-                <ScalarProperty Name="RoadsideSituation" ColumnName="RoadsideSituation" />
-                <ScalarProperty Name="TransactionMode" ColumnName="TransactionMode" />
-                <ScalarProperty Name="Parking" ColumnName="Parking" />
-                <ScalarProperty Name="DeliveryConditionTime" ColumnName="DeliveryConditionTime" />
-                <ScalarProperty Name="CurrentSituation" ColumnName="CurrentSituation" />
-                <ScalarProperty Name="Terrain" ColumnName="Terrain" />
-                <ScalarProperty Name="OtherLegalRestrictions" ColumnName="OtherLegalRestrictions" />
-                <ScalarProperty Name="FloorAreaRatio" ColumnName="FloorAreaRatio" />
-                <ScalarProperty Name="BuildingCoverageRatio" ColumnName="BuildingCoverageRatio" />
-                <ScalarProperty Name="UseDistrict" ColumnName="UseDistrict" />
-                <ScalarProperty Name="CityPlanning" ColumnName="CityPlanning" />
-                <ScalarProperty Name="Ground" ColumnName="Ground" />
-                <ScalarProperty Name="LandRights" ColumnName="LandRights" />
-                <ScalarProperty Name="DateConstruction" ColumnName="DateConstruction" />
-                <ScalarProperty Name="BuildingStructure" ColumnName="BuildingStructure" />
-                <ScalarProperty Name="BuildingArea" ColumnName="BuildingArea" />
-                <ScalarProperty Name="LandArea" ColumnName="LandArea" />
-                <ScalarProperty Name="FloorPlanDetails" ColumnName="FloorPlanDetails" />
-                <ScalarProperty Name="FloorPlanType" ColumnName="FloorPlanType" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="NearestSation" ColumnName="NearestSation" />
-                <ScalarProperty Name="DetachedAddress" ColumnName="DetachedAddress" />
-                <ScalarProperty Name="DetachedPost" ColumnName="DetachedPost" />
-                <ScalarProperty Name="DetachedHouseName" ColumnName="DetachedHouseName" />
                 <ScalarProperty Name="DetachedHouseNo" ColumnName="DetachedHouseNo" />
+                <ScalarProperty Name="DetachedHouseName" ColumnName="DetachedHouseName" />
+                <ScalarProperty Name="DetachedPost" ColumnName="DetachedPost" />
+                <ScalarProperty Name="DetachedAddress" ColumnName="DetachedAddress" />
+                <ScalarProperty Name="NearestSation" ColumnName="NearestSation" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="FloorPlanType" ColumnName="FloorPlanType" />
+                <ScalarProperty Name="FloorPlanDetails" ColumnName="FloorPlanDetails" />
+                <ScalarProperty Name="LandArea" ColumnName="LandArea" />
+                <ScalarProperty Name="BuildingArea" ColumnName="BuildingArea" />
+                <ScalarProperty Name="BuildingStructure" ColumnName="BuildingStructure" />
+                <ScalarProperty Name="DateConstruction" ColumnName="DateConstruction" />
+                <ScalarProperty Name="LandRights" ColumnName="LandRights" />
+                <ScalarProperty Name="Ground" ColumnName="Ground" />
+                <ScalarProperty Name="CityPlanning" ColumnName="CityPlanning" />
+                <ScalarProperty Name="UseDistrict" ColumnName="UseDistrict" />
+                <ScalarProperty Name="BuildingCoverageRatio" ColumnName="BuildingCoverageRatio" />
+                <ScalarProperty Name="FloorAreaRatio" ColumnName="FloorAreaRatio" />
+                <ScalarProperty Name="OtherLegalRestrictions" ColumnName="OtherLegalRestrictions" />
+                <ScalarProperty Name="Terrain" ColumnName="Terrain" />
+                <ScalarProperty Name="CurrentSituation" ColumnName="CurrentSituation" />
+                <ScalarProperty Name="DeliveryConditionTime" ColumnName="DeliveryConditionTime" />
+                <ScalarProperty Name="Parking" ColumnName="Parking" />
+                <ScalarProperty Name="TransactionMode" ColumnName="TransactionMode" />
+                <ScalarProperty Name="RoadsideSituation" ColumnName="RoadsideSituation" />
+                <ScalarProperty Name="Facility" ColumnName="Facility" />
+                <ScalarProperty Name="SchoolDistrict" ColumnName="SchoolDistrict" />
+                <ScalarProperty Name="NeighborhoodInformation" ColumnName="NeighborhoodInformation" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ImageDB">
             <EntityTypeMapping TypeName="matsukiModel.ImageDB">
               <MappingFragment StoreEntitySet="ImageDB">
-                <ScalarProperty Name="ApartmentHouseNo" ColumnName="ApartmentHouseNo" />
-                <ScalarProperty Name="DetachedHouseNo" ColumnName="DetachedHouseNo" />
-                <ScalarProperty Name="HouseNo" ColumnName="HouseNo" />
-                <ScalarProperty Name="ImageType" ColumnName="ImageType" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
                 <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="ImageType" ColumnName="ImageType" />
+                <ScalarProperty Name="HouseNo" ColumnName="HouseNo" />
+                <ScalarProperty Name="DetachedHouseNo" ColumnName="DetachedHouseNo" />
+                <ScalarProperty Name="ApartmentHouseNo" ColumnName="ApartmentHouseNo" />
+                <ScalarProperty Name="LandNo" ColumnName="LandNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LandDB">
+            <EntityTypeMapping TypeName="matsukiModel.LandDB">
+              <MappingFragment StoreEntitySet="LandDB">
+                <ScalarProperty Name="LandNo" ColumnName="LandNo" />
+                <ScalarProperty Name="LandName" ColumnName="LandName" />
+                <ScalarProperty Name="LandPost" ColumnName="LandPost" />
+                <ScalarProperty Name="LandAddress" ColumnName="LandAddress" />
+                <ScalarProperty Name="NearestSation" ColumnName="NearestSation" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="LandArea" ColumnName="LandArea" />
+                <ScalarProperty Name="RoadBurden" ColumnName="RoadBurden" />
+                <ScalarProperty Name="LandRights" ColumnName="LandRights" />
+                <ScalarProperty Name="Ground" ColumnName="Ground" />
+                <ScalarProperty Name="CityPlan" ColumnName="CityPlan" />
+                <ScalarProperty Name="UseDistrict" ColumnName="UseDistrict" />
+                <ScalarProperty Name="BuildingCoverage" ColumnName="BuildingCoverage" />
+                <ScalarProperty Name="VolumeRaito" ColumnName="VolumeRaito" />
+                <ScalarProperty Name="OtherLegalRestrictions" ColumnName="OtherLegalRestrictions" />
+                <ScalarProperty Name="Terrain" ColumnName="Terrain" />
+                <ScalarProperty Name="CurrentSituation" ColumnName="CurrentSituation" />
+                <ScalarProperty Name="DeliveryConditionTime" ColumnName="DeliveryConditionTime" />
+                <ScalarProperty Name="BuildingConditions" ColumnName="BuildingConditions" />
+                <ScalarProperty Name="TransactionMode" ColumnName="TransactionMode" />
+                <ScalarProperty Name="RoadsideSituation" ColumnName="RoadsideSituation" />
+                <ScalarProperty Name="Facility" ColumnName="Facility" />
+                <ScalarProperty Name="SchoolDistrict" ColumnName="SchoolDistrict" />
+                <ScalarProperty Name="NeighborhoodInformation" ColumnName="NeighborhoodInformation" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RentalManagementDB">
             <EntityTypeMapping TypeName="matsukiModel.RentalManagementDB">
               <MappingFragment StoreEntitySet="RentalManagementDB">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="MNGMTForm" ColumnName="MNGMTForm" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="COFax" ColumnName="COFax" />
-                <ScalarProperty Name="COPhone" ColumnName="COPhone" />
-                <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
-                <ScalarProperty Name="MNGMTCOName" ColumnName="MNGMTCOName" />
-                <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
-                <ScalarProperty Name="ParkingFee" ColumnName="ParkingFee" />
-                <ScalarProperty Name="Rent" ColumnName="Rent" />
-                <ScalarProperty Name="ManagementFee" ColumnName="ManagementFee" />
-                <ScalarProperty Name="CommonFee" ColumnName="CommonFee" />
-                <ScalarProperty Name="KeyMoney" ColumnName="KeyMoney" />
-                <ScalarProperty Name="SecurityDeposit" ColumnName="SecurityDeposit" />
-                <ScalarProperty Name="HouseRemarks" ColumnName="HouseRemarks" />
-                <ScalarProperty Name="OtherEquipment" ColumnName="OtherEquipment" />
-                <ScalarProperty Name="Pets" ColumnName="Pets" />
-                <ScalarProperty Name="Parking" ColumnName="Parking" />
-                <ScalarProperty Name="TotalArea" ColumnName="TotalArea" />
-                <ScalarProperty Name="Decorate" ColumnName="Decorate" />
-                <ScalarProperty Name="YearConstruction" ColumnName="YearConstruction" />
-                <ScalarProperty Name="Construction" ColumnName="Construction" />
-                <ScalarProperty Name="HouseType" ColumnName="HouseType" />
-                <ScalarProperty Name="NearestSation" ColumnName="NearestSation" />
-                <ScalarProperty Name="HouseAddress" ColumnName="HouseAddress" />
-                <ScalarProperty Name="HousePost" ColumnName="HousePost" />
-                <ScalarProperty Name="HouseName" ColumnName="HouseName" />
                 <ScalarProperty Name="HouseNo" ColumnName="HouseNo" />
+                <ScalarProperty Name="HouseName" ColumnName="HouseName" />
+                <ScalarProperty Name="HousePost" ColumnName="HousePost" />
+                <ScalarProperty Name="HouseAddress" ColumnName="HouseAddress" />
+                <ScalarProperty Name="NearestSation" ColumnName="NearestSation" />
+                <ScalarProperty Name="HouseType" ColumnName="HouseType" />
+                <ScalarProperty Name="Construction" ColumnName="Construction" />
+                <ScalarProperty Name="YearConstruction" ColumnName="YearConstruction" />
+                <ScalarProperty Name="Decorate" ColumnName="Decorate" />
+                <ScalarProperty Name="TotalArea" ColumnName="TotalArea" />
+                <ScalarProperty Name="Parking" ColumnName="Parking" />
+                <ScalarProperty Name="Pets" ColumnName="Pets" />
+                <ScalarProperty Name="OtherEquipment" ColumnName="OtherEquipment" />
+                <ScalarProperty Name="HouseRemarks" ColumnName="HouseRemarks" />
+                <ScalarProperty Name="SecurityDeposit" ColumnName="SecurityDeposit" />
+                <ScalarProperty Name="KeyMoney" ColumnName="KeyMoney" />
+                <ScalarProperty Name="CommonFee" ColumnName="CommonFee" />
+                <ScalarProperty Name="ManagementFee" ColumnName="ManagementFee" />
+                <ScalarProperty Name="Rent" ColumnName="Rent" />
+                <ScalarProperty Name="ParkingFee" ColumnName="ParkingFee" />
+                <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
+                <ScalarProperty Name="MNGMTCOName" ColumnName="MNGMTCOName" />
+                <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+                <ScalarProperty Name="COPhone" ColumnName="COPhone" />
+                <ScalarProperty Name="COFax" ColumnName="COFax" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="MNGMTForm" ColumnName="MNGMTForm" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="matsukiModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

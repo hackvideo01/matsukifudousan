@@ -28,6 +28,7 @@ namespace matsukifudousan.Model
         public virtual DbSet<ApartmentDB> ApartmentDB { get; set; }
         public virtual DbSet<DetachedDB> DetachedDB { get; set; }
         public virtual DbSet<ImageDB> ImageDB { get; set; }
+        public virtual DbSet<LandDB> LandDB { get; set; }
         public virtual DbSet<RentalManagementDB> RentalManagementDB { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }

@@ -26,8 +26,6 @@ namespace matsukifudousan.ViewModel
 {
     public class RentalFixViewModel : BaseViewModel, System.ComponentModel.INotifyPropertyChanged
     {
-        
-
         #region Rental Item Input
         private string _HouseNo;
         public string HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
@@ -126,7 +124,6 @@ namespace matsukifudousan.ViewModel
         public string Image { get => _Image; set { _Image = value; OnPropertyChanged(); } }
 
         #endregion
-
         #region
         private string _ImagePath;
         public string ImagePath { get => _ImagePath; set { _ImagePath = value; OnPropertyChanged(); } }
@@ -149,8 +146,17 @@ namespace matsukifudousan.ViewModel
 
         public string[] ImageNameObject;
 
+        private string _ImagePathCompare;
+        public string ImagePathCompare { get => _ImagePathCompare; set { _ImagePathCompare = value; OnPropertyChanged(); } }
+
+        private string _ImagePathCompare2;
+        public string ImagePathCompare2 { get => _ImagePathCompare2; set { _ImagePathCompare2 = value; OnPropertyChanged(); } }
+
         private ObservableCollection<Object> _NameIMG = new ObservableCollection<Object>();
         public ObservableCollection<Object> NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged("NameIMG"); } }
+
+        private ObservableCollection<Object> _NameIMG2 = new ObservableCollection<Object>();
+        public ObservableCollection<Object> NameIMG2 { get => _NameIMG2; set { _NameIMG2 = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Object> _ImageListPath = new ObservableCollection<Object>();
         public ObservableCollection<Object> ImageListPath { get => _ImageListPath; set { _ImageListPath = value; OnPropertyChanged(); } }
@@ -168,78 +174,38 @@ namespace matsukifudousan.ViewModel
         public ObservableCollection<Object> ImageData { get => _ImageData; set { _ImageData = value; OnPropertyChanged(); } }
 
         string conbineCharatarBefore = "[";
-
         string conbineCharatarAfter = "] ";
-
         public int Comfirm = 0;
-
         public RentalFixViewModel()
         {
             // Get current working directory (..\bin\Debug)
             string workingDirectory = Environment.CurrentDirectory;
-
             // GEt the current PROJECT directory
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
             // Create specific path file
             string SavePath = string.Format(@"{0}\images\RentalImage", projectDirectory);
-
             string[] a = ImageObject;
-
             RentalSearch rentalSearch = new RentalSearch();
-
             rentalSearchHouseNo = rentalSearch.House.Text;
-
             reload();
-
             AddImageCommand = new RelayCommand<object>((p) =>
             {
                 return true;
             }, (p) =>
             {
-
+                ImagePathCompare = null;
                 try
                 {
-
                 duplicateImage:
-
                     OpenFileDialog openDialog = new OpenFileDialog();
-
                     openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-
                     openDialog.Multiselect = true;
-
                     if (openDialog.ShowDialog() == true)
                     {
-
                         string appDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-
-
-                        //string appdirect = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-                        //string appdirect1 = AppDomain.CurrentDomain.BaseDirectory;
-
-                        //string appdirect2 = System.IO.Directory.GetCurrentDirectory();
-
-                        //string appdirect3 = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
-
                         foreach (String item in openDialog.FileNames)
                         {
-                            //var displayListImage = DataProvider.Ins.DB.ImageDB.Where(x => x.ImageName == item);
-
-                            //if (displayListImage == null || displayListImage.Count() != 0)
-                            //{
-
-                            //    var result = MessageBox.Show("がありました。この写真を保存しますか？", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                            //    if (result == MessageBoxResult.No)
-                            //    {
-                            //        goto duplicateImage;
-                            //    }
-                            //}
-
                             string fileNameRandom = item;
-                            int count = 0;
                             string filePathWithoutName = Path.GetDirectoryName(fileNameRandom);
                             string fileName = Path.GetFileName(fileNameRandom);
                             string filenamewithoutextension = Path.GetFileNameWithoutExtension(fileNameRandom);
@@ -247,25 +213,12 @@ namespace matsukifudousan.ViewModel
 
                             if (File.Exists(SavePath + "\\" + fileName))
                             {
-
                                 var result = MessageBox.Show("【" + fileName + "】 " + "がありました。\nもう一度写真を選択或いはアップデートしたい写真の名前を変更ください！", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
                                 if (result == MessageBoxResult.OK)
                                 {
                                     goto duplicateImage;
                                 }
                             }
-
-                            //while (File.Exists(SavePath + "\\" + fileName))
-                            //{
-                            //    MessageBox.Show("ありました!");
-
-                            //    fileName = filenamewithoutextension + count + extension;
-                            //}
-
-                            //ImageObject.Add(filePathWithoutName + "\\" + fileName);
-                            //File.Copy(fileNameRandom, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(fileNameRandom)), true);
-                            //string curDir = Path.GetDirectoryName(fileNameRandom);
-                            //File.Move(fileNameRandom, Path.Combine(curDir, "NewNameForFile.txt"));
                         }
 
                         int i = 1;
@@ -286,24 +239,17 @@ namespace matsukifudousan.ViewModel
                             deleteButton.Background = Brushes.Red;
                             deleteButton.Click += new RoutedEventHandler(home_read_click);
 
-                            //StackPanel stackPnl = new StackPanel();
-                            //stackPnl.Orientation = Orientation.Vertical;
-                            //stackPnl.Height = 150;
-                            //stackPnl.Width = 150;
-                            //stackPnl.Children.Add(imageControl);
-                            //stackPnl.Children.Add(deleteButton);
-
                             NameIMG.Add(imageControl);
                             NameIMG.Add(deleteButton);
-
-                            //NameIMG.Add(stackPnl);
-
-
                             i += 2;
                         }
 
                         ImageObject = openDialog.FileNames;
                         ImageNameObject = openDialog.SafeFileNames;
+                        foreach (String saveImageName2 in ImageObject)
+                        {
+                            NameIMG2.Add(saveImageName2);
+                        }
 
                         foreach (String saveImageName in ImageNameObject)
                         {
@@ -311,16 +257,10 @@ namespace matsukifudousan.ViewModel
                         }
 
                         ImagePath = "";
-
                         foreach (var saveImageName in ImageListPath)
                         {
                             ImagePath += conbineCharatarBefore + saveImageName + conbineCharatarAfter;
-
-                        }
-
-                        foreach (String SaveImageItem in ImageObject)
-                        {
-                            File.Copy(SaveImageItem, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(SaveImageItem)), true);
+                            ImagePathCompare += conbineCharatarBefore + saveImageName + conbineCharatarAfter;
                         }
                     }
                 }
@@ -328,7 +268,6 @@ namespace matsukifudousan.ViewModel
                 {
                     MessageBox.Show("Fix!" + e, "ERROR!!!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
             });
 
             AddRentalCommand = new RelayCommand<object>((p) =>
@@ -336,172 +275,173 @@ namespace matsukifudousan.ViewModel
                 //if (string.IsNullOrEmpty(HouseNo))
                 //    return false;
 
-                //var displayList = DataProvider.Ins.DB.RentalManagementDB.Where(x => x.HouseNo == HouseNo);
+                //var displayList = DataProvider.Ins.DB.RentalManagementDB.Where(x => x.HouseNo == HouseNo).SingleOrDefault();
+                //var displayListImage = DataProvider.Ins.DB.ImageDB.Where(x => x.HouseNo == HouseNo).SingleOrDefault();
                 //if (displayList == null || displayList.Count() != 0) // if displayList = 0 then HouseNo had in database
                 //    return false;
-
-                return true;
+                //if (
+                //    String.Compare(HouseName, displayList.HouseName) == 0 &&
+                //    String.Compare(HousePost, displayList.HousePost) == 0 &&
+                //    String.Compare(HouseAddress, displayList.HouseAddress) == 0 &&
+                //    String.Compare(NearestSation, displayList.NearestSation) == 0 &&
+                //    String.Compare(HouseType, displayList.HouseType) == 0 &&
+                //    String.Compare(Construction, displayList.Construction) == 0 &&
+                //    String.Compare(YearConstruction, displayList.YearConstruction) == 0 &&
+                //    String.Compare(Decorate, displayList.Decorate) == 0 &&
+                //    String.Compare(TotalArea, displayList.TotalArea) == 0 &&
+                //    String.Compare(Parking, displayList.Parking) == 0 &&
+                //    String.Compare(Pets, displayList.Pets) == 0 &&
+                //    String.Compare(OtherEquipment, displayList.OtherEquipment) == 0 &&
+                //    String.Compare(HouseRemarks, displayList.HouseRemarks) == 0 &&
+                //    String.Compare(SecurityDeposit, displayList.SecurityDeposit) == 0 &&
+                //    String.Compare(KeyMoney, displayList.KeyMoney) == 0 &&
+                //    String.Compare(CommonFee, displayList.CommonFee) == 0 &&
+                //    String.Compare(ManagementFee, displayList.ManagementFee) == 0 &&
+                //    String.Compare(Rent, displayList.Rent) == 0 &&
+                //    String.Compare(ParkingFee, displayList.ParkingFee) == 0 &&
+                //    String.Compare(OtherFee, displayList.OtherFee) == 0 &&
+                //    String.Compare(MNGMTCOName, displayList.MNGMTCOName) == 0 &&
+                //    String.Compare(CompanyAddress, displayList.CompanyAddress) == 0 &&
+                //    String.Compare(COPhone, displayList.COPhone) == 0 &&
+                //    String.Compare(COFax, displayList.COFax) == 0 &&
+                //    String.Compare(Name, displayList.Name) == 0 &&
+                //    String.Compare(Address, displayList.Address) == 0 &&
+                //    String.Compare(Phone, displayList.Phone) == 0 &&
+                //    String.Compare(Fax, displayList.Fax) == 0 &&
+                //    String.Compare(MNGMTForm, displayList.MNGMTForm) == 0 &&
+                //    String.Compare(Remarks, displayList.Remarks) == 0 &&
+                //    String.Compare(ImagePath, displayList.Image) == 0 
+                //)
+                //    return false;
+                    return true;
             }, (p) =>
-
             {
-                #region Value Form RentalMangement
-
-                var AddRental = DataProvider.Ins.DB.RentalManagementDB.Where(hno => hno.HouseNo == rentalSearchHouseNo).SingleOrDefault();
-
-                //HouseNo = HouseNo,
-                AddRental.HouseName = HouseName;
-                AddRental.HousePost = HousePost;
-                AddRental.HouseAddress = HouseAddress;
-                AddRental.NearestSation = NearestSation;
-                AddRental.HouseType = HouseType;
-                AddRental.Construction = Construction;
-                AddRental.YearConstruction = YearConstruction;
-                AddRental.Decorate = Decorate;
-                AddRental.TotalArea = TotalArea;
-                AddRental.Parking = Parking;
-                AddRental.Pets = Pets;
-                AddRental.OtherEquipment = OtherEquipment;
-                AddRental.HouseRemarks = HouseRemarks;
-                AddRental.SecurityDeposit = SecurityDeposit;
-                AddRental.KeyMoney = KeyMoney;
-                AddRental.CommonFee = CommonFee;
-                AddRental.ManagementFee = ManagementFee;
-                AddRental.Rent = Rent;
-                AddRental.ParkingFee = ParkingFee;
-                AddRental.OtherFee = OtherFee;
-                AddRental.MNGMTCOName = MNGMTCOName;
-                AddRental.CompanyAddress = CompanyAddress;
-                AddRental.COPhone = COPhone;
-                AddRental.COFax = COFax;
-                AddRental.Name = Name;
-                AddRental.Address = Address;
-                AddRental.Phone = Phone;
-                AddRental.Fax = Fax;
-                AddRental.MNGMTForm = MNGMTForm;
-                AddRental.Remarks = Remarks;
-                AddRental.Image = Image;
-
-                DataProvider.Ins.DB.SaveChanges();
-                string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                int nameImageCount = 0;
-
-                rentalImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.HouseNo == rentalSearchHouseNo));
-                DataProvider.Ins.DB.ImageDB.RemoveRange(rentalImageView);
-                DataProvider.Ins.DB.SaveChanges();
-                foreach (string saveImageDB in ImageListPath)
-                {
-                    var AddImage = new ImageDB()
-                    {
-                        ImageName = saveImageDB,
-                        ImagePath = SavePath + "\\" + saveImageDB,
-                        HouseNo = HouseNo
-                    };
-                    DataProvider.Ins.DB.ImageDB.Add(AddImage);
-                    DataProvider.Ins.DB.SaveChanges();
-
-                    nameImageCount++;
-                }
                 Comfirm = 1;
-
                 if (Comfirm == 1)
                 {
+                    foreach (string SaveImageItem in NameIMG2)
+                    {
+                        if (!File.Exists(SavePath + "\\" + Path.GetFileName(SaveImageItem)))
+                        {
+                            File.Copy(SaveImageItem, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(SaveImageItem)), true);
+                        }
+                    }
 
-                    //foreach (string VARIABLE in NameIMGDeleteList)
-                    //{
-                    //    DeleteImage(VARIABLE);
-                    //}
+                    #region Value Form RentalMangement
+                    var AddRental = DataProvider.Ins.DB.RentalManagementDB.Where(hno => hno.HouseNo == rentalSearchHouseNo).SingleOrDefault();
+
+                    AddRental.HouseName = HouseName;
+                    AddRental.HousePost = HousePost;
+                    AddRental.HouseAddress = HouseAddress;
+                    AddRental.NearestSation = NearestSation;
+                    AddRental.HouseType = HouseType;
+                    AddRental.Construction = Construction;
+                    AddRental.YearConstruction = YearConstruction;
+                    AddRental.Decorate = Decorate;
+                    AddRental.TotalArea = TotalArea;
+                    AddRental.Parking = Parking;
+                    AddRental.Pets = Pets;
+                    AddRental.OtherEquipment = OtherEquipment;
+                    AddRental.HouseRemarks = HouseRemarks;
+                    AddRental.SecurityDeposit = SecurityDeposit;
+                    AddRental.KeyMoney = KeyMoney;
+                    AddRental.CommonFee = CommonFee;
+                    AddRental.ManagementFee = ManagementFee;
+                    AddRental.Rent = Rent;
+                    AddRental.ParkingFee = ParkingFee;
+                    AddRental.OtherFee = OtherFee;
+                    AddRental.MNGMTCOName = MNGMTCOName;
+                    AddRental.CompanyAddress = CompanyAddress;
+                    AddRental.COPhone = COPhone;
+                    AddRental.COFax = COFax;
+                    AddRental.Name = Name;
+                    AddRental.Address = Address;
+                    AddRental.Phone = Phone;
+                    AddRental.Fax = Fax;
+                    AddRental.MNGMTForm = MNGMTForm;
+                    AddRental.Remarks = Remarks;
+
+                    DataProvider.Ins.DB.SaveChanges();
+                    string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                    int nameImageCount = 0;
+
+                    rentalImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.HouseNo == rentalSearchHouseNo));
+                    DataProvider.Ins.DB.ImageDB.RemoveRange(rentalImageView);
+                    DataProvider.Ins.DB.SaveChanges();
+                    foreach (string saveImageDB in ImageListPath)
+                    {
+                        var AddImage = new ImageDB()
+                        {
+                            ImageName = saveImageDB,
+                            ImagePath = SavePath + "\\" + saveImageDB,
+                            HouseNo = HouseNo
+                        };
+                        DataProvider.Ins.DB.ImageDB.Add(AddImage);
+                        DataProvider.Ins.DB.SaveChanges();
+                        nameImageCount++;
+                    }
 
                     OpenFileDialog openDialog = new OpenFileDialog();
                     openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-
                     MessageBox.Show("データを修正されました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
-
                     Comfirm = 0;
                 }
-
-                //if (Comfirm == 1)
-                //{
-                //    for (int i = nameImageCount * 2 - 1; i >= 0; i--)
-                //    {
-                //        NameIMG.RemoveAt(i);
-                //        ImagePath = "";
-                //    }
-                //}
-
                 #endregion
             });
-
         }
 
         private void home_read_click(object sender, RoutedEventArgs e)
         {
             FrameworkElement parent = (FrameworkElement)((Button)sender);
-
             int comfirmDeleteImage = Comfirm;
-
             var button = sender as Button;
-
-            //string n = ((Button) sender).Content.ToString();
-
-            //int index = Int32.Parse(n);
-
             var indexBtn = NameIMG.IndexOf(button);
-
             var indexImg = indexBtn - 1;
-
             if (indexImg == 0)
             {
                 string nameImage = ImageListPath.ElementAt(0).ToString();
                 ImageListPath.RemoveAt(0);
+                NameIMG2.RemoveAt(0);
                 NameIMG.RemoveAt(index: indexBtn);
                 NameIMG.RemoveAt(index: indexImg);
 
                 if (comfirmDeleteImage == 0)
                 {
-                    //NameIMGDeleteList.Add(nameImage);
                     var resultButtonDeleteImg = MessageBox.Show("本当にこの物件（画像：" + nameImage + "）を削除したいでしょうか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
                     if (resultButtonDeleteImg == MessageBoxResult.Yes)
                     {
                         DeleteImage(nameImage);
-                        
                         var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(d => d.HouseNo == rentalSearchHouseNo && d.ImageName == nameImage);
                         DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);
                         DataProvider.Ins.DB.SaveChanges();
                     }
                 }
-
             }
             else
             {
                 string nameImage = ImageListPath.ElementAt(indexImg / 2).ToString();
                 ImageListPath.RemoveAt(indexImg / 2);
+                NameIMG2.RemoveAt(indexImg / 2);
                 NameIMG.RemoveAt(index: indexBtn);
                 NameIMG.RemoveAt(index: indexImg);
 
                 if (comfirmDeleteImage == 0)
                 {
-                    //NameIMGDeleteList.Add(nameImage);
                     var resultButtonDeleteImg = MessageBox.Show("本当にこの物件（画像：" + nameImage + "）を削除したいでしょうか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
                     if (resultButtonDeleteImg == MessageBoxResult.Yes)
                     {
                         DeleteImage(nameImage);
-
                         var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(d => d.HouseNo == rentalSearchHouseNo && d.ImageName == nameImage);
                         DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);
                         DataProvider.Ins.DB.SaveChanges();
                     }
                 }
-
             }
 
             ImagePath = "";
-
             foreach (var saveImageName in ImageListPath)
             {
                 ImagePath += conbineCharatarBefore + saveImageName + conbineCharatarAfter;
-
             }
         }
 
@@ -546,24 +486,13 @@ namespace matsukifudousan.ViewModel
                 Remarks = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Remarks;
 
                 #endregion
-
-
                 rentalImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.HouseNo == rentalSearchHouseNo));
-
-
+           
                 foreach (var imagePathDB in rentalImageView)
                 {
                     string imagePath = imagePathDB.ImagePath;
                     string imageName = imagePathDB.ImageName;
                     ImageFullPath = imagePath;
-
-                    //var drawImageBitmap = new BitmapImage(new Uri(imagePath));
-                    //drawImageBitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    //var imageControl = new Image();
-                    //imageControl.Width = 100;  //set image of width 100 , guest of request
-                    //imageControl.Height = 100; //set image of height 100 , quest of request
-                    //imageControl.Source = drawImageBitmap;
-
                     var bitmap = new BitmapImage();
                     var stream = File.OpenRead(imagePath);
                     bitmap.BeginInit();
@@ -590,41 +519,33 @@ namespace matsukifudousan.ViewModel
                     ImagePath += conbineCharatarBefore + imageName + conbineCharatarAfter;
                     ImageListPath.Add(imageName);
 
+                    NameIMG2.Add(imagePath);
                 }
             }
         }
         private void DeleteImage(string nameImage)
-
         {
             // Get current working directory (..\bin\Debug)
             string workingDirectory = Environment.CurrentDirectory;
-
             // GEt the current PROJECT directory
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
             // Create specific path file
             string SavePath = string.Format(@"{0}\images\RentalImage\", projectDirectory);
-
             string path = SavePath + nameImage;
             try
             {
                 if (File.Exists(path))
                 {
-
                     System.GC.Collect();
                     System.GC.WaitForPendingFinalizers();
                     GC.Collect();
                     System.IO.File.Delete(path);
-
                 }
             }
             catch (IOException ex)
             {
                 MessageBox.Show("" + ex);
             }
-
         }
-
     }
-
 }

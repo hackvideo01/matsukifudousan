@@ -116,7 +116,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="1" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="1" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -131,7 +131,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="2" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="2" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -153,7 +153,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="3" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="3" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -168,7 +168,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="4" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="4" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -190,7 +190,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="5" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="5" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -216,7 +216,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="6" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="6" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -238,7 +238,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="7" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="7" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -253,7 +253,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="8" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="8" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -268,7 +268,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="9" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="9" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -290,7 +290,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="10" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="10" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -312,7 +312,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="11" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="11" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -334,7 +334,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="12" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="12" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -349,7 +349,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="13" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="13" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -364,7 +364,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="14" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="14" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -379,7 +379,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="15" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="15" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -399,7 +399,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="16" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="16" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -414,7 +414,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="17" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="17" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -429,7 +429,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="18" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="18" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -449,7 +449,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="19" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="19" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -464,7 +464,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="20" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="20" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding RentalDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>

@@ -334,7 +334,6 @@ namespace matsukifudousan.ViewModel
                             //}
 
                             string fileNameRandom = item;
-                            int count = 0;
                             string filePathWithoutName = Path.GetDirectoryName(fileNameRandom);
                             string fileName = Path.GetFileName(fileNameRandom);
                             string filenamewithoutextension = Path.GetFileNameWithoutExtension(fileNameRandom);

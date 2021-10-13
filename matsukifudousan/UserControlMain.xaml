@@ -143,6 +143,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Button
+                        Click=" Land_Click"
                         Grid.Column="0"    
                         Style="{StaticResource btnmain}"
                         ToolTip="土地管理">
@@ -194,6 +195,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Button
+                        Click="test_Click"
                         Grid.Column="0"    
                         Style="{StaticResource btnmain}"
                         ToolTip="会社情報">
@@ -205,6 +207,21 @@
                             <Image Grid.Column="0" Source="images/computer.png" Margin="-18,0,18,0">
                             </Image>
                             <TextBlock Grid.Column="1" Text="会社情報" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                        </Grid>
+                    </Button>
+                    <Button
+                        Click="ImageSearch_Click"
+                        Grid.Column="1"    
+                        Style="{StaticResource btnmain}"
+                        ToolTip="画像検索">
+                        <Grid VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="images/lookup.png" Height="45" Margin="-22,0,22,0">
+                            </Image>
+                            <TextBlock Grid.Column="1" Text="画像検索" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
                         </Grid>
                     </Button>
 

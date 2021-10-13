@@ -24,7 +24,6 @@ namespace matsukifudousan
         public RentalSearch()
         {
             InitializeComponent();
-
         }
     }
 }

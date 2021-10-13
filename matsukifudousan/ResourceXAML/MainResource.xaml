@@ -34,4 +34,12 @@
 
     <viewmodel:ApartmentDetailsViewViewModel x:Key="ApartmentDetailsViewVM"></viewmodel:ApartmentDetailsViewViewModel>
 
+    <viewmodel:LandInputViewModel x:Key="LandInputVM"></viewmodel:LandInputViewModel>
+
+    <viewmodel:LandDetailsViewModel x:Key="LandDetailsVM"></viewmodel:LandDetailsViewModel>
+
+    <viewmodel:LandFixViewModel x:Key="LandFixsVM"></viewmodel:LandFixViewModel>
+
+    <viewmodel:LandSearchViewModel x:Key="LandSearchVM"></viewmodel:LandSearchViewModel>
+
 </ResourceDictionary>

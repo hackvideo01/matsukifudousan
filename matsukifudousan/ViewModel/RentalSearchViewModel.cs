@@ -19,6 +19,9 @@ namespace matsukifudousan.ViewModel
     {
         public static bool AddItem = false; //This must be public and static so that it can be called from your second Window
 
+        //private List<RentalManagementDB> _List;
+        //public List<RentalManagementDB> List { get => _List; set { _List = value; OnPropertyChanged(); } }
+
         private ObservableCollection<RentalManagementDB> _List;
         public ObservableCollection<RentalManagementDB> List { get => _List; set { _List = value; OnPropertyChanged(); } }
 
@@ -34,6 +37,8 @@ namespace matsukifudousan.ViewModel
         public ICommand RentalFix { get; set; }
 
         public ICommand RentalDelete { get; set; }
+
+        public ICommand RentalDetailsInput { get; set; }
 
         private RentalManagementDB _SelectedItem;
         public RentalManagementDB SelectedItem
@@ -53,20 +58,30 @@ namespace matsukifudousan.ViewModel
         private string _HouseNo;
         public string HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
 
+        List<RentalManagementDB> LoadRecord(int page,int recordNum)
+        {
+            List<RentalManagementDB> result = new List<RentalManagementDB>();
+            string Result = null;
+            Result = Search;
+            result = DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)).OrderBy(a=>a.HouseNo).Skip(page).Take(recordNum).ToList();
+            return result;
+        }
         public RentalSearchModel()
         {
             string Result = null;
             List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
-
             #region SearchButton
+            //int loadedRecord = 0;
+            //int pageNumber = 1;
+            //int numberRecord = 10;
+
             SearchButton = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 Result = Search;
-
+                //List = LoadRecord(loadedRecord, numberRecord);
 
                 if (Result != "")
                 {
-
                     List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
 
                     if (List.Count == 0)
@@ -82,24 +97,54 @@ namespace matsukifudousan.ViewModel
             #endregion
 
             PrintsButton = new RelayCommand<object>((p) => { return true; }, (p) => { printsButton(); });
+            RentalDetailsView = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                RentalSearch selectRentalNo = new RentalSearch();
 
-            RentalDetailsView = new RelayCommand<object>((p) => { return true; }, (p) => { RentalDetailsView openWindowDetails = new RentalDetailsView(); openWindowDetails.ShowDialog(); });
+                if (selectRentalNo.House.Text != "")
+                {
+                    RentalDetailsView openWindowDetails = new RentalDetailsView(); openWindowDetails.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+            });
+            RentalFix = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                RentalSearch selectRentalNo = new RentalSearch();
 
-            RentalFix = new RelayCommand<object>((p) => { return true; }, (p) => { rentalFixOpenWithWindow(); });
+                if (selectRentalNo.House.Text != "")
+                {
+                    rentalFixOpenWithWindow();
+                }
+                else
+                {
+                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+            });
+            RentalDelete = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                RentalSearch selectRentalNo = new RentalSearch();
 
-            RentalDelete = new RelayCommand<object>((p) => { return true; }, (p) => { rentalDelete(); });
+                if (selectRentalNo.House.Text != "")
+                {
+                    rentalDelete();
+                }
+                else
+                {
+                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+            });
 
         }
         private void printsButton()
         {
             if (List.Count != 0) // if List.Count = 0 then Search Result not had 
             {
-
                 ExcelPackage.LicenseContext = LicenseContext.Commercial;
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
                 string filePath = "";
-
                 SaveFileDialog dialog = new SaveFileDialog();
 
                 dialog.Filter = "Excel | *.xlsx | Excel 2003 | *.xls";
@@ -119,11 +164,8 @@ namespace matsukifudousan.ViewModel
                     using (ExcelPackage pa = new ExcelPackage())
                     {
                         pa.Workbook.Properties.Author = "マツキ不動産賃貸管理";
-
                         pa.Workbook.Properties.Title = "賃貸物件詳細";
-
                         ExcelWorksheet ws = pa.Workbook.Worksheets.Add("賃貸一覧");
-
                         ws.Name = "賃貸物件詳細";
                         ws.Cells.Style.Font.Size = 11;
                         ws.Cells.Style.Font.Name = "Calibri";
@@ -133,14 +175,12 @@ namespace matsukifudousan.ViewModel
                                                         "物件名",
                                                         "所在地"
                                                         };
-
                         var countColHeader = arrColumnHeader.Count();
 
                         ws.Cells[1, 1].Value = "賃貸管理の一覧表示";
                         ws.Cells[1, 1, 1, countColHeader].Merge = true;
                         ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
                         ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                        //ws.Cells[1, 1, 1, countColHeader].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
 
                         int colIndex = 1;
                         int rowIndex = 2;
@@ -148,7 +188,6 @@ namespace matsukifudousan.ViewModel
                         foreach (var item in arrColumnHeader)
                         {
                             var cell = ws.Cells[rowIndex, colIndex];
-
                             var fill = cell.Style.Fill;
                             fill.PatternType = ExcelFillStyle.Solid;
                             fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
@@ -160,22 +199,16 @@ namespace matsukifudousan.ViewModel
                             border.Right.Style = ExcelBorderStyle.Thin;
 
                             cell.Value = item;
-
                             colIndex++;
                         }
 
                         foreach (var item in List)
                         {
                             colIndex = 1;
-
                             rowIndex++;
-
                             ws.Cells[rowIndex, colIndex++].Value = item.HouseNo;
-
                             ws.Cells[rowIndex, colIndex++].Value = item.HouseName;
-
                             ws.Cells[rowIndex, colIndex++].Value = item.HouseAddress;
-
                         }
 
                         Byte[] bin = pa.GetAsByteArray();
@@ -185,7 +218,7 @@ namespace matsukifudousan.ViewModel
                 }
                 catch (Exception EE)
                 {
-                    MessageBox.Show("エラーがありました❕" + EE, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("ファイルが開いているために閉じて保存してください！　", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
@@ -197,7 +230,6 @@ namespace matsukifudousan.ViewModel
         private void rentalFixOpenWithWindow()
         {
             RentalSearch rentalSearch = new RentalSearch();
-
             var rentalSearchHouseNo = rentalSearch.House.Text;
 
             if (rentalSearchHouseNo != "")
@@ -213,7 +245,6 @@ namespace matsukifudousan.ViewModel
                     WindowStyle = WindowStyle.None
                 };
                 window.ShowDialog();
-
             }
             else
             {
@@ -225,11 +256,11 @@ namespace matsukifudousan.ViewModel
         {
             RentalSearch rentalSearch = new RentalSearch();
             var rentalHouseDelete = rentalSearch.House.Text;
-
-            var resultButtonDeleteHouse = MessageBox.Show("本当にこの物件（物件番号：" + rentalHouseDelete + "）を削除したいでしょうか？","警告",MessageBoxButton.YesNo,MessageBoxImage.Question);
-
+            var resultButtonDeleteHouse = MessageBox.Show("本当にこの物件（物件番号：" + rentalHouseDelete + "）を削除したいでしょうか？","警告",MessageBoxButton.OKCancel, MessageBoxImage.Question);
             if (resultButtonDeleteHouse == MessageBoxResult.OK)
             {
+                string Result = null;
+                Result = Search;
                 var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(imgDelete => imgDelete.HouseNo == rentalHouseDelete);
                 DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);
                 DataProvider.Ins.DB.SaveChanges();
@@ -239,14 +270,12 @@ namespace matsukifudousan.ViewModel
                 DataProvider.Ins.DB.SaveChanges();
 
                 MessageBox.Show("削除しました！");
-
+                List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
             }
             else
             {
                 MessageBox.Show("削除しなかったです。");
             }
-
         }
-
     }
 }

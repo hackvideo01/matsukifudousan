@@ -30,6 +30,6 @@ namespace matsukifudousan
             DataContext = new RentalFixViewModel();
 
         }
-       
+
     }
 }

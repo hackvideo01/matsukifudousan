@@ -31,7 +31,6 @@ namespace matsukifudousan.ViewModel
         public ObservableCollection<Object> NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged("NameIMG"); } }
 
         string conbineCharatarBefore = "[";
-
         string conbineCharatarAfter = "] ";
         public ApartmentDetailsViewViewModel()
         {

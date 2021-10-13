@@ -31,25 +31,19 @@ namespace matsukifudousan.ViewModel
         public ObservableCollection<Object> NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged("NameIMG"); } }
 
         string conbineCharatarBefore = "[";
-
         string conbineCharatarAfter = "] ";
         public RentalDetailsViewViewModel()
         {
             RentalSearch rentalSearchView = new RentalSearch();
             houseNoView = rentalSearchView.House.Text;
-
             RentalDetailsView = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == houseNoView));
-
             reload();
         }
         private void reload()
         {
             if (houseNoView != "")
             {
-
                 rentalImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.HouseNo == houseNoView));
-
-
                 foreach (var imagePathDB in rentalImageView)
                 {
                     string imagePath = imagePathDB.ImagePath;
@@ -71,7 +65,6 @@ namespace matsukifudousan.ViewModel
 
                     NameIMG.Add(imageControl);
                     ImagePath += conbineCharatarBefore + imageName + conbineCharatarAfter;
-
                 }
             }
         }

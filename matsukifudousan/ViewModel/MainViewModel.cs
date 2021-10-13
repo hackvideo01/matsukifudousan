@@ -1,4 +1,5 @@
-﻿using System;
+﻿using matsukifudousan.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,16 @@ namespace matsukifudousan.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        //public ICommand Rentalmanagement { get; set; }
         public MainViewModel()
         {
-            //MessageBox.Show("Da vAo Roi");
-            //Rentalmanagement = new RelayCommand<object>((p) => { return true; }, (p) => { UnitWindow wd = new UnitWindow(); wd.ShowDialog(); });
+            try
+            {
+                DataProvider.Ins.DB.RentalManagementDB.FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("接続できません。" + e);
+            }
         }
     }
 }

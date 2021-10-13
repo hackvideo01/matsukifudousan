@@ -200,7 +200,7 @@
                                 <TextBlock Text="契約の種類" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="契約の種類" Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="契約の種類" Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -215,7 +215,7 @@
                                 <TextBlock Text="取引態様" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="取引態様" Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="取引態様" Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -245,7 +245,7 @@
                                 <TextBlock Text="契約日" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <DatePicker Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
+                                <DatePicker Text="{Binding ContractType}" Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
                             </Grid>
                         </Grid>
                     </Border>
@@ -260,7 +260,7 @@
                                 <TextBlock Text="契約の始期" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <DatePicker Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
+                                <DatePicker Text="{Binding ContractType}" Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
                             </Grid>
                         </Grid>
                     </Border>
@@ -275,7 +275,7 @@
                                 <TextBlock Text="契約の終期" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <DatePicker Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
+                                <DatePicker Text="{Binding ContractType}" Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
                             </Grid>
                         </Grid>
                     </Border>
@@ -290,7 +290,7 @@
                                 <TextBlock Text="始期月の日数" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <DatePicker Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
+                                <DatePicker Text="{Binding ContractType}" Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
                             </Grid>
                         </Grid>
                     </Border>
@@ -305,7 +305,7 @@
                                 <TextBlock Text="所有者氏名" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="所有者氏名"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="所有者氏名"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -320,7 +320,7 @@
                                 <TextBlock Text="所有者生年月日" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <DatePicker Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
+                                <DatePicker Text="{Binding ContractType}" Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
                             </Grid>
                         </Grid>
                     </Border>
@@ -335,7 +335,7 @@
                                 <TextBlock Text="所有者住所" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="所有者住所"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="所有者住所"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -350,7 +350,7 @@
                                 <TextBlock Text="所有者〒" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="所有者〒"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="所有者〒"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -365,7 +365,7 @@
                                 <TextBlock Text="所有者電話" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="所有者電話"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="所有者電話"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -395,7 +395,7 @@
                                 <TextBlock Text="賃貸人生年月日" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <DatePicker Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
+                                <DatePicker Text="{Binding ContractType}" Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
                             </Grid>
                         </Grid>
                     </Border>
@@ -410,7 +410,7 @@
                                 <TextBlock Text="賃貸人住所" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="賃貸人住所"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="賃貸人住所"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -425,7 +425,7 @@
                                 <TextBlock Text="賃貸人〒" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="賃貸人〒"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="賃貸人〒"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -440,7 +440,7 @@
                                 <TextBlock Text="賃貸人電話" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="賃貸人電話"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="賃貸人電話"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -455,7 +455,7 @@
                                 <TextBlock Text="賃借人氏名" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="賃借人氏名"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="賃借人氏名"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -470,7 +470,7 @@
                                 <TextBlock Text="賃借人生年月日" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <DatePicker Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
+                                <DatePicker Text="{Binding ContractType}" Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
                             </Grid>
                         </Grid>
                     </Border>
@@ -485,7 +485,7 @@
                                 <TextBlock Text="賃借人住所" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="賃借人住所"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="賃借人住所"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -500,7 +500,7 @@
                                 <TextBlock Text="賃借人電話" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="賃借人電話"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="賃借人電話"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -515,7 +515,7 @@
                                 <TextBlock Text="入居者氏名" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="入居者氏名"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="入居者氏名"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -530,7 +530,7 @@
                                 <TextBlock Text="入居者生年月日" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <DatePicker Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
+                                <DatePicker Text="{Binding ContractType}" Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
                             </Grid>
                         </Grid>
                     </Border>
@@ -545,7 +545,7 @@
                                 <TextBlock Text="入居者氏名" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="入居者氏名"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="入居者氏名"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -560,7 +560,7 @@
                                 <TextBlock Text="入居者生年月日" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <DatePicker Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
+                                <DatePicker Text="{Binding ContractType}" Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
                             </Grid>
                         </Grid>
                     </Border>
@@ -575,7 +575,7 @@
                                 <TextBlock Text="入居者氏名" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="入居者氏名"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="入居者氏名"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -590,7 +590,7 @@
                                 <TextBlock Text="入居者生年月日" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <DatePicker Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
+                                <DatePicker Text="{Binding ContractType}" Style="{StaticResource ResourceKey=DatePickerMF}"></DatePicker>
                             </Grid>
                         </Grid>
                     </Border>
@@ -606,7 +606,7 @@
                                 <TextBlock Text="所在地" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="所在地"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="所在地"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -621,7 +621,7 @@
                                 <TextBlock Text="名称" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="名称"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="名称"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -636,7 +636,7 @@
                                 <TextBlock Text="号室" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="号室"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="号室"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -651,7 +651,7 @@
                                 <TextBlock Text="家屋番号" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="家屋番号"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="家屋番号"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -666,7 +666,7 @@
                                 <TextBlock Text="種類" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="種類"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="種類"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -681,7 +681,7 @@
                                 <TextBlock Text="構造" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="構造"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="構造"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -696,7 +696,7 @@
                                 <TextBlock Text="外壁" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="外壁"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="外壁"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -726,7 +726,7 @@
                                 <TextBlock Text="間取" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox materialDesign:HintAssist.Hint="間取"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBox Text="{Binding ContractType}" materialDesign:HintAssist.Hint="間取"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -741,7 +741,7 @@
                                 <TextBlock Text="駐車場有無" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox x:Name="Parking" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Parking" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose11}" FontSize="19" Margin="9 0 0 0 " Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -756,7 +756,7 @@
                                 <TextBlock Text="駐車場の形態" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox x:Name="ParkingChoose" Style="{StaticResource ResourceKey=MaterialDesignComboBox}">
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="ParkingChoose" Style="{StaticResource ResourceKey=MaterialDesignComboBox}">
                                     <TextBlock Text="砂利"/>
                                     <TextBlock Text="アスファルト"/>
                                     <TextBlock Text="コンクリート"/>
@@ -772,10 +772,25 @@
                                 <ColumnDefinition Width="75*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Border Grid.Column="0" Style="{StaticResource ResourceKey=BorderTr2}">
-                                <TextBlock Text="入居時使用可能数" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
+                                <TextBlock Text="入居時使用可能台数" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox Text="長さ　" Style="{StaticResource ResourceKey=MaterialDesignComboBoxEditableTextBox}"></TextBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="21.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="8.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="21.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="8.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="21.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="9*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="長さ" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
+                                <TextBox Grid.Column="1" Text="{Binding Length}" materialDesign:HintAssist.Hint="m"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBlock Grid.Column="2" Text="巾" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
+                                <TextBox Grid.Column="3" Text="{Binding Width}" materialDesign:HintAssist.Hint="m"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBlock Grid.Column="4" Text="高さ" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
+                                <TextBox Grid.Column="5" Text="{Binding Height}" materialDesign:HintAssist.Hint="m"  Margin="9 3 0 0" FontSize="19"/>
+                                <TextBlock Grid.Column="6" Text="以上" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Grid>
                         </Grid>
                     </Border>
@@ -790,7 +805,7 @@
                                 <TextBlock Text="駐車場位置" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBlock Text="" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
+                                <TextBox materialDesign:HintAssist.Hint="駐車場位置" Margin="9 3 0 0" FontSize="19"></TextBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -805,7 +820,7 @@
                                 <TextBlock Text="電気" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox x:Name="Electronic" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}" SelectedValue="{Binding Electronic, Mode=TwoWay}"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Electronic" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" SelectedValue="{Binding Electronic, Mode=TwoWay}" FontSize="19" Margin="9 0 0 0 " Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -820,7 +835,7 @@
                                 <TextBlock Text="現在の供給会社" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox Text="東京電力エナジーパトナー㈱"  Margin="9 3 0 0" FontSize="19"></TextBox>
+                                <TextBox x:Name="ElectronicChoose" Margin="9 3 0 0" FontSize="19"></TextBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -839,7 +854,7 @@
                                     <ColumnDefinition Width="20*"></ColumnDefinition>
                                     <ColumnDefinition Width="80*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>-->
-                                <ComboBox x:Name="gas" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Gas" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -854,7 +869,7 @@
                                 <TextBlock Text="ガスの種類" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox x:Name="gaschoose" Style="{StaticResource ResourceKey=MaterialDesignComboBox}">
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Gaschoose" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
                                     <TextBlock Text="都市ガス"></TextBlock>
                                     <TextBlock Text="LPG"></TextBlock>
                                     <TextBlock Text="供給会社"></TextBlock>
@@ -873,7 +888,7 @@
                                 <TextBlock Text="供給会社" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBox Text=""  Margin="9 3 0 0" FontSize="19"></TextBox>
+                                <TextBox materialDesign:HintAssist.Hint="供給会社" Margin="9 3 0 0" FontSize="19"></TextBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -892,8 +907,8 @@
                                     <ColumnDefinition Width="20*"></ColumnDefinition>
                                     <ColumnDefinition Width="80*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <ComboBox x:Name="WaterService" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
-                                <ComboBox x:Name="WaterServiceChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}">
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="WaterService" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="WaterServiceChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
                                     <TextBlock Text="公共"></TextBlock>
                                     <TextBlock Text="簡易水道"></TextBlock>
                                     <TextBlock Text="井戸"></TextBlock>
@@ -916,8 +931,8 @@
                                     <ColumnDefinition Width="20*"></ColumnDefinition>
                                     <ColumnDefinition Width="80*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <ComboBox x:Name="WaterTank" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
-                                <ComboBox x:Name="WaterTankChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}">
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="WaterTank" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="WaterTankChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
                                     <TextBlock Text="ポンプ付き"></TextBlock>
                                 </ComboBox>
                             </Grid>
@@ -938,8 +953,8 @@
                                     <ColumnDefinition Width="20*"></ColumnDefinition>
                                     <ColumnDefinition Width="80*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <ComboBox x:Name="Toilet" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
-                                <ComboBox x:Name="ToiletChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}">
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Toilet" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="ToiletChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
                                     <TextBlock Text="水洗"></TextBlock>
                                     <TextBlock Text="汲み取り"></TextBlock>
                                     <TextBlock Text="洋式"></TextBlock>
@@ -959,7 +974,18 @@
                                 <TextBlock Text="処理設備" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <TextBlock Text="" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="ProcessEquipment" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="ProcessEquipmentChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                    <TextBlock Text="本下水"></TextBlock>
+                                    <TextBlock Text="合併浄化槽"></TextBlock>
+                                    <TextBlock Text="集中浄化槽"></TextBlock>
+                                    <TextBlock Text="単独浄化槽"></TextBlock>
+                                    <TextBlock Text="汲み取り"></TextBlock>
+                                </ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -974,7 +1000,17 @@
                                 <TextBlock Text="流し台" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Sink" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="SinkChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                        <TextBlock Text="単独使用"></TextBlock>
+                                        <TextBlock Text="共同使用"></TextBlock>
+                                    </ComboBox>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -989,7 +1025,17 @@
                                 <TextBlock Text="蛇口" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Faucet" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="FaucetChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                        <TextBlock Text="単独使用"></TextBlock>
+                                        <TextBlock Text="共同使用"></TextBlock>
+                                    </ComboBox>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1004,7 +1050,17 @@
                                 <TextBlock Text="キッチン" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Kitchen" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="KitchenChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                        <TextBlock Text="単独使用"></TextBlock>
+                                        <TextBlock Text="共同使用"></TextBlock>
+                                    </ComboBox>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1019,7 +1075,17 @@
                                 <TextBlock Text="給湯機" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="WaterHeater" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="WaterHeaterChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                        <TextBlock Text="単独使用"></TextBlock>
+                                        <TextBlock Text="共同使用"></TextBlock>
+                                    </ComboBox>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1034,7 +1100,17 @@
                                 <TextBlock Text="コンロ" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Stove" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="StoveChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                        <TextBlock Text="単独使用"></TextBlock>
+                                        <TextBlock Text="共同使用"></TextBlock>
+                                    </ComboBox>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1049,7 +1125,17 @@
                                 <TextBlock Text="浴室" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Bathroom" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="BathroomChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                        <TextBlock Text="単独使用"></TextBlock>
+                                        <TextBlock Text="共同使用"></TextBlock>
+                                    </ComboBox>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1064,7 +1150,17 @@
                                 <TextBlock Text="シャワー" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Shower" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="ShowerChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                        <TextBlock Text="単独使用"></TextBlock>
+                                        <TextBlock Text="共同使用"></TextBlock>
+                                    </ComboBox>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1079,7 +1175,17 @@
                                 <TextBlock Text="追い焚き付" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Reheating" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="ReheatingChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                        <TextBlock Text="単独使用"></TextBlock>
+                                        <TextBlock Text="共同使用"></TextBlock>
+                                    </ComboBox>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border> 
@@ -1094,7 +1200,17 @@
                                 <TextBlock Text="シャワー付き" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="ShowerWith" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="ShowerWithChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                        <TextBlock Text="単独使用"></TextBlock>
+                                        <TextBlock Text="共同使用"></TextBlock>
+                                    </ComboBox>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1109,7 +1225,17 @@
                                 <TextBlock Text="バブル付き浴槽" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Bathtub" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="BathtubChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                        <TextBlock Text="単独使用"></TextBlock>
+                                        <TextBlock Text="共同使用"></TextBlock>
+                                    </ComboBox>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1124,7 +1250,17 @@
                                 <TextBlock Text="洗濯機置き場" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="WashingMachine" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="WashingMachineChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                        <TextBlock Text="単独使用"></TextBlock>
+                                        <TextBlock Text="共同使用"></TextBlock>
+                                    </ComboBox>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1139,7 +1275,12 @@
                                 <TextBlock Text="接続金具" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="ConnectionBracket" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <TextBlock x:Name="ConnectionBracketChoose" Grid.Column="1" materialDesign:HintAssist.Hint="接続金具"></TextBlock>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1154,7 +1295,18 @@
                                 <TextBlock Text="照明器具" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="LightingEquipment" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="LightingEquipmentChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                    <TextBlock Text="白熱"></TextBlock>
+                                    <TextBlock Text="蛍光灯"></TextBlock>
+                                    <TextBlock Text="LED"></TextBlock>
+                                    <TextBlock Text="電気"></TextBlock>
+                                    <TextBlock Text="リモコン"></TextBlock>
+                                </ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1169,7 +1321,17 @@
                                 <TextBlock Text="電球の球" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="LightBulbBall" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="LightBulbBallChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                    <TextBlock Text="白熱"></TextBlock>
+                                    <TextBlock Text="蛍光灯"></TextBlock>
+                                    <TextBlock Text="LED"></TextBlock>
+                                    <TextBlock Text="切れたときは借主負担"></TextBlock>
+                                </ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1184,7 +1346,12 @@
                                 <TextBlock Text="テレビアンテナ" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Antenna" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <TextBox x:Name="AntennaChoose" Grid.Column="1" materialDesign:HintAssist.Hint="電気"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1199,11 +1366,16 @@
                                 <TextBlock Text="固定電話設備" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Fixedlinephone" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <TextBox x:Name="FixedlinephoneChoose" Grid.Column="1" materialDesign:HintAssist.Hint="NTT"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
-
+                    
                     <Border Grid.Row="65" Style="{StaticResource ResourceKey=BorderGrid}">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -1214,7 +1386,12 @@
                                 <TextBlock Text="電話機" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Phone" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <TextBox x:Name="PhoneChoose" Grid.Column="1" materialDesign:HintAssist.Hint="NTT他"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1229,7 +1406,12 @@
                                 <TextBlock Text="インターネット設備" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Internet" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <TextBox x:Name="InternetChoose" Grid.Column="1" materialDesign:HintAssist.Hint="NTT他"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1244,7 +1426,12 @@
                                 <TextBlock Text="プロバイダー" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Provider" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <TextBox x:Name="ProviderChoose" Grid.Column="1" materialDesign:HintAssist.Hint="NTT他"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1259,7 +1446,7 @@
                                 <TextBlock Text="ルーター" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1274,7 +1461,12 @@
                                 <TextBlock Text="冷暖房" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Electricity" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <TextBox x:Name="ElectricityChoose" Grid.Column="1" materialDesign:HintAssist.Hint="電気"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1289,7 +1481,7 @@
                                 <TextBlock Text="エレベーター" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1304,7 +1496,12 @@
                                 <TextBlock Text="ゴミ置き場" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="GarbageStorage" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <TextBox x:Name="GarbageStorageChoose" Grid.Column="1" materialDesign:HintAssist.Hint="網"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1319,7 +1516,12 @@
                                 <TextBlock Text="ペット" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose2}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Pet" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose2}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <TextBox x:Name="PetChoose" Grid.Column="1" materialDesign:HintAssist.Hint="種類・大きさ・飼育方法"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1334,7 +1536,7 @@
                                 <TextBlock Text="避難はしご" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1349,7 +1551,7 @@
                                 <TextBlock Text="自転車置き場" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1364,7 +1566,7 @@
                                 <TextBlock Text="戸袋" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1379,7 +1581,7 @@
                                 <TextBlock Text="網戸" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1394,7 +1596,7 @@
                                 <TextBlock Text="火災警報機" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1409,7 +1611,7 @@
                                 <TextBlock Text="消火器" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1424,7 +1626,7 @@
                                 <TextBlock Text="消火栓" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1439,7 +1641,14 @@
                                 <TextBlock Text="物置" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                                        <ColumnDefinition Width="80*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="Storage" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                    <TextBox x:Name="StorageChoose" Grid.Column="1" materialDesign:HintAssist.Hint="部屋番号"  Margin="9 3 0 0" FontSize="19"/>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1454,7 +1663,7 @@
                                 <TextBlock Text="太陽光発電" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1469,7 +1678,16 @@
                                 <TextBlock Text="利用の有無" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="UseNoYes" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="UseNoYesChoose" Grid.Column="1" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="19" Margin="9 0 0 0" Height="36">
+                                    <TextBlock Text="他人の利用"></TextBlock>
+                                    <TextBlock Text="借主利用不可"></TextBlock>
+                                    <TextBlock Text="借主利用可"></TextBlock>
+                                </ComboBox>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1484,7 +1702,12 @@
                                 <TextBlock Text="温泉" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="HotSpring" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <TextBox x:Name="HotSpringChoose" Grid.Column="1" materialDesign:HintAssist.Hint="利用料月額　円"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1499,7 +1722,12 @@
                                 <TextBlock Text="その他の建物" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="OtherHouse" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <TextBox x:Name="OtherHouseChoose" Grid.Column="1" materialDesign:HintAssist.Hint="その他の建物"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1514,7 +1742,12 @@
                                 <TextBlock Text="その他の条件" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose}"></ComboBox>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox SelectedItem="{Binding SelectedSalesPeriod}" x:Name="OtherConditions" Grid.Column="0" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" ItemsSource="{Binding Choose1}" FontSize="19" Margin="9 0 0 0" Height="36"></ComboBox>
+                                <TextBox x:Name="OtherConditionsChoose" Grid.Column="1" materialDesign:HintAssist.Hint="その他の条件"  Margin="9 3 0 0" FontSize="19"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -1759,7 +1992,7 @@
                         </Grid>
                     </Border>
 
-                    <!--<Button Command="{Binding AddRentalCommand}" Grid.Row="102" Content="登録" Width="150" Height="42"></Button>-->
+                    <Button Command="{Binding AddRentalCommand}" Grid.Row="102" Content="登録" Width="150" Height="42" Background="#333333"  Margin="0 15 0 0"></Button>
 
                 </Grid>
             </ScrollViewer>

@@ -22,9 +22,7 @@ namespace matsukifudousan
 
         private void ListViewMenu_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-          
             //GridMain.Children.Clear();
-            
             switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
             {
 
@@ -38,6 +36,14 @@ namespace matsukifudousan
                     break;
                 case "DetachedHouseManagement":
                     usc = new DetachedHouseManagement();
+                    GridMain.Children.Add(usc);
+                    break;
+                case "ApartmentManagement":
+                    usc = new ApartmentManagement();
+                    GridMain.Children.Add(usc);
+                    break;
+                case "LandManagement":
+                    usc = new LandManagement();
                     GridMain.Children.Add(usc);
                     break;
                 case "version":

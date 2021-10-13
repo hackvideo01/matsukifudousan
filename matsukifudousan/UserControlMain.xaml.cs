@@ -1,4 +1,5 @@
-﻿using System;
+﻿using matsukifudousan.View.test;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,6 +45,23 @@ namespace matsukifudousan
         {
             MainWindow parentWindow = (MainWindow)Window.GetWindow(this);
             usc = new ApartmentManagement();
+            parentWindow.GridMain.Children.Add(usc);
+        }
+        private void Land_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow parentWindow = (MainWindow)Window.GetWindow(this);
+            usc = new LandManagement();
+            parentWindow.GridMain.Children.Add(usc);
+        }
+        private void test_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 w1 = new Window1();
+            w1.Show();
+        }
+        private void ImageSearch_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow parentWindow = (MainWindow)Window.GetWindow(this);
+            usc = new ImageSearch();
             parentWindow.GridMain.Children.Add(usc);
         }
     }

@@ -156,9 +156,7 @@ namespace matsukifudousan.ViewModel
         public ObservableCollection<Object> ImageListPath { get => _ImageListPath; set { _ImageListPath = value; OnPropertyChanged(); } }
 
         string conbineCharatarBefore = "[";
-
         string conbineCharatarAfter = "] ";
-
         public int Comfirm = 0;
 
         public void ClearTextBoxes(System.Windows.Forms.Control.ControlCollection ctrlCollection)
@@ -178,16 +176,12 @@ namespace matsukifudousan.ViewModel
 
         public DetachedInputViewModel()
         {
-
             // Get current working directory (..\bin\Debug)
             string workingDirectory = Environment.CurrentDirectory;
-
             // GEt the current PROJECT directory
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
             // Create specific path file
             string SavePath = string.Format(@"{0}\images\RentalImage", projectDirectory);
-
             string ImageNameString = ImageListPath.ToString();
             ContractDetailsCommandWD = new RelayCommand<object>((p) => { return true; }, (p) => { ContractDetails wd = new ContractDetails(); wd.ShowDialog(); });
 
@@ -195,11 +189,9 @@ namespace matsukifudousan.ViewModel
             {
                 if (string.IsNullOrEmpty(DetachedHouseNo))
                     return false;
-
                 var displayList = DataProvider.Ins.DB.DetachedDB.Where(x => x.DetachedHouseNo == DetachedHouseNo);
                 if (displayList == null || displayList.Count() != 0) // if displayList = 0 then HouseNo had in database
                     return false;
-
                 return true;
             }, (p) =>
 
@@ -284,7 +276,6 @@ namespace matsukifudousan.ViewModel
                 #endregion
             });
 
-
             AddImageCommand = new RelayCommand<object>((p) =>
             {
                 return true;
@@ -292,22 +283,13 @@ namespace matsukifudousan.ViewModel
             {
                 try
                 {
-
                 duplicateImage:
-
                     OpenFileDialog openDialog = new OpenFileDialog();
-
                     openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-
                     openDialog.Multiselect = true;
-
                     if (openDialog.ShowDialog() == true)
                     {
-
                         string appDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-
-
                         //string appdirect = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
                         //string appdirect1 = AppDomain.CurrentDomain.BaseDirectory;
@@ -329,24 +311,19 @@ namespace matsukifudousan.ViewModel
                             //        goto duplicateImage;
                             //    }
                             //}
-
                             string fileNameRandom = item;
-                            int count = 0;
                             string filePathWithoutName = Path.GetDirectoryName(fileNameRandom);
                             string fileName = Path.GetFileName(fileNameRandom);
                             string filenamewithoutextension = Path.GetFileNameWithoutExtension(fileNameRandom);
                             string extension = Path.GetExtension(fileNameRandom);
-
                             if (File.Exists(SavePath + "\\" + fileName))
                             {
-
                                 var result = MessageBox.Show("【" + fileName + "】 " + "がありました。\nもう一度写真を選択或いはアップデートしたい写真の名前を変更ください！", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
                                 if (result == MessageBoxResult.OK)
                                 {
                                     goto duplicateImage;
                                 }
                             }
-
                             //while (File.Exists(SavePath + "\\" + fileName))
                             //{
                             //    MessageBox.Show("ありました!");
@@ -363,7 +340,6 @@ namespace matsukifudousan.ViewModel
                         foreach (var imageLink in openDialog.FileNames)
                         {
                             string imagePath = imageLink;
-
                             var drawImageBitmap = new BitmapImage(new Uri(imagePath));
                             var imageControl = new Image();
                             imageControl.Width = 100;  //set image of width 100 , guest of request
@@ -377,35 +353,20 @@ namespace matsukifudousan.ViewModel
                             deleteButton.Background = Brushes.Red;
                             deleteButton.Click += new RoutedEventHandler(home_read_click);
 
-                            //StackPanel stackPnl = new StackPanel();
-                            //stackPnl.Orientation = Orientation.Vertical;
-                            //stackPnl.Height = 150;
-                            //stackPnl.Width = 150;
-                            //stackPnl.Children.Add(imageControl);
-                            //stackPnl.Children.Add(deleteButton);
-
                             NameIMG.Add(imageControl);
                             NameIMG.Add(deleteButton);
-
-                            //NameIMG.Add(stackPnl);
-
                         }
-
-
                         ImageObject = openDialog.FileNames;
                         ImageNameObject = openDialog.SafeFileNames;
-
                         foreach (String saveImageName in ImageNameObject)
                         {
                             ImageListPath.Add(saveImageName);
                         }
 
                         ImagePath = "";
-
                         foreach (var saveImageName in ImageListPath)
                         {
                             ImagePath += conbineCharatarBefore + saveImageName + conbineCharatarAfter;
-
                         }
 
                         foreach (String SaveImageItem in ImageObject)
@@ -418,33 +379,15 @@ namespace matsukifudousan.ViewModel
                 {
                     MessageBox.Show("Fix!" + e, "ERROR!!!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
             });
-
-            //deleteAction = new RelayCommand<object>((p) => { return true; }, (p) =>
-            //{
-            //    var x = _NameIMG[(_NameIMG.IndexOf(1) + 1)];
-            //});
-
         }
-
         private void home_read_click(object sender, RoutedEventArgs e)
         {
-
             FrameworkElement parent = (FrameworkElement)((Button)sender);
-
             int comfirmDeleteImage = Comfirm;
-
             var button = sender as Button;
-
-            //string n = ((Button) sender).Content.ToString();
-
-            //int index = Int32.Parse(n);
-
             var indexBtn = NameIMG.IndexOf(button);
-
             var indexImg = indexBtn - 1;
-
             if (indexImg == 0)
             {
                 string nameImage = ImageListPath.ElementAt(0).ToString();
@@ -455,7 +398,6 @@ namespace matsukifudousan.ViewModel
                 {
                     DeleteImage(nameImage);
                 }
-
             }
             else
             {
@@ -470,29 +412,21 @@ namespace matsukifudousan.ViewModel
             }
 
             ImagePath = "";
-
             foreach (var saveImageName in ImageListPath)
             {
                 ImagePath += conbineCharatarBefore + saveImageName + conbineCharatarAfter;
-
             }
-
         }
 
         private void DeleteImage(string nameImage)
-
         {
             // Get current working directory (..\bin\Debug)
             string workingDirectory = Environment.CurrentDirectory;
-
             // GEt the current PROJECT directory
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-
             // Create specific path file
             string SavePath = string.Format(@"{0}\images\RentalImage\", projectDirectory);
-
             File.Delete(SavePath + nameImage);
-
         }
     }
 }

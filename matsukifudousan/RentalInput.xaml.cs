@@ -25,7 +25,6 @@ namespace matsukifudousan
     /// </summary>
     public partial class RentalInput : UserControl
     {
-
         public RentalInput()
         {
             InitializeComponent();
@@ -33,14 +32,17 @@ namespace matsukifudousan
             DataContext = new RentalInputViewModel();
         }
 
-        //private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        //{
-        //    string filePath2 = "C:/Users/user/source/repos/matsukifudousan/matsukifudousan/images/RentalImage/桜御影JB.jpg";
+        private void Grid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            var uie = e.OriginalSource as UIElement;
 
-        //    var webImage2 = new BitmapImage(new Uri(filePath2));
-        //    var imageControl2 = new Image();
-        //    imageControl2.Source = webImage2;
-        //    ContentRoot.Children.Add(imageControl2);
-        //}
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                uie.MoveFocus(
+                new TraversalRequest(
+                FocusNavigationDirection.Next));
+            }
+        }
     }
 }
