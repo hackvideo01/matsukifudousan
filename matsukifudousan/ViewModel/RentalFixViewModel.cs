@@ -226,7 +226,15 @@ namespace matsukifudousan.ViewModel
                         {
                             string imagePath = imageLink;
 
-                            var drawImageBitmap = new BitmapImage(new Uri(imagePath));
+                            var drawImageBitmap = new BitmapImage();
+                            var stream = File.OpenRead(imagePath);
+                            drawImageBitmap.BeginInit();
+                            drawImageBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                            drawImageBitmap.StreamSource = stream;
+                            drawImageBitmap.EndInit();
+                            stream.Close();
+                            stream.Dispose();
+                            drawImageBitmap.Freeze();
                             var imageControl = new Image();
                             imageControl.Width = 100;  //set image of width 100 , guest of request
                             imageControl.Height = 100; //set image of height 100 , quest of request
@@ -235,7 +243,6 @@ namespace matsukifudousan.ViewModel
                             Button deleteButton = new Button();
                             deleteButton.Content = "X";
                             deleteButton.Name = "Delete";
-                            deleteButton.Command = deleteAction;
                             deleteButton.Background = Brushes.Red;
                             deleteButton.Click += new RoutedEventHandler(home_read_click);
 
@@ -493,6 +500,7 @@ namespace matsukifudousan.ViewModel
                     string imagePath = imagePathDB.ImagePath;
                     string imageName = imagePathDB.ImageName;
                     ImageFullPath = imagePath;
+
                     var bitmap = new BitmapImage();
                     var stream = File.OpenRead(imagePath);
                     bitmap.BeginInit();
@@ -510,7 +518,6 @@ namespace matsukifudousan.ViewModel
                     Button deleteButton = new Button();
                     deleteButton.Content = "X";
                     deleteButton.Name = "Delete";
-                    //deleteButton.Command = deleteAction;
                     deleteButton.Background = Brushes.Red;
                     deleteButton.Click += new RoutedEventHandler(home_read_click);
 

@@ -174,7 +174,6 @@ namespace matsukifudousan.ViewModel
         //private List<object> ImageListPath = new List<object>();
 
         string conbineCharatarBefore = "[";
-
         string conbineCharatarAfter = "] ";
 
         public int Comfirm = 0;
@@ -220,8 +219,8 @@ namespace matsukifudousan.ViewModel
 
                 return true;
             }, (p) =>
-
             {
+                
                 Comfirm = 1;
 
                 if (Comfirm == 1)
@@ -350,7 +349,15 @@ namespace matsukifudousan.ViewModel
                         {
                             string imagePath = imageLink;
 
-                            var drawImageBitmap = new BitmapImage(new Uri(imagePath));
+                            var drawImageBitmap = new BitmapImage();
+                            var stream = File.OpenRead(imagePath);
+                            drawImageBitmap.BeginInit();
+                            drawImageBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                            drawImageBitmap.StreamSource = stream;
+                            drawImageBitmap.EndInit();
+                            stream.Close();
+                            stream.Dispose();
+                            drawImageBitmap.Freeze();
                             var imageControl = new Image();
                             imageControl.Width = 100;  //set image of width 100 , guest of request
                             imageControl.Height = 100; //set image of height 100 , quest of request

@@ -209,7 +209,7 @@ namespace matsukifudousan.ViewModel
                     Title = "土地詳細",
                     Width = 835,
                     Height = 450,
-                    Content = new LandFix(),
+                    Content = new LandFixs(),
                     ResizeMode = ResizeMode.NoResize,
                     WindowStartupLocation = WindowStartupLocation.CenterScreen,
                     WindowStyle = WindowStyle.None

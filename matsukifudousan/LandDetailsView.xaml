@@ -1,4 +1,4 @@
-﻿<Window x:Class="matsukifudousan.LandFix"
+﻿<Window x:Class="matsukifudousan.LandDetailsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -100,7 +100,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -115,7 +115,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="1" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="1" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -130,7 +130,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="2" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="2" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -152,7 +152,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="3" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="3" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -167,7 +167,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="4" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="4" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -189,7 +189,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="5" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="5" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -211,7 +211,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="6" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="6" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -233,7 +233,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="7" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="7" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -255,7 +255,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="8" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="8" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -277,7 +277,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="9" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="9" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -299,7 +299,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="10" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="10" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -321,7 +321,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="11" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="11" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -343,7 +343,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="12" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="12" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -358,7 +358,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="13" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="13" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -373,7 +373,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="14" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="14" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -388,7 +388,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="15" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="15" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -403,7 +403,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="16" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="16" Style="{StaticResource ResourceKey=BorderGrid}" DataContext="{Binding landDetailsView,Mode=TwoWay}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>

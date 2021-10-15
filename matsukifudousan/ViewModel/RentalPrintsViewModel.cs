@@ -39,7 +39,7 @@ namespace matsukifudousan.ViewModel
 
         private string _HouseNo;
         public string HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
-        
+
         private string _SelectedPrints;
         public string SelectedPrints { get => _SelectedPrints; set { _SelectedPrints = value; OnPropertyChanged(); } }
 
@@ -170,7 +170,7 @@ namespace matsukifudousan.ViewModel
                 Result = Search;
                 //List = LoadRecord(loadedRecord, numberRecord);
 
-                if (Result != "")
+                if (Result != ""&&Result != null)
                 {
                     List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
 
@@ -189,29 +189,62 @@ namespace matsukifudousan.ViewModel
             EXCELButton = new RelayCommand<object>((px) => { return true; }, (px) =>
             {
                 RentalPrints select = new RentalPrints();
-                
-                if(SelectedPrints == "物件賃貸契約書")
-                {
-                    this.xls = new Microsoft.Office.Interop.Excel.Application();
-                    ExcelVisibleToggle(xls, false);
-                    if (this.isNewXlsFile)
-                    {
-                        this.book = xls.Workbooks.Add();
-                    }
-                    else
-                    {
-                        // Open a File
-                        this.book = xls.Workbooks.Open(savePathFile + "/建物賃貸借契約書.xlsx");
 
-                        this.xls.Cells[30, "C"] = "ok1";
+                string selectHouseNo = select.House.Text;
+
+                if (SelectedPrints == "物件賃貸契約書" && selectHouseNo != null)
+                {
+                    try
+                    {
+                        this.xls = new Microsoft.Office.Interop.Excel.Application();
+                        ExcelVisibleToggle(xls, false);
+                        if (this.isNewXlsFile)
+                        {
+                            this.book = xls.Workbooks.Add();
+                        }
+                        else
+                        {
+                            //家賃・月額 Money
+                            string rentMoney = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().Rent;
+                            //共益費月額　Money
+                            string commonFeeMoney = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().CommonFee;
+                            //管理費月額　Money
+                            string managementFeeMoney = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().ManagementFee;
+                            //駐車料月額　Money
+                            string parkingFeeMoney = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().ParkingFee;
+                            //敷金　Money
+                            string securityDepositMoney = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().SecurityDeposit;
+                            //礼金　Money
+                            string keyMoneyMoney = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().KeyMoney;
+                            // Open a File
+                            try
+                            {
+                                this.book = xls.Workbooks.Open(savePathFile + "/建物賃貸借契約書.xlsx");
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("パースがないです。");
+                            }
+
+                            this.xls.Cells[30, "C"] = rentMoney;
+                            this.xls.Cells[31, "C"] = commonFeeMoney;
+                            this.xls.Cells[32, "C"] = managementFeeMoney;
+                            this.xls.Cells[33, "C"] = parkingFeeMoney;
+                            this.xls.Cells[34, "C"] = securityDepositMoney;
+                            this.xls.Cells[34, "E"] = keyMoneyMoney;
+                        }
+                        //this.sheet =
+                        //(Microsoft.Office.Interop.Excel.Worksheet)this.book.Sheets[sheetName];
+                        ExcelVisibleToggle(xls, true);
                     }
-                    //this.sheet =
-                    //(Microsoft.Office.Interop.Excel.Worksheet)this.book.Sheets[sheetName];
-                    ExcelVisibleToggle(xls, true);
+                    catch (Exception)
+                    {
+                        MessageBox.Show("もう一度印刷してください。");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show(SelectedPrints);
+                    MessageBox.Show("書類を選択ください。");
                 }
 
                 //RentalPrints prs = new RentalPrints();

@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
+﻿using ApiAccess.Glassdoor.V1.DataTypes;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -34,50 +35,36 @@ namespace matsukifudousan
         {
             InitializeComponent();
 
-            var options = new JsonSerializerOptions
-            {
-                //日本語の場合の文字化け防止
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
-                //インデント整形
-                WriteIndented = true,
-            };
-
             string zipcode = "4110842";
 
+            //URL
             string url = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode;
+
             using (var webClient = new System.Net.WebClient())
             {
-                //string jsonStr = webClient.DownloadString(url);
+                // エンコーディングをUTF-8にしておく（取得してからEncoding変えてもパースできなかった）
+                webClient.Encoding = System.Text.Encoding.UTF8;
+
+                // JSONのテキストを取得
                 string jsonStr = webClient.DownloadString(url);
 
-                //バイト配列に変換
-                byte[] bytesUTF8 = System.Text.Encoding.Default.GetBytes(jsonStr);
+                JObject jsonObj = JObject.Parse(jsonStr);
 
-                //バイト配列をUTF8の文字コードとしてStringに変換
-                string stringSJIS = System.Text.Encoding.UTF8.GetString(bytesUTF8);
+                var jsonData = jsonObj["results"].First;
+                //var jsonData1 = jsonObj["results"];
+                //var jsonData2 = jsonObj["results"].FirstOrDefault();
 
-                // Serialize
-                var json = System.Text.Json.JsonSerializer.Serialize(stringSJIS, options);
+                var address1 = jsonData["address1"];
+                var address2 = jsonData["address2"];
+                var address3 = jsonData["address3"];
 
-                // Deserialize
-                var obj = System.Text.Json.JsonSerializer.Deserialize<string>(json);
+                //var jsonPollution = jsonCurrent["pollution"];
+                //var json_aqius = jsonPollution["aqius"];
+                //var json_aqicn = jsonPollution["aqicn"];
+                // Dictionaryをシリアライズします。
+                //var jsonstr = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
+                MessageBox.Show(address1.ToString() + address2.ToString() + address3.ToString());
 
-                //foreach (var item in json)
-                //{
-
-                //}
-
-                //string address = "静岡県";
-                //string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?key={1}&address={0}&sensor=false", Uri.EscapeDataString(address), YOUR_API_KEY);
-
-                //WebRequest request = WebRequest.Create(requestUri);
-                //WebResponse response = request.GetResponse();
-                //XDocument xdoc = XDocument.Load(response.GetResponseStream());
-
-                //XElement result = xdoc.Element("GeocodeResponse").Element("result");
-                //XElement locationElement = result.Element("geometry").Element("location");
-                //XElement lat = locationElement.Element("lat");
-                //XElement lng = locationElement.Element("lng");
             }
         }
     }

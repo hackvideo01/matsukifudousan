@@ -265,7 +265,15 @@ namespace matsukifudousan.ViewModel
                         {
                             string imagePath = imageLink;
 
-                            var drawImageBitmap = new BitmapImage(new Uri(imagePath));
+                            var drawImageBitmap = new BitmapImage();
+                            var stream = File.OpenRead(imagePath);
+                            drawImageBitmap.BeginInit();
+                            drawImageBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                            drawImageBitmap.StreamSource = stream;
+                            drawImageBitmap.EndInit();
+                            stream.Close();
+                            stream.Dispose();
+                            drawImageBitmap.Freeze();
                             var imageControl = new Image();
                             imageControl.Width = 100;  //set image of width 100 , guest of request
                             imageControl.Height = 100; //set image of height 100 , quest of request
@@ -274,23 +282,11 @@ namespace matsukifudousan.ViewModel
                             Button deleteButton = new Button();
                             deleteButton.Content = "X";
                             deleteButton.Name = "Delete";
-                            deleteButton.Command = deleteAction;
                             deleteButton.Background = Brushes.Red;
                             deleteButton.Click += new RoutedEventHandler(home_read_click);
 
-                            //StackPanel stackPnl = new StackPanel();
-                            //stackPnl.Orientation = Orientation.Vertical;
-                            //stackPnl.Height = 150;
-                            //stackPnl.Width = 150;
-                            //stackPnl.Children.Add(imageControl);
-                            //stackPnl.Children.Add(deleteButton);
-
                             NameIMG.Add(imageControl);
                             NameIMG.Add(deleteButton);
-
-                            //NameIMG.Add(stackPnl);
-
-
                             i += 2;
                         }
 
@@ -336,11 +332,10 @@ namespace matsukifudousan.ViewModel
             }, (p) =>
 
             {
-                #region Value Form RentalMangement
+                #region Value Form ApartmentMangement
 
                 var AddApartment = DataProvider.Ins.DB.ApartmentDB.Where(hno => hno.ApartmentHouseNo == apartmentSearchHouseNo).SingleOrDefault();
 
-                //HouseNo = HouseNo,
                 AddApartment.ApartmentHouseName = ApartmentHouseName;
                 AddApartment.ApartmentPost = ApartmentPost;
                 AddApartment.ApartmentAddress = ApartmentAddress;
@@ -545,13 +540,6 @@ namespace matsukifudousan.ViewModel
                     string imagePath = imagePathDB.ImagePath;
                     string imageName = imagePathDB.ImageName;
                     ImageFullPath = imagePath;
-
-                    //var drawImageBitmap = new BitmapImage(new Uri(imagePath));
-                    //drawImageBitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    //var imageControl = new Image();
-                    //imageControl.Width = 100;  //set image of width 100 , guest of request
-                    //imageControl.Height = 100; //set image of height 100 , quest of request
-                    //imageControl.Source = drawImageBitmap;
 
                     var bitmap = new BitmapImage();
                     var stream = File.OpenRead(imagePath);
