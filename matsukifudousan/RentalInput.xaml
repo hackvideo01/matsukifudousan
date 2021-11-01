@@ -105,7 +105,7 @@
                             <TextBlock Text="物件番号" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBox Text="{Binding HouseNo}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0"/>
+                            <TextBox x:Name="txbHouseNo" Text="{Binding HouseNo}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0" LostFocus="txbHouseNo_LostFocus"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -139,7 +139,7 @@
                                 <ColumnDefinition Width="20*"></ColumnDefinition>
                                 <ColumnDefinition Width="80*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" x:Name="txbHousePost" Text="{Binding HousePost,Mode=TwoWay}" materialDesign:HintAssist.Hint="郵便局番号" FontSize="19" Margin="0 3 0 0" LostFocus="HousePost_LostFocus" />
+                            <TextBox Grid.Column="0" x:Name="txbHousePost" Text="{Binding HousePost,Mode=TwoWay}" materialDesign:HintAssist.Hint="郵便局番号" FontSize="19" Margin="0 3 0 0" LostFocus="txbHousePost_LostFocus" />
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
                                 <TextBox x:Name="txbHouseAddress" Text="{Binding HouseAddress}" materialDesign:HintAssist.Hint="所在地" FontSize="19" Margin="0 3 0 0" />
                             </Border>
@@ -510,8 +510,6 @@
                                     </Style>
                                 </DataTemplate.Resources>
                                 <StackPanel>
-                                    <Image></Image>
-                                    <Button></Button>
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

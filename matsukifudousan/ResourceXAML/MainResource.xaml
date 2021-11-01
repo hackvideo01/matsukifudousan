@@ -8,9 +8,7 @@
 
     <viewmodel:RentalInputViewModel x:Key="RentalInputVM"></viewmodel:RentalInputViewModel>
 
-    <viewmodel:ContractDetailsViewModel x:Key="ContractDetailsVM"></viewmodel:ContractDetailsViewModel>
-
-    <viewmodel:RentalSearchModel x:Key="RentalSearchVM"></viewmodel:RentalSearchModel>
+    <viewmodel:RentalSearchViewModel x:Key="RentalSearchVM"></viewmodel:RentalSearchViewModel>
 
     <viewmodel:RentalDetailsViewViewModel x:Key="RentalDetailsViewVM"></viewmodel:RentalDetailsViewViewModel>
 
@@ -41,5 +39,19 @@
     <viewmodel:LandFixViewModel x:Key="LandFixsVM"></viewmodel:LandFixViewModel>
 
     <viewmodel:LandSearchViewModel x:Key="LandSearchVM"></viewmodel:LandSearchViewModel>
+
+    <viewmodel:ImageSearchViewModel x:Key="ImageSearchVM"></viewmodel:ImageSearchViewModel>
+
+    <viewmodel:ContractDetailsViewModel x:Key="ContractDetailsVM"></viewmodel:ContractDetailsViewModel>
+
+    <viewmodel:ContractDetailsSearchViewModel x:Key="ContractDetailsSearchVM"></viewmodel:ContractDetailsSearchViewModel>
+
+    <viewmodel:ContractDetailsViewViewModel x:Key="ContractDetailsViewVM"></viewmodel:ContractDetailsViewViewModel>
+
+    <viewmodel:ContractDetailsFixViewModel x:Key="ContractDetailsFixVM"></viewmodel:ContractDetailsFixViewModel>
+
+    <viewmodel:RentalContractInputViewModel x:Key="RentalContractInputVM"></viewmodel:RentalContractInputViewModel>
+
+    <viewmodel:RentalContractSearchViewModel x:Key="RentalContractSearchVM"></viewmodel:RentalContractSearchViewModel>
 
 </ResourceDictionary>

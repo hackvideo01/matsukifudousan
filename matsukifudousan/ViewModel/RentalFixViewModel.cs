@@ -133,6 +133,9 @@ namespace matsukifudousan.ViewModel
 
         private string _rentalSearchHouseNo;
         public string rentalSearchHouseNo { get => _rentalSearchHouseNo; set { _rentalSearchHouseNo = value; OnPropertyChanged(); } }
+
+        private int _a;
+        public int a { get => _a; set { _a = value; OnPropertyChanged(); } }
         #endregion
         public ICommand ContractDetailsCommandWD { get; set; }
 
@@ -391,6 +394,8 @@ namespace matsukifudousan.ViewModel
                     OpenFileDialog openDialog = new OpenFileDialog();
                     openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
                     MessageBox.Show("データを修正されました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //RentalSearchViewModel rentalSearch2 = new RentalSearchViewModel();
+                    //rentalSearch2.List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(rentalSearchHouseNo) || t.HouseName.Contains(rentalSearchHouseNo) || t.HouseAddress.Contains(rentalSearchHouseNo)));
                     Comfirm = 0;
                 }
                 #endregion

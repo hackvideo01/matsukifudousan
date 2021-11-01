@@ -22,7 +22,15 @@ using Spire.Pdf;
 using Spire.Xls;
 using matsukifudousan.Model;
 using System.Collections.ObjectModel;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using MessageBox = System.Windows.MessageBox;
+using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Core;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using System.Windows.Media.Imaging;
+using System.Drawing.Imaging;
+using Microsoft.Office.Interop.Excel;
+using Picture = Microsoft.Office.Interop.Excel.Picture;
 
 namespace matsukifudousan.ViewModel
 {
@@ -42,6 +50,12 @@ namespace matsukifudousan.ViewModel
 
         private string _SelectedPrints;
         public string SelectedPrints { get => _SelectedPrints; set { _SelectedPrints = value; OnPropertyChanged(); } }
+
+        private string _FloorPlanText;
+        public string FloorPlanText { get => _FloorPlanText; set { _FloorPlanText = value; OnPropertyChanged(); } }
+
+        private string _GuideMapText;
+        public string GuideMapText { get => _GuideMapText; set { _GuideMapText = value; OnPropertyChanged(); } }
 
         private RentalManagementDB _SelectedItem;
         public RentalManagementDB SelectedItem
@@ -65,6 +79,10 @@ namespace matsukifudousan.ViewModel
         public ICommand EXCELButton2 { get; set; }
 
         public ICommand SearchButton { get; set; }
+
+        public ICommand GuideMap { get; set; }
+
+        public ICommand FloorPlan { get; set; }
 
         private bool isNewXlsFile = false;
         private Microsoft.Office.Interop.Excel.Application xls = null;
@@ -186,13 +204,14 @@ namespace matsukifudousan.ViewModel
             });
             #endregion
             Combox.Add("物件賃貸契約書");
+            Combox.Add("案内図");
             EXCELButton = new RelayCommand<object>((px) => { return true; }, (px) =>
             {
                 RentalPrints select = new RentalPrints();
 
                 string selectHouseNo = select.House.Text;
 
-                if (SelectedPrints == "物件賃貸契約書" && selectHouseNo != null)
+                if (SelectedPrints == "物件賃貸契約書" && selectHouseNo != null && selectHouseNo != "")
                 {
                     try
                     {
@@ -242,93 +261,159 @@ namespace matsukifudousan.ViewModel
                         MessageBox.Show("もう一度印刷してください。");
                     }
                 }
+                else if (SelectedPrints == "案内図" && selectHouseNo != null && selectHouseNo != "")
+                {
+
+                    //if (SelectedPrints == "物件賃貸契約書" && selectHouseNo != null && selectHouseNo != "")
+                    //{
+                    try
+                    {
+                        this.xls = new Microsoft.Office.Interop.Excel.Application();
+                        ExcelVisibleToggle(xls, false);
+                        if (this.isNewXlsFile)
+                        {
+                            this.book = xls.Workbooks.Add();
+                        }
+                        else
+                        {
+
+                            // Open a File
+                            try
+                            {
+                                this.book = xls.Workbooks.Open(savePathFile + "/案内図.xlsx");
+                                this.sheet = (Excel.Worksheet)book.Worksheets.get_Item(1);
+                                this.sheet.Shapes.AddPicture(GuideMapText, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, 3, 50, 380, 300);
+                                this.sheet.Shapes.AddPicture(FloorPlanText, Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, 385, 50, 140, 90);
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("パースがないです。");
+                            }
+                            xls.Cells[4, "L"] = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().HouseAddress;
+                            xls.Cells[6, "L"] = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().Construction;
+                            xls.Cells[11, "L"] = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().TotalArea;
+                            xls.Cells[13, "L"] = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().Rent;
+                            xls.Cells[14, "L"] = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().SecurityDeposit;
+                            xls.Cells[15, "L"] = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().KeyMoney;
+                            xls.Cells[16, "L"] = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().CommonFee;
+                            xls.Cells[17, "L"] = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().ParkingFee;
+                            xls.Cells[18, "L"] = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo).FirstOrDefault().OtherFee;
+                        }
+
+
+                        ExcelVisibleToggle(xls, true);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("もう一度印刷してください。" + e);
+                    }
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("書類を選択ください。");
+                    //}
+                }
                 else
                 {
                     MessageBox.Show("書類を選択ください。");
                 }
-
-                //RentalPrints prs = new RentalPrints();
-
-                //string path = savePathFile + "/test.xls";
-
-                //Workbook workbook = new Workbook();
-                //try
-                //{
-                //    workbook.LoadFromFile(path);
-                //}
-                //catch (Exception)
-                //{
-
-                //    System.Windows.MessageBox.Show("パスが正しくないです。", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-                //    return;
-                //}
-
-                //PrintDialog dialog = new PrintDialog();
-
-                //dialog.AllowPrintToFile = true;
-                //dialog.AllowCurrentPage = true;
-                //dialog.AllowSomePages = true;
-                //dialog.AllowSelection = true;
-                //dialog.UseEXDialog = true;
-                //dialog.PrinterSettings.Duplex = Duplex.Simplex;
-                //dialog.PrinterSettings.FromPage = 0;
-                //dialog.PrinterSettings.ToPage = 8;
-                //dialog.PrinterSettings.PrintRange = PrintRange.SomePages;
-
-                //if (dialog.ShowDialog() == DialogResult.OK)
-                //{
-                //    try
-                //    {
-                //        workbook.PrintDialog = dialog;
-                //        PrintDocument pd = workbook.PrintDocument;
-                //        pd.Print();
-                //    }
-                //    catch (Exception)
-                //    {
-
-                //        System.Windows.MessageBox.Show("プリンターがないです。", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-                //        return;
-                //    }
-                //}
             });
-            EXCELButton2 = new RelayCommand<object>((px) => { return true; }, (px) =>
+
+            GuideMap = new RelayCommand<object>((gm) => { return true; }, (gm) =>
             {
-                RentalPrints prs = new RentalPrints();
-                string path = savePathFile + "/test.xls";
-                Workbook workbook = new Workbook();
-                try
+                RentalPrints select = new RentalPrints();
+
+                string selectHouseNo = select.House.Text;
+
+                if (SelectedPrints == "案内図" && selectHouseNo != null && selectHouseNo != "")
                 {
-                    workbook.LoadFromFile(path);
-                }
-                catch (Exception)
-                {
-                    System.Windows.MessageBox.Show("パスが正しくないです。", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                PrintDialog dialog = new PrintDialog();
-                dialog.AllowPrintToFile = true;
-                dialog.AllowCurrentPage = true;
-                dialog.AllowSomePages = true;
-                dialog.AllowSelection = true;
-                dialog.UseEXDialog = true;
-                dialog.PrinterSettings.Duplex = Duplex.Simplex;
-                dialog.PrinterSettings.FromPage = 0;
-                dialog.PrinterSettings.ToPage = 8;
-                dialog.PrinterSettings.PrintRange = PrintRange.SomePages;
-               
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
+                    OpenFileDialog openDialog = new OpenFileDialog();
+                    openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
+                    if (openDialog.ShowDialog() == true)
                     {
-                        workbook.PrintDialog = dialog;
-                        PrintDocument pd = workbook.PrintDocument;
-                        pd.Print();
+                        GuideMapText = openDialog.FileName;
+                        //MessageBox.Show(guidMap);
                     }
-                    catch (Exception)
-                    {
-                        System.Windows.MessageBox.Show("プリンターがないです。", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
+
+                    //Excel.Application xlApp;
+                    //Excel.Workbook xlWorkBook;
+                    //Excel.Worksheet xlWorkSheet;
+                    //object misValue = System.Reflection.Missing.Value;
+
+                    //xlApp = new Excel.Application();
+                    //xlWorkBook = xlApp.Workbooks.Add(misValue);
+                    //xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+                    ////add some text 
+                    //xlWorkSheet.Cells[1, 1] = "http://csharp.net-informations.com";
+                    //xlWorkSheet.Cells[2, "A"] = "Adding picture in Excel File";
+
+                    //xlWorkSheet.Shapes.AddPicture(savePathImage + "\\bk.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, 300, 300, 300, 300);
+
+
+                    //xlWorkBook.SaveAs("csharp.net-informations.xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    //xlWorkBook.Close(true, misValue, misValue);
+                    //xlApp.Quit();
+
+
+                    //MessageBox.Show("File created !");
+                }
+                else if (SelectedPrints == "案内図" && (selectHouseNo == null || selectHouseNo == ""))
+                {
+                    MessageBox.Show("物件を選択ください。。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+                else
+                {
+                    MessageBox.Show("案内図を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+            });
+
+            FloorPlan = new RelayCommand<object>((gm) => { return true; }, (gm) =>
+            {
+            RentalPrints select = new RentalPrints();
+
+            string selectHouseNo = select.House.Text;
+
+            if (SelectedPrints == "案内図" && selectHouseNo != null && selectHouseNo != "")
+            {
+                OpenFileDialog openDialog = new OpenFileDialog();
+                openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
+                if (openDialog.ShowDialog() == true)
+                {
+                    FloorPlanText = openDialog.FileName;
+                    //MessageBox.Show(FloorPlanText);
+                }
+
+                    //Excel.Application xlApp;
+                    //Excel.Workbook xlWorkBook;
+                    //Excel.Worksheet xlWorkSheet;
+                    //object misValue = System.Reflection.Missing.Value;
+
+                    //xlApp = new Excel.Application();
+                    //xlWorkBook = xlApp.Workbooks.Add(misValue);
+                    //xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+                    ////add some text 
+                    //xlWorkSheet.Cells[1, 1] = "http://csharp.net-informations.com";
+                    //xlWorkSheet.Cells[2, "A"] = "Adding picture in Excel File";
+
+                    //xlWorkSheet.Shapes.AddPicture(savePathImage + "\\bk.jpg", Microsoft.Office.Core.MsoTriState.msoFalse, Microsoft.Office.Core.MsoTriState.msoCTrue, 300, 300, 300, 300);
+
+
+                    //xlWorkBook.SaveAs("csharp.net-informations.xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    //xlWorkBook.Close(true, misValue, misValue);
+                    //xlApp.Quit();
+
+
+                    //MessageBox.Show("File created !");
+                }
+                else if(SelectedPrints == "案内図" && (selectHouseNo == null || selectHouseNo == ""))
+                {
+                    MessageBox.Show("物件を選択ください。。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+                else
+                {
+                    MessageBox.Show("案内図を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
             });
         }

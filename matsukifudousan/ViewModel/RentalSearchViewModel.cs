@@ -15,7 +15,7 @@ using System.Windows.Input;
 
 namespace matsukifudousan.ViewModel
 {
-    public class RentalSearchModel : BaseViewModel
+    public class RentalSearchViewModel : BaseViewModel
     {
         public static bool AddItem = false; //This must be public and static so that it can be called from your second Window
 
@@ -24,6 +24,9 @@ namespace matsukifudousan.ViewModel
 
         private ObservableCollection<RentalManagementDB> _List;
         public ObservableCollection<RentalManagementDB> List { get => _List; set { _List = value; OnPropertyChanged(); } }
+
+        private string _IsSelectedValue;
+        public string IsSelectedValue { get => _IsSelectedValue; set { _IsSelectedValue = value; OnPropertyChanged(); } }
 
         private string _Search;
         public string Search { get => _Search; set { _Search = value; OnPropertyChanged(); } }
@@ -38,7 +41,9 @@ namespace matsukifudousan.ViewModel
 
         public ICommand RentalDelete { get; set; }
 
-        public ICommand RentalDetailsInput { get; set; }
+        public ICommand ContractDetailsCommandWD { get; set; }
+
+        public ICommand RentalContract { get; set; }
 
         private RentalManagementDB _SelectedItem;
         public RentalManagementDB SelectedItem
@@ -66,7 +71,7 @@ namespace matsukifudousan.ViewModel
             result = DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)).OrderBy(a=>a.HouseNo).Skip(page).Take(recordNum).ToList();
             return result;
         }
-        public RentalSearchModel()
+        public RentalSearchViewModel()
         {
             string Result = null;
             List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
@@ -77,10 +82,9 @@ namespace matsukifudousan.ViewModel
 
             SearchButton = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                Result = Search;
                 //List = LoadRecord(loadedRecord, numberRecord);
-
-                if (Result != "")
+                Result = Search;
+                if (Result != "" && Result != null)
                 {
                     List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
 
@@ -137,6 +141,47 @@ namespace matsukifudousan.ViewModel
                 }
             });
 
+            ContractDetailsCommandWD = new RelayCommand<object>((p) => { return true; }, (p) => 
+            {
+                RentalSearch selectRentalNo = new RentalSearch();
+                var selectRentalSearch = selectRentalNo.House.Text;
+
+                if (selectRentalSearch != "")
+                {
+                    if (DataProvider.Ins.DB.ContractDetailsDB.Where(h=>h.HouseNo == selectRentalSearch).Count() == 0)
+                    {
+                        ContractDetails wd = new ContractDetails(); wd.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("物件は詳細入力がありました。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+            });
+            RentalContract = new RelayCommand<object>((p) => { return true; }, (p) => 
+            {
+                RentalSearch selectRentalNo = new RentalSearch();
+                var selectRentalSearch = selectRentalNo.House.Text;
+                var displayList = DataProvider.Ins.DB.RentalContactDB.Where(x => x.HouseNo == selectRentalSearch);
+                int a = displayList.Count();
+
+                if (selectRentalSearch != "" && selectRentalSearch != null && displayList.Count() == 0)
+                {
+                    RentalContractInput openWindowRentalContractInput = new RentalContractInput(); openWindowRentalContractInput.ShowDialog();
+                }
+                else if (displayList.Count() != 0)
+                {
+                    MessageBox.Show("物件（物件No：" + selectRentalSearch + "）がありました。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+                else
+                {
+                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+            });
         }
         private void printsButton()
         {
@@ -234,6 +279,8 @@ namespace matsukifudousan.ViewModel
 
             if (rentalSearchHouseNo != "")
             {
+                string Result = null;
+                Result = Search;
                 Window window = new Window
                 {
                     Title = "賃貸修正",
@@ -245,6 +292,7 @@ namespace matsukifudousan.ViewModel
                     WindowStyle = WindowStyle.None
                 };
                 window.ShowDialog();
+                List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
             }
             else
             {

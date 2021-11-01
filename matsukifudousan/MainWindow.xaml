@@ -22,7 +22,10 @@
         
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        WindowStyle="None" x:Name="main1" Loaded="Window_Loaded">
+        WindowStyle="None" 
+        
+        x:Name="main1" 
+        Loaded="Window_Loaded">
 
     <Window.Resources>
         <!--<ResourceDictionary Source="StyleResource.xaml"></ResourceDictionary>-->
@@ -90,6 +93,14 @@
             <StackPanel>
                 <Image Height="140" Source="images/menu-image.png" Stretch="Fill"/>
                 <ListView x:Name="ListViewMenu" Foreground="#FF313131" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged_1">
+                    <ListViewItem x:Name="UserControlMain" Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
+                        <StackPanel Orientation="Horizontal" Margin="10 0">
+                            <!--<materialDesign:PackIcon Kind="FileDocument" Width="20" Height="20" Foreground="Gray" Margin="5" VerticalAlignment="Center"/>-->
+                            <Image Grid.Column="0" Source="images/document.png" Height="30">
+                            </Image>
+                            <TextBlock Text="メニュー" Margin="10"/>
+                        </StackPanel>
+                    </ListViewItem>
                     <ListViewItem x:Name="RentalManagement" Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
                         <StackPanel Orientation="Horizontal" Margin="10 0">
                             <!--<materialDesign:PackIcon Kind="FileDocument" Width="20" Height="20" Foreground="Gray" Margin="5" VerticalAlignment="Center"/>-->

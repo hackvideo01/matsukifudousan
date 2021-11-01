@@ -47,7 +47,7 @@ namespace matsukifudousan
             }
         }
 
-        private void HousePost_LostFocus(object sender, RoutedEventArgs e)
+        private void txbHousePost_LostFocus(object sender, RoutedEventArgs e)
         {
             string zipcode = txbHousePost.Text;
             //URL
@@ -80,11 +80,21 @@ namespace matsukifudousan
                     //MessageBox.Show(address1.ToString() + address2.ToString() + address3.ToString());
 
                     txbHouseAddress.Text = address1.ToString() + address2.ToString() + address3.ToString();
+                    txbHouseAddress.SelectionStart = txbHouseAddress.Text.Length;
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("郵便局番号は恐らく間違っています。もう一度ご確認お願い致します。","確認",MessageBoxButton.OK,MessageBoxImage.Question);
+                MessageBox.Show("郵便局番号は恐らく間違っています。もう一度ご確認お願い致します。", "確認", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+        }
+
+        private void txbHouseNo_LostFocus(object sender, RoutedEventArgs e)
+        {
+            var checkHouse = DataProvider.Ins.DB.RentalManagementDB.Where(ck=>ck.HouseNo == txbHouseNo.Text);
+            if (checkHouse.Count() != 0)
+            {
+                MessageBox.Show("物件がありました。他の物件号を入力してください。", "物件番号を再入力", MessageBoxButton.OK, MessageBoxImage.Question);
             }
         }
     }

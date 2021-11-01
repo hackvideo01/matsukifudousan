@@ -55,13 +55,19 @@ namespace matsukifudousan
         }
         private void test_Click(object sender, RoutedEventArgs e)
         {
-            Window1 w1 = new Window1();
-            w1.Show();
+            CompanyDetails companyDetails = new CompanyDetails();
+            companyDetails.Show();
         }
         private void ImageSearch_Click(object sender, RoutedEventArgs e)
         {
             MainWindow parentWindow = (MainWindow)Window.GetWindow(this);
             usc = new ImageSearch();
+            parentWindow.GridMain.Children.Add(usc);
+        }
+        private void RentalContractSearch_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow parentWindow = (MainWindow)Window.GetWindow(this);
+            usc = new RentalContractSearch();
             parentWindow.GridMain.Children.Add(usc);
         }
     }

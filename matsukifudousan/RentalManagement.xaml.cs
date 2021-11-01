@@ -61,9 +61,13 @@ namespace matsukifudousan
                     usc = new DepositBusiness();
                     RentalContain.Children.Add(usc);
                     break;
-
+                    
                 case "Prints":
                     usc = new RentalPrints();
+                    RentalContain.Children.Add(usc);
+                    break;
+                case "ContractDetails":
+                    usc = new ContractDetailsSearch();
                     RentalContain.Children.Add(usc);
                     break;
 

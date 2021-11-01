@@ -43,12 +43,12 @@
                              ToolTip="Mini" ToolBar.OverflowMode="AsNeeded"  Background="ForestGreen">
                         <materialDesign:PackIcon Kind="WindowMinimize" />
                     </Button>
-                    <!--<Button
+                    <Button
                              Command="{Binding MaximizeWindowCommand}"
                              CommandParameter="{Binding ElementName=ucControlBar}"
                              ToolTip="Max" ToolBar.OverflowMode="AsNeeded"  Background="ForestGreen">
                              <materialDesign:PackIcon Kind="WindowMaximize" />
-                    </Button>-->
+                    </Button>
                     <Button 
                             Name="CloseUC"
                             Command="{Binding CloseWindowCommand}"

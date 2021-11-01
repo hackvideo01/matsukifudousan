@@ -108,24 +108,22 @@
                             <TextBlock Text="賃貸物件検索" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="DepositBusiness" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
+                    <!--<ListViewItem x:Name="DepositBusiness" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
                         <StackPanel x:Name="DepositBusinessBGChange" Background="#1294F4" Orientation="Horizontal" Margin="10 0" Width="135">
                             <TextBlock Text="入金管理" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
-                    </ListViewItem>
+                    </ListViewItem>-->
                     <ListViewItem x:Name="Prints" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
                         <StackPanel x:Name="PrintsSearchBGChange" Background="#1294F4" Orientation="Horizontal" Margin="10 0" Width="135">
                             <TextBlock Text="各種印刷" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="wd" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
+                    <ListViewItem x:Name="ContractDetails" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
                         <StackPanel Background="#1294F4" Orientation="Horizontal" Margin="10 0" Width="135">
-                            <Button Command="{Binding ContractDetailsCommandWD}" Content="詳細入力" Style="{StaticResource ResourceKey=wdButton}"></Button>
+                            <TextBlock Text="詳細入力検索" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
                     </ListViewItem>
                 </ListView>
-                
-                <!--<Button Command="{Binding ContractDetailsCommandWD}" Content="詳細入力" Style="{StaticResource ResourceKey=wdButton}"></Button>-->
                 
             </StackPanel>
             

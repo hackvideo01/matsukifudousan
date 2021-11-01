@@ -5,16 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8f95283ee6b54464abc53ce14f7acbcb" Name="Diagram1">
-        <EntityTypeShape EntityType="matsukiModel.ApartmentDB" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="matsukiModel.DetachedDB" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="matsukiModel.ImageDB" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="matsukiModel.LandDB" Width="1.5" PointX="0.75" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="matsukiModel.RentalManagementDB" Width="1.5" PointX="0.75" PointY="26.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="matsukiModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="matsukiModel.FK_ImageDB_ApartmentDB" ManuallyRouted="false" />
-        <AssociationConnector Association="matsukiModel.FK_ImageDB_DetachedDB" ManuallyRouted="false" />
-        <AssociationConnector Association="matsukiModel.FK__Image__HouseNo__7C4F7684" ManuallyRouted="false" />
-        <AssociationConnector Association="matsukiModel.FK_ImageDB_LandDB" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="matsukiModel.ApartmentDB" Width="1.5" PointX="0.75" PointY="28" />
+        <EntityTypeShape EntityType="matsukiModel.ContractDetailsDB" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="matsukiModel.DetachedDB" Width="1.5" PointX="0.75" PointY="20.5" />
+        <EntityTypeShape EntityType="matsukiModel.ImageDB" Width="1.5" PointX="3" PointY="2.625" />
+        <EntityTypeShape EntityType="matsukiModel.LandDB" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="matsukiModel.RentalContactDB" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="matsukiModel.RentalManagementDB" Width="1.5" PointX="0.75" PointY="12.375" />
+        <EntityTypeShape EntityType="matsukiModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" />
+        <AssociationConnector Association="matsukiModel.FK_ImageDB_ApartmentDB" />
+        <AssociationConnector Association="matsukiModel.FK_ImageDB_DetachedDB" />
+        <AssociationConnector Association="matsukiModel.FK__Image__HouseNo__7C4F7684" />
+        <AssociationConnector Association="matsukiModel.FK_ImageDB_LandDB" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

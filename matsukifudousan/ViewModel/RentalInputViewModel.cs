@@ -143,7 +143,7 @@ namespace matsukifudousan.ViewModel
         private string _ImageFullPath;
         public string ImageFullPath { get => _ImageFullPath; set { _ImageFullPath = value; OnPropertyChanged(); } }
         #endregion
-        public ICommand ContractDetailsCommandWD { get; set; }
+        //public ICommand ContractDetailsCommandWD { get; set; }
 
         public ICommand AddRentalCommand { get; set; }
 
@@ -206,8 +206,8 @@ namespace matsukifudousan.ViewModel
             string SavePath = string.Format(@"{0}\images\RentalImage", projectDirectory);
 
             string ImageNameString = ImageListPath.ToString();
-            ContractDetailsCommandWD = new RelayCommand<object>((p) => { return true; }, (p) => { ContractDetails wd = new ContractDetails(); wd.ShowDialog(); });
-
+            //ContractDetailsCommandWD = new RelayCommand<object>((p) => { return true; }, (p) => { ContractDetails wd = new ContractDetails(); wd.ShowDialog(); });
+            
             AddRentalCommand = new RelayCommand<object>((p) =>
             {
                 if (string.IsNullOrEmpty(HouseNo))

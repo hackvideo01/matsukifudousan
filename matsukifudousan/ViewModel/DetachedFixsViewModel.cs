@@ -157,7 +157,6 @@ namespace matsukifudousan.ViewModel
         public ObservableCollection<Object> ImageData { get => _ImageData; set { _ImageData = value; OnPropertyChanged(); } }
 
         string conbineCharatarBefore = "[";
-
         string conbineCharatarAfter = "] ";
 
         public int Comfirm = 0;

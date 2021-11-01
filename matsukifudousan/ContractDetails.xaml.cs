@@ -1,5 +1,6 @@
 ﻿using matsukifudousan.Model;
 using matsukifudousan.ViewModel;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -27,13 +28,16 @@ namespace matsukifudousan
         public ContractDetails()
         {
             InitializeComponent();
-            ParkingChoose.IsEnabled = false;
+
+            DataContext = new ContractDetailsViewModel();
+
+            ParkingForm.IsEnabled = false;
             ElectronicChoose.IsEnabled = false;
             Gaschoose.IsEnabled = false;
-            WaterServiceChoose.IsEnabled = false;
+            WaterCrewChoose.IsEnabled = false;
             WaterTankChoose.IsEnabled = false;
             ToiletChoose.IsEnabled = false;
-            ProcessEquipment.IsEnabled = false;
+            ProcessEquipmentChoose.IsEnabled = false;
             SinkChoose.IsEnabled = false;
             FaucetChoose.IsEnabled = false;
             KitchenChoose.IsEnabled = false;
@@ -48,12 +52,12 @@ namespace matsukifudousan
             ConnectionBracketChoose.IsEnabled = false;
             LightingEquipmentChoose.IsEnabled = false;
             LightBulbBallChoose.IsEnabled = false;
-            AntennaChoose.IsEnabled = false;
-            FixedlinephoneChoose.IsEnabled = false;
+            TelevisionAntennaChoose.IsEnabled = false;
+            FixedTelephoneChoose.IsEnabled = false;
             PhoneChoose.IsEnabled = false;
-            InternetChoose.IsEnabled = false;
+            InternetEquipmentChoose.IsEnabled = false;
             ProviderChoose.IsEnabled = false;
-            ElectricityChoose.IsEnabled = false;
+            AirConditioningChoose.IsEnabled = false;
             GarbageStorageChoose.IsEnabled = false;
             PetChoose.IsEnabled = false;
             StorageChoose.IsEnabled = false;
@@ -64,10 +68,10 @@ namespace matsukifudousan
         }
         private void ContractVM_Loaded(object sender, RoutedEventArgs e)
         {
-            Parking.SelectionChanged += Parking_SelectionChanged;
+            PakingYesNo.SelectionChanged += Parking_SelectionChanged;
             Electronic.SelectionChanged += Electronic_SelectionChanged;
             Gas.SelectionChanged += Gas_SelectionChanged;
-            WaterService.SelectionChanged += WaterService_SelectionChanged;
+            WaterCrew.SelectionChanged += WaterCrew_SelectionChanged;
             WaterTank.SelectionChanged += WaterTank_SelectionChanged;
             Toilet.SelectionChanged += Toilet_SelectionChanged;
             ProcessEquipment.SelectionChanged += ProcessEquipment_SelectionChanged;
@@ -85,12 +89,12 @@ namespace matsukifudousan
             ConnectionBracket.SelectionChanged += ConnectionBracket_SelectionChanged;
             LightingEquipment.SelectionChanged += LightingEquipment_SelectionChanged;
             LightBulbBall.SelectionChanged += LightBulbBall_SelectionChanged;
-            Antenna.SelectionChanged += Antenna_SelectionChanged;
-            Fixedlinephone.SelectionChanged += Fixedlinephone_SelectionChanged;
+            TelevisionAntenna.SelectionChanged += TelevisionAntenna_SelectionChanged;
+            FixedTelephone.SelectionChanged += FixedTelephone_SelectionChanged;
             Phone.SelectionChanged += Phone_SelectionChanged;
-            Internet.SelectionChanged += Internet_SelectionChanged;
+            InternetEquipment.SelectionChanged += InternetEquipment_SelectionChanged;
             Provider.SelectionChanged += Provider_SelectionChanged;
-            Electricity.SelectionChanged += Electricity_SelectionChanged;
+            AirConditioning.SelectionChanged += AirConditioning_SelectionChanged;
             GarbageStorage.SelectionChanged += GarbageStorage_SelectionChanged;
             Pet.SelectionChanged += Pet_SelectionChanged;
             Storage.SelectionChanged += Storage_SelectionChanged;
@@ -101,14 +105,14 @@ namespace matsukifudousan
         }
         private void Parking_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (Parking.SelectedValue == "有")
+            if (PakingYesNo.SelectedValue == "有")
             {
-                ParkingChoose.IsEnabled = true;
+                ParkingForm.IsEnabled = true;
             }
             else
             {
-                ParkingChoose.IsEnabled = false;
-                ParkingChoose.SelectedValue = null;
+                ParkingForm.IsEnabled = false;
+                ParkingForm.SelectedValue = null;
             }
         }
         private void Electronic_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -136,16 +140,16 @@ namespace matsukifudousan
                 Gaschoose.SelectedValue = null;
             }
         }
-        private void WaterService_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void WaterCrew_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (WaterService.SelectedValue == "有")
+            if (WaterCrew.SelectedValue == "有")
             {
-                WaterServiceChoose.IsEnabled = true;
+                WaterCrewChoose.IsEnabled = true;
             }
             else
             {
-                WaterServiceChoose.IsEnabled = false;
-                WaterServiceChoose.SelectedValue = null;
+                WaterCrewChoose.IsEnabled = false;
+                WaterCrewChoose.SelectedValue = null;
             }
         }
         private void WaterTank_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -181,6 +185,7 @@ namespace matsukifudousan
             else
             {
                 ProcessEquipmentChoose.IsEnabled = false;
+                ProcessEquipmentChoose.SelectedValue = null;
             }
         }
         private void Sink_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -192,6 +197,7 @@ namespace matsukifudousan
             else
             {
                 SinkChoose.IsEnabled = false;
+                SinkChoose.SelectedValue = null;
             }
         }
         private void Faucet_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -203,6 +209,7 @@ namespace matsukifudousan
             else
             {
                 FaucetChoose.IsEnabled = false;
+                FaucetChoose.SelectedValue = null;
             }
         }
         private void Kitchen_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -214,6 +221,7 @@ namespace matsukifudousan
             else
             {
                 KitchenChoose.IsEnabled = false;
+                KitchenChoose.SelectedValue = null;
             }
         }
         private void WaterHeater_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -225,6 +233,7 @@ namespace matsukifudousan
             else
             {
                 WaterHeaterChoose.IsEnabled = false;
+                WaterHeaterChoose.SelectedValue = null;
             }
         }
         private void Stove_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -236,6 +245,7 @@ namespace matsukifudousan
             else
             {
                 StoveChoose.IsEnabled = false;
+                StoveChoose.SelectedValue = null;
             }
         }
         private void Bathroom_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -247,6 +257,7 @@ namespace matsukifudousan
             else
             {
                 BathroomChoose.IsEnabled = false;
+                BathroomChoose.SelectedValue = null;
             }
         }
         private void Shower_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -258,6 +269,7 @@ namespace matsukifudousan
             else
             {
                 ShowerChoose.IsEnabled = false;
+                ShowerChoose.SelectedValue = null;
             }
         }
         private void Reheating_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -269,6 +281,7 @@ namespace matsukifudousan
             else
             {
                 ReheatingChoose.IsEnabled = false;
+                ReheatingChoose.SelectedValue = null;
             }
         }
         private void ShowerWith_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -280,6 +293,7 @@ namespace matsukifudousan
             else
             {
                 ShowerWithChoose.IsEnabled = false;
+                ShowerWithChoose.SelectedValue = null;
             }
         }
         private void Bathtub_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -291,6 +305,7 @@ namespace matsukifudousan
             else
             {
                 BathtubChoose.IsEnabled = false;
+                BathtubChoose.SelectedValue = null;
             }
         }
         private void WashingMachine_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -302,6 +317,7 @@ namespace matsukifudousan
             else
             {
                 WashingMachineChoose.IsEnabled = false;
+                WashingMachineChoose.SelectedValue = null;
             }
         }
         private void ConnectionBracket_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -313,6 +329,7 @@ namespace matsukifudousan
             else
             {
                 ConnectionBracketChoose.IsEnabled = false;
+                ConnectionBracketChoose.Text = null;
             }
         }
         private void LightingEquipment_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -335,28 +352,31 @@ namespace matsukifudousan
             else
             {
                 LightBulbBallChoose.IsEnabled = false;
+                LightBulbBallChoose.SelectedValue = null;
             }
         }
-        private void Antenna_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void TelevisionAntenna_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (Antenna.SelectedValue == "有")
+            if (TelevisionAntenna.SelectedValue == "有")
             {
-                AntennaChoose.IsEnabled = true;
+                TelevisionAntennaChoose.IsEnabled = true;
             }
             else
             {
-                AntennaChoose.IsEnabled = false;
+                TelevisionAntennaChoose.IsEnabled = false;
+                TelevisionAntennaChoose.Text = null;
             }
         }
-        private void Fixedlinephone_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void FixedTelephone_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (Fixedlinephone.SelectedValue == "有")
+            if (FixedTelephone.SelectedValue == "有")
             {
-                FixedlinephoneChoose.IsEnabled = true;
+                FixedTelephoneChoose.IsEnabled = true;
             }
             else
             {
-                FixedlinephoneChoose.IsEnabled = false;
+                FixedTelephoneChoose.IsEnabled = false;
+                FixedTelephoneChoose.Text = null;
             }
         }
         private void Phone_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -368,17 +388,18 @@ namespace matsukifudousan
             else
             {
                 PhoneChoose.IsEnabled = false;
+                PhoneChoose.Text = null;
             }
         }
-        private void Internet_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void InternetEquipment_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (Internet.SelectedValue == "有")
+            if (InternetEquipment.SelectedValue == "有")
             {
-                InternetChoose.IsEnabled = true;
+                InternetEquipmentChoose.IsEnabled = true;
             }
             else
             {
-                InternetChoose.IsEnabled = false;
+                InternetEquipmentChoose.IsEnabled = false;
             }
         }
         private void Provider_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -390,17 +411,19 @@ namespace matsukifudousan
             else
             {
                 ProviderChoose.IsEnabled = false;
+                ProviderChoose.Text = null;
             }
         }
-        private void Electricity_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void AirConditioning_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (Electricity.SelectedValue == "有")
+            if (AirConditioning.SelectedValue == "有")
             {
-                ElectricityChoose.IsEnabled = true;
+                AirConditioningChoose.IsEnabled = true;
             }
             else
             {
-                ElectricityChoose.IsEnabled = false;
+                AirConditioningChoose.IsEnabled = false;
+                AirConditioningChoose.Text = null;
             }
         }
         private void GarbageStorage_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -412,6 +435,7 @@ namespace matsukifudousan
             else
             {
                 GarbageStorageChoose.IsEnabled = false;
+                GarbageStorageChoose.Text = null;
             }
         }
         private void Pet_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -423,6 +447,7 @@ namespace matsukifudousan
             else
             {
                 PetChoose.IsEnabled = false;
+                PetChoose.Text = null;
             }
         }
         private void Storage_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -434,6 +459,7 @@ namespace matsukifudousan
             else
             {
                 StorageChoose.IsEnabled = false;
+                StorageChoose.Text = null;
             }
         }
         private void UseNoYes_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -445,6 +471,7 @@ namespace matsukifudousan
             else
             {
                 UseNoYesChoose.IsEnabled = false;
+                UseNoYesChoose.SelectedValue = null;
             }
         }
         private void HotSpring_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -467,6 +494,7 @@ namespace matsukifudousan
             else
             {
                 OtherHouseChoose.IsEnabled = false;
+                OtherHouseChoose.Text = null;
             }
         }
         private void OtherConditions_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -478,6 +506,104 @@ namespace matsukifudousan
             else
             {
                 OtherConditionsChoose.IsEnabled = false;
+                OtherConditionsChoose.Text = null;
+            }
+        }
+
+        private void Grid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            var uie = e.OriginalSource as UIElement;
+
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                uie.MoveFocus(
+                new TraversalRequest(
+                FocusNavigationDirection.Next));
+            }
+        }
+
+        private void txbOwnerAddressNo_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string zipcode = txbOwnerAddressNo.Text;
+            //URL
+            string url = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode;
+            try
+            {
+                using (var webClient = new System.Net.WebClient())
+                {
+                    // エンコーディングをUTF-8にしておく（取得してからEncoding変えてもパースできなかった）
+                    webClient.Encoding = System.Text.Encoding.UTF8;
+
+                    // JSONのテキストを取得
+                    string jsonStr = webClient.DownloadString(url);
+
+                    JObject jsonObj = JObject.Parse(jsonStr);
+
+                    var jsonData = jsonObj["results"].First;
+                    //var jsonData1 = jsonObj["results"];
+                    //var jsonData2 = jsonObj["results"].FirstOrDefault();
+
+                    var address1 = jsonData["address1"];
+                    var address2 = jsonData["address2"];
+                    var address3 = jsonData["address3"];
+
+                    //var jsonPollution = jsonCurrent["pollution"];
+                    //var json_aqius = jsonPollution["aqius"];
+                    //var json_aqicn = jsonPollution["aqicn"];
+                    // Dictionaryをシリアライズします。
+                    //var jsonstr = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
+                    //MessageBox.Show(address1.ToString() + address2.ToString() + address3.ToString());
+
+                    txbOwnerAddress.Text = address1.ToString() + address2.ToString() + address3.ToString();
+                    txbOwnerAddress.SelectionStart = txbOwnerAddress.Text.Length;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("郵便局番号は恐らく間違っています。もう一度ご確認お願い致します。", "確認", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+        }
+
+        private void txbRenterAddressNo_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string zipcode = txbRenterAddressNo.Text;
+            //URL
+            string url = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode;
+            try
+            {
+                using (var webClient = new System.Net.WebClient())
+                {
+                    // エンコーディングをUTF-8にしておく（取得してからEncoding変えてもパースできなかった）
+                    webClient.Encoding = System.Text.Encoding.UTF8;
+
+                    // JSONのテキストを取得
+                    string jsonStr = webClient.DownloadString(url);
+
+                    JObject jsonObj = JObject.Parse(jsonStr);
+
+                    var jsonData = jsonObj["results"].First;
+                    //var jsonData1 = jsonObj["results"];
+                    //var jsonData2 = jsonObj["results"].FirstOrDefault();
+
+                    var address1 = jsonData["address1"];
+                    var address2 = jsonData["address2"];
+                    var address3 = jsonData["address3"];
+
+                    //var jsonPollution = jsonCurrent["pollution"];
+                    //var json_aqius = jsonPollution["aqius"];
+                    //var json_aqicn = jsonPollution["aqicn"];
+                    // Dictionaryをシリアライズします。
+                    //var jsonstr = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
+                    //MessageBox.Show(address1.ToString() + address2.ToString() + address3.ToString());
+
+                    txbRenterAddress.Text = address1.ToString() + address2.ToString() + address3.ToString();
+                    txbRenterAddress.SelectionStart = txbRenterAddress.Text.Length;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("郵便局番号は恐らく間違っています。もう一度ご確認お願い致します。", "確認", MessageBoxButton.OK, MessageBoxImage.Question);
             }
         }
     }

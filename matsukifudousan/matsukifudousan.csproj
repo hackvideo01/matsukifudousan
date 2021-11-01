@@ -111,6 +111,9 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Spire.License, Version=1.4.0.40, Culture=neutral, PublicKeyToken=b1144360237c8b3f, processorArchitecture=MSIL">
       <HintPath>..\packages\FreeSpire.XLS.11.8.6\lib\net40\Spire.License.dll</HintPath>
     </Reference>
@@ -209,8 +212,20 @@
     <Compile Include="ApartmentSearch.xaml.cs">
       <DependentUpon>ApartmentSearch.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CompanyDetails.xaml.cs">
+      <DependentUpon>CompanyDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ContractDetails.xaml.cs">
       <DependentUpon>ContractDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ContractDetailsFix.xaml.cs">
+      <DependentUpon>ContractDetailsFix.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ContractDetailsSearch.xaml.cs">
+      <DependentUpon>ContractDetailsSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ContractDetailsView.xaml.cs">
+      <DependentUpon>ContractDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DepositBusiness.xaml.cs">
       <DependentUpon>DepositBusiness.xaml</DependentUpon>
@@ -254,6 +269,9 @@
     <Compile Include="Model\ApartmentDB.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\ContractDetailsDB.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\DataProvider.cs" />
     <Compile Include="Model\DetachedDB.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -279,11 +297,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\RentalContactDB.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\RentalManagementDB.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\sysdiagrams.cs">
       <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RentalContractInput.xaml.cs">
+      <DependentUpon>RentalContractInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RentalContractSearch.xaml.cs">
+      <DependentUpon>RentalContractSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RentalPaymentInput.xaml.cs">
+      <DependentUpon>RentalPaymentInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="RentalPrints.xaml.cs">
       <DependentUpon>RentalPrints.xaml</DependentUpon>
@@ -314,23 +344,29 @@
     <Compile Include="ViewModel\ApartmentInputViewModel.cs" />
     <Compile Include="ViewModel\ApartmentSearchViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ContractDetailsFixViewModel.cs" />
+    <Compile Include="ViewModel\ContractDetailsSearchViewModel.cs" />
     <Compile Include="ViewModel\ContractDetailsViewModel.cs" />
+    <Compile Include="ViewModel\ContractDetailsViewViewModel.cs" />
     <Compile Include="ViewModel\ControlBarViewModel.cs" />
     <Compile Include="ViewModel\DetachedDetailsViewViewModel.cs" />
     <Compile Include="ViewModel\DetachedFixsViewModel.cs" />
     <Compile Include="ViewModel\DetachedInputViewModel.cs" />
     <Compile Include="ViewModel\DetachedSearchView.cs" />
+    <Compile Include="ViewModel\ImageSearchViewModel.cs" />
     <Compile Include="ViewModel\LandDetailsViewModel.cs" />
     <Compile Include="ViewModel\LandFixViewModel.cs" />
     <Compile Include="ViewModel\LandInputViewModel.cs" />
     <Compile Include="ViewModel\LandSearchViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\RentalContractInputViewModel.cs" />
+    <Compile Include="ViewModel\RentalContractSearchViewModel.cs" />
+    <Compile Include="ViewModel\RentalPaymentViewModel.cs" />
     <Compile Include="ViewModel\RentalPrintsViewModel.cs" />
     <Compile Include="ViewModel\RentalDetailsViewViewModel.cs" />
     <Compile Include="ViewModel\RentalFixViewModel.cs" />
     <Compile Include="ViewModel\RentalInputViewModel.cs" />
     <Compile Include="ViewModel\RentalSearchViewModel.cs" />
-    <Compile Include="ViewModel\RestAPI.cs" />
     <Compile Include="View\test\Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
@@ -358,7 +394,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CompanyDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ContractDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContractDetailsFix.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContractDetailsSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContractDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -426,6 +478,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RentalContractInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RentalContractSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RentalPaymentInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RentalPrints.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -485,13 +549,33 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="files\test.pdf" />
-    <None Include="files\test.xls" />
+    <None Include="files\住宅賃貸借契約書.xlsx" />
+    <None Include="files\住宅賃貸借媒介契約書（貸主用）.xlsx" />
+    <None Include="files\取引台帳.xlsx" />
+    <None Include="files\土地賃貸借契約書.xlsx" />
+    <None Include="files\売渡確認書.xlsx" />
+    <None Include="files\契約の種類.xlsx" />
+    <None Include="files\委任状%28土地%29.xlsx" />
+    <None Include="files\委任状.xlsx" />
+    <None Include="files\定期建物賃貸借%28定期借家%29契約についての説明書.xlsx" />
+    <None Include="files\定期建物賃貸借契約書（居住用）.xlsx" />
     <None Include="files\建物賃貸借契約書.xlsx" />
     <EntityDeploy Include="Model\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="files\明細書.xlsx" />
+    <None Include="files\案内図.xlsx" />
+    <None Include="files\物件（入居者名）.xlsx" />
+    <None Include="files\管理報告書%282%29.xlsx" />
+    <None Include="files\管理報告書.xlsx" />
+    <None Include="files\請求書.xlsx" />
+    <None Include="files\買付証明書.xlsx" />
+    <None Include="files\賃貸借契約書.xlsx" />
+    <None Include="files\重要車項脱明書.xlsx" />
+    <None Include="files\鍵受取書.xlsx" />
+    <None Include="files\領収書.xlsx" />
+    <None Include="files\駐車場賃貸借契約書.xlsx" />
     <None Include="Model\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
@@ -532,6 +616,8 @@
     <Resource Include="Pdf.Core.Readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\company.jpg" />
+    <Resource Include="images\logo.png" />
     <Content Include="Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
