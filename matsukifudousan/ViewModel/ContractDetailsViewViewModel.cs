@@ -15,7 +15,7 @@ namespace matsukifudousan.ViewModel
         public ContractDetailsViewViewModel()
         {
             ContractDetailsSearch contractSearch = new ContractDetailsSearch();
-            string HouseNoSelect = contractSearch.HouseSelect.Text;
+            int HouseNoSelect = Int32.Parse(contractSearch.HouseSelect.Text);
             contractDetailsView = new ObservableCollection<ContractDetailsDB>(DataProvider.Ins.DB.ContractDetailsDB.Where(i => i.HouseNo == HouseNoSelect));
         }
     }

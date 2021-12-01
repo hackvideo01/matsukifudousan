@@ -27,8 +27,8 @@ namespace matsukifudousan.ViewModel
     public class DetachedFixsViewModel : BaseViewModel, System.ComponentModel.INotifyPropertyChanged
     {
         #region Detached Item ViewsFixs
-        private string _DetachedHouseNo;
-        public string DetachedHouseNo { get => _DetachedHouseNo; set { _DetachedHouseNo = value; OnPropertyChanged(); } }
+        private int _DetachedHouseNo;
+        public int DetachedHouseNo { get => _DetachedHouseNo; set { _DetachedHouseNo = value; OnPropertyChanged(); } }
 
         private string _DetachedHouseName;
         public string DetachedHouseName { get => _DetachedHouseName; set { _DetachedHouseName = value; OnPropertyChanged(); } }
@@ -123,8 +123,8 @@ namespace matsukifudousan.ViewModel
         private string _ImageFullPath;
         public string ImageFullPath { get => _ImageFullPath; set { _ImageFullPath = value; OnPropertyChanged(); } }
 
-        private string _detachedSearchHouseNo;
-        public string detachedSearchHouseNo { get => _detachedSearchHouseNo; set { _detachedSearchHouseNo = value; OnPropertyChanged(); } }
+        private int _detachedSearchHouseNo;
+        public int detachedSearchHouseNo { get => _detachedSearchHouseNo; set { _detachedSearchHouseNo = value; OnPropertyChanged(); } }
         #endregion
         public ICommand ContractDetailsCommandWD { get; set; }
 
@@ -171,7 +171,7 @@ namespace matsukifudousan.ViewModel
             string[] a = ImageObject;
 
             DetachedSearch detachedSearch = new DetachedSearch();
-            detachedSearchHouseNo = detachedSearch.House.Text;
+            detachedSearchHouseNo = Int32.Parse(detachedSearch.House.Text);
             reload();
             AddImageCommand = new RelayCommand<object>((p) =>
             {
@@ -359,7 +359,7 @@ namespace matsukifudousan.ViewModel
                 {
                     OpenFileDialog openDialog = new OpenFileDialog();
                     openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-                    MessageBox.Show("データを修正されました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("物件内容を修正しました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
                     Comfirm = 0;
                 }
                 #endregion
@@ -382,7 +382,7 @@ namespace matsukifudousan.ViewModel
 
                 if (comfirmDeleteImage == 0)
                 {
-                    var resultButtonDeleteImg = MessageBox.Show("本当にこの物件（画像：" + nameImage + "）を削除したいでしょうか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    var resultButtonDeleteImg = MessageBox.Show("本当にこの物件（画像：" + nameImage + "）を削除しますか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (resultButtonDeleteImg == MessageBoxResult.Yes)
                     {
@@ -402,7 +402,7 @@ namespace matsukifudousan.ViewModel
 
                 if (comfirmDeleteImage == 0)
                 {
-                    var resultButtonDeleteImg = MessageBox.Show("本当にこの物件（画像：" + nameImage + "）を削除したいでしょうか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    var resultButtonDeleteImg = MessageBox.Show("本当にこの物件（画像：" + nameImage + "）を削除しますか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (resultButtonDeleteImg == MessageBoxResult.Yes)
                     {
@@ -423,7 +423,7 @@ namespace matsukifudousan.ViewModel
 
         private void reload()
         {
-            if (detachedSearchHouseNo != "")
+            if (detachedSearchHouseNo != 0)
             {
                 #region Display Column of value
 

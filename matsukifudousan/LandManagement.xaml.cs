@@ -32,7 +32,7 @@ namespace matsukifudousan
             InitializeComponent();
 
             usc = new LandInput();
-            ApartmentContain.Children.Add(usc);
+            LandContain.Children.Add(usc);
             this.DataContext = ViewModel = new DetachedHouseInput();
         }
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -45,25 +45,20 @@ namespace matsukifudousan
                     parentWindow.GridMain.Children.Add(usc);
                     break;
 
-                case "ApartmentInput":
+                case "LandInput":
                     usc = new LandInput();
-                    ApartmentContain.Children.Add(usc);
+                    LandContain.Children.Add(usc);
                     break;
 
-                case "ApartmentSearch":
+                case "LandSearch":
                     usc = new LandSearch();
-                    ApartmentContain.Children.Add(usc);
+                    LandContain.Children.Add(usc);
                     break;
 
-                case "DepositBusiness":
-                    usc = new DepositBusiness();
-                    ApartmentContain.Children.Add(usc);
+                case "Prints":
+                    usc = new LandPrints();
+                    LandContain.Children.Add(usc);
                     break;
-
-                //case "Prints":
-                //    usc = new ApartmentPrints();
-                //    ApartmentContain.Children.Add(usc);
-                //    break;
 
                 default:
                     break;

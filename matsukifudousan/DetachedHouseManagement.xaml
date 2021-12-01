@@ -17,9 +17,9 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              
-             d:DesignHeight="550" d:DesignWidth="1000"
+             d:DesignHeight="650" d:DesignWidth="1100"
              Tag="戸建管理"
-             Name="DetachedMN">
+             Name="DetachedUC">
     <UserControl.Resources>
 
         <Style x:Key="wdButton" TargetType="Button">
@@ -62,14 +62,14 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <uc:UserControlUC Tag="{Binding Tag, ElementName=DetachedMN}"></uc:UserControlUC>
+            <uc:UserControlUC Tag="{Binding Tag, ElementName=DetachedUC}"></uc:UserControlUC>
         </Grid>
 
         <Grid Grid.Row="1">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="165"></ColumnDefinition>
-                <ColumnDefinition Width="835"></ColumnDefinition>
+                <ColumnDefinition Width="935"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" HorizontalAlignment="Left">
@@ -90,21 +90,21 @@
                             <TextBlock Text="戸建検索" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="DepositBusiness" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
+                    <!--<ListViewItem x:Name="DepositBusiness" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
                         <StackPanel x:Name="DepositBusinessBGChange" Background="#1294F4" Orientation="Horizontal" Margin="10 0" Width="135">
                             <TextBlock Text="入金管理" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
-                    </ListViewItem>
+                    </ListViewItem>-->
                     <ListViewItem x:Name="Prints" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
                         <StackPanel x:Name="PrintsSearchBGChange" Background="#1294F4" Orientation="Horizontal" Margin="10 0" Width="135">
                             <TextBlock Text="各種印刷" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="wd" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
+                    <!--<ListViewItem x:Name="wd" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
                         <StackPanel Background="#1294F4" Orientation="Horizontal" Margin="10 0" Width="135">
                             <Button Command="{Binding ContractDetailsCommandWD}" Content="詳細入力" Style="{StaticResource ResourceKey=wdButton}"></Button>
                         </StackPanel>
-                    </ListViewItem>
+                    </ListViewItem>-->
                 </ListView>
 
                 <!--<Button Command="{Binding ContractDetailsCommandWD}" Content="詳細入力" Style="{StaticResource ResourceKey=wdButton}"></Button>-->

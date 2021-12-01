@@ -29,8 +29,8 @@ namespace matsukifudousan.ViewModel
 
 
         #region Apartment Item Input
-        private string _ApartmentHouseNo;
-        public string ApartmentHouseNo { get => _ApartmentHouseNo; set { _ApartmentHouseNo = value; OnPropertyChanged(); } }
+        private int _ApartmentHouseNo;
+        public int ApartmentHouseNo { get => _ApartmentHouseNo; set { _ApartmentHouseNo = value; OnPropertyChanged(); } }
 
         private string _ApartmentHouseName;
         public string ApartmentHouseName { get => _ApartmentHouseName; set { _ApartmentHouseName = value; OnPropertyChanged(); } }
@@ -127,8 +127,8 @@ namespace matsukifudousan.ViewModel
         private string _ImageFullPath;
         public string ImageFullPath { get => _ImageFullPath; set { _ImageFullPath = value; OnPropertyChanged(); } }
 
-        private string _apartmentSearchHouseNo;
-        public string apartmentSearchHouseNo { get => _apartmentSearchHouseNo; set { _apartmentSearchHouseNo = value; OnPropertyChanged(); } }
+        private int _apartmentSearchHouseNo;
+        public int apartmentSearchHouseNo { get => _apartmentSearchHouseNo; set { _apartmentSearchHouseNo = value; OnPropertyChanged(); } }
         #endregion
         public ICommand ContractDetailsCommandWD { get; set; }
 
@@ -181,7 +181,7 @@ namespace matsukifudousan.ViewModel
 
             ApartmentSearch apartmentSearch = new ApartmentSearch();
 
-            apartmentSearchHouseNo = apartmentSearch.House.Text;
+            apartmentSearchHouseNo = Int32.Parse(apartmentSearch.House.Text);
 
             reload();
 
@@ -399,7 +399,7 @@ namespace matsukifudousan.ViewModel
                     OpenFileDialog openDialog = new OpenFileDialog();
                     openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
 
-                    MessageBox.Show("データを修正されました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("物件の内容を修正しました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     Comfirm = 0;
                 }
@@ -492,7 +492,7 @@ namespace matsukifudousan.ViewModel
 
         private void reload()
         {
-            if (apartmentSearchHouseNo != "")
+            if (apartmentSearchHouseNo != 0)
             {
                 #region Display Column of value
 

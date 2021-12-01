@@ -18,14 +18,13 @@ namespace matsukifudousan.Model
         public string ImageName { get; set; }
         public string ImagePath { get; set; }
         public string ImageType { get; set; }
-        public string HouseNo { get; set; }
-        public string DetachedHouseNo { get; set; }
-        public string ApartmentHouseNo { get; set; }
-        public string LandNo { get; set; }
+        public Nullable<int> HouseNo { get; set; }
+        public Nullable<int> DetachedHouseNo { get; set; }
+        public Nullable<int> ApartmentHouseNo { get; set; }
+        public Nullable<int> LandNo { get; set; }
     
         public virtual ApartmentDB ApartmentDB { get; set; }
         public virtual DetachedDB DetachedDB { get; set; }
-        public virtual RentalManagementDB RentalManagementDB { get; set; }
         public virtual LandDB LandDB { get; set; }
     }
 }

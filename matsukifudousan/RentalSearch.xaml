@@ -17,7 +17,7 @@
              DataContext="{StaticResource RentalSearchVM}"
              
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="835">
+             d:DesignHeight="650" d:DesignWidth="835">
     <UserControl.Resources>
 
         <Style TargetType="Border" x:Key="BorderGrid">
@@ -44,30 +44,30 @@
             <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}" Width="auto">
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="28*"></ColumnDefinition>
-                        <ColumnDefinition Width="10*"></ColumnDefinition>
-                        <ColumnDefinition Width="10*"></ColumnDefinition>
-                        <ColumnDefinition Width="10*"></ColumnDefinition>
-                        <ColumnDefinition Width="10*"></ColumnDefinition>
-                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                        <ColumnDefinition Width="30*"></ColumnDefinition>
                         <ColumnDefinition Width="12*"></ColumnDefinition>
                         <ColumnDefinition Width="12*"></ColumnDefinition>
+                        <ColumnDefinition Width="12*"></ColumnDefinition>
+                        <ColumnDefinition Width="12*"></ColumnDefinition>
+                        <ColumnDefinition Width="12*"></ColumnDefinition>
+                        <ColumnDefinition Width="12*"></ColumnDefinition>
+                        <!--<ColumnDefinition Width="12*"></ColumnDefinition>-->
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Search, Mode=TwoWay}" Grid.Column="0"></TextBox>
                     <Button Grid.Column="1" Command="{Binding SearchButton}" Content="検索" Margin="0 0 3 0" Background="#FE8181"></Button>
-                    <Button Grid.Column="2" Command="{Binding RentalDetailsView}" Content="詳細" Margin="0 0 2 0" Background="#80B2FE"></Button>
-                    <Button Grid.Column="3" x:Name="fixButton" Command="{Binding RentalFix}" Content="修正" Margin="0 0 2 0" Background="#CA5100"></Button>
-                    <Button Grid.Column="4" Command="{Binding RentalDelete}" Content="削除" Margin="0 0 2 0" Background="#E51400"></Button>
-                    <Button Grid.Column="5" Command="{Binding PrintsButton}" Content="プリント" Margin="0 0 2 0" Background="#8CD25F"></Button>
-                    <Button Grid.Column="6" Command="{Binding ContractDetailsCommandWD}" Content="詳細入力" Background="#8CD25F"></Button>
-                    <Button Grid.Column="7" Command="{Binding RentalContract}" Content="賃貸契約" Background="RoyalBlue"></Button>
+                    <!--<Button Grid.Column="2" Command="{Binding RentalDetailsView}" Content="詳細" Margin="0 0 2 0" Background="#80B2FE"></Button>-->
+                    <Button Grid.Column="2" x:Name="fixButton" Command="{Binding RentalFix}" Content="修正" Margin="0 0 2 0" Background="#CA5100"></Button>
+                    <Button Grid.Column="3" Command="{Binding RentalDelete}" Content="削除" Margin="0 0 2 0" Background="#E51400"></Button>
+                    <Button Grid.Column="4" Command="{Binding PrintsButton}" Content="印刷" Margin="0 0 2 0" Background="#8CD25F"></Button>
+                    <Button Grid.Column="5" Command="{Binding ContractDetailsCommandWD}" Content="詳細" Background="#8CD25F"></Button>
+                    <Button Grid.Column="6" Command="{Binding RentalContract}" Content="賃貸契約" Background="RoyalBlue"></Button>
                 </Grid>
             </Border>
 
             <TextBox x:Name="House" Grid.Row="1" Text="{Binding HouseNo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" materialDesign:HintAssist.Hint="物件番号" Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True"/>
 
             <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
-                <DataGrid Name="dataGrid" ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem,Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Height="335">
+                <DataGrid Name="dataGrid" ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem,Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Height="450">
                     <!--<DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
                             <Style.Triggers>

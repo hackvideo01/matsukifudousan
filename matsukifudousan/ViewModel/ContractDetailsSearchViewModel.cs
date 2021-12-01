@@ -52,36 +52,37 @@ namespace matsukifudousan.ViewModel
                 OnPropertyChanged();
                 if (SelectedItem != null)
                 {
-                    HouseNo = SelectedItem.HouseNo;
+                    HouseNo = (int)SelectedItem.HouseNo;
                 }
             }
         }
 
-        private string _HouseNo;
-        public string HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
+        private Nullable<int> _HouseNo;
+        public Nullable<int> HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
 
         public ContractDetailsSearchViewModel()
         {
-            string Result = null;
-            ListContractDetails = new ObservableCollection<ContractDetailsDB>(DataProvider.Ins.DB.ContractDetailsDB.Where(t => t.HouseNo.Contains(Result) || t.ContractType.Contains(Result) || t.PickupMode.Contains(Result)));
+            string Result = "";
+            //ListContractDetails = new ObservableCollection<ContractDetailsDB>(DataProvider.Ins.DB.ContractDetailsDB.Where(t => t.HouseNo.ToString().Contains(Result) || t.ContractType.Contains(Result) || t.PickupMode.Contains(Result)));
             #region SearchButton
 
             SearchButton = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                //ContractDetailsSearch selectContractNo = new ContractDetailsSearch();
+                ContractDetailsSearch selectContractNo = new ContractDetailsSearch();
+                selectContractNo.HouseSelect.Text = null;
                 Result = Search;
-                if (Result != "" && Result != null)
+                if (!String.IsNullOrWhiteSpace(Result) && Result != null && Result != "")
                 {
-                    ListContractDetails = new ObservableCollection<ContractDetailsDB>(DataProvider.Ins.DB.ContractDetailsDB.Where(t => t.HouseNo.Contains(Result) || t.ContractType.Contains(Result) || t.PickupMode.Contains(Result)));
+                    ListContractDetails = new ObservableCollection<ContractDetailsDB>(DataProvider.Ins.DB.ContractDetailsDB.Where(t => t.HouseNo.ToString().Contains(Result) || t.ContractType.Contains(Result) || t.PickupMode.Contains(Result)));
 
                     if (ListContractDetails.Count == 0)
                     {
-                        MessageBox.Show("検索の結果がなかったです。", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("検索の結果がなかったです。", "警告", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("まだ入力しないです。", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("入力してください。", "警告", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
             #endregion
@@ -97,7 +98,7 @@ namespace matsukifudousan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件を選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
             });
             ContractDetailsFix = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -110,7 +111,7 @@ namespace matsukifudousan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件を選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
             });
             ContractDetailsDelete = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -123,7 +124,7 @@ namespace matsukifudousan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件を選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
             });
 
@@ -137,7 +138,7 @@ namespace matsukifudousan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件を選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
             });
         }
@@ -253,15 +254,15 @@ namespace matsukifudousan.ViewModel
             }
             else
             {
-                MessageBox.Show("物件を選択下さい！", "Warring", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("物件を選択してください！", "Warring", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
         private void contractDetailsDelete()
         {
             ContractDetailsSearch contractSearch = new ContractDetailsSearch();
-            var contractHouseDelete = contractSearch.HouseSelect.Text;
-            var resultButtonDeleteHouse = MessageBox.Show("本当にこの物件（物件番号：" + contractHouseDelete + "）を削除したいでしょうか？", "警告", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            var contractHouseDelete = Int32.Parse(contractSearch.HouseSelect.Text);
+            var resultButtonDeleteHouse = MessageBox.Show("本当にこの物件（物件番号：" + contractHouseDelete + "）を削除しますか？", "警告", MessageBoxButton.OKCancel, MessageBoxImage.Question);
             if (resultButtonDeleteHouse == MessageBoxResult.OK)
             {
                 string Result = null;
@@ -271,7 +272,7 @@ namespace matsukifudousan.ViewModel
                 DataProvider.Ins.DB.SaveChanges();
 
                 MessageBox.Show("削除しました！");
-                ListContractDetails = new ObservableCollection<ContractDetailsDB>(DataProvider.Ins.DB.ContractDetailsDB.Where(t => t.HouseNo.Contains(Result) || t.ContractType.Contains(Result) || t.PickupMode.Contains(Result)));
+                ListContractDetails = new ObservableCollection<ContractDetailsDB>(DataProvider.Ins.DB.ContractDetailsDB.Where(t => t.HouseNo.ToString().Contains(Result) || t.ContractType.Contains(Result) || t.PickupMode.Contains(Result)));
             }
             else
             {

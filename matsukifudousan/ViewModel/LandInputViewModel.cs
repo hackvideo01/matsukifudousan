@@ -38,8 +38,8 @@ namespace matsukifudousan.ViewModel
     public class LandInputViewModel : BaseViewModel
     {
         #region Land Item Input
-        private string _LandNo;
-        public string LandNo { get => _LandNo; set { _LandNo = value; OnPropertyChanged(); } }
+        private Nullable<int> _LandNo;
+        public Nullable<int> LandNo { get => _LandNo; set { _LandNo = value; OnPropertyChanged(); } }
 
         private string _LandName;
         public string LandName { get => _LandName; set { _LandName = value; OnPropertyChanged(); } }
@@ -177,7 +177,7 @@ namespace matsukifudousan.ViewModel
 
             AddLandCommand = new RelayCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(LandNo))
+                if (string.IsNullOrEmpty(LandNo.ToString()))
                     return false;
                 var displayList = DataProvider.Ins.DB.LandDB.Where(x => x.LandNo == LandNo);
                 if (displayList == null || displayList.Count() != 0) // if displayList = 0 then HouseNo had in database
@@ -185,79 +185,94 @@ namespace matsukifudousan.ViewModel
                 return true;
             }, (p) =>
             {
-                Comfirm = 1;
-                if (Comfirm == 1)
+                LandInput testLandNo = new LandInput();
+                string checkLanNoField = testLandNo.txbLandNo.Text;
+                var displayList = DataProvider.Ins.DB.LandDB.Where(x => x.LandNo == LandNo);
+                if (LandNo.ToString() != "" && displayList.Count() == 0 && checkLanNoField != "")
                 {
-                    foreach (string SaveImageItem in NameIMG2)
+                    Comfirm = 1;
+                    if (Comfirm == 1)
                     {
-                        File.Copy(SaveImageItem, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(SaveImageItem)), true);
-                    }
-                    OpenFileDialog openDialog = new OpenFileDialog();
-                    openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-                }
-
-                if (Comfirm == 1)
-                {
-                    #region Value Form ApartmentMangement
-                    var Land = new LandDB()
-                    {
-                        LandNo = LandNo,
-                        LandName = LandName,
-                        LandPost = LandPost,
-                        LandAddress = LandAddress,
-                        NearestSation = NearestSation,
-                        Price = Price,
-                        UnitPrice = UnitPrice,
-                        LandArea = LandArea,
-                        RoadBurden = RoadBurden,
-                        LandRights = LandRights,
-                        Ground = Ground,
-                        CityPlan = CityPlan,
-                        UseDistrict = UseDistrict,
-                        BuildingCoverage = BuildingCoverage,
-                        VolumeRaito = VolumeRaito,
-                        OtherLegalRestrictions = OtherLegalRestrictions,
-                        Terrain = Terrain,
-                        CurrentSituation = CurrentSituation,
-                        DeliveryConditionTime = DeliveryConditionTime,
-                        BuildingConditions = BuildingConditions,
-                        TransactionMode = TransactionMode,
-                        RoadsideSituation = RoadsideSituation,
-                        Facility = Facility,
-                        SchoolDistrict = SchoolDistrict,
-                        NeighborhoodInformation = NeighborhoodInformation,
-                        Remarks = Remarks,
-                    };
-
-                    DataProvider.Ins.DB.LandDB.Add(Land);
-                    DataProvider.Ins.DB.SaveChanges();
-
-                    int nameImageCount = 0;
-                    foreach (string saveImageDB in ImageListPath)
-                    {
-                        var AddImage = new ImageDB()
+                        foreach (string SaveImageItem in NameIMG2)
                         {
-                            ImageName = saveImageDB,
-                            ImagePath = SavePath + "\\" + saveImageDB,
-                            LandNo = LandNo
-                        };
-                        DataProvider.Ins.DB.ImageDB.Add(AddImage);
-                        DataProvider.Ins.DB.SaveChanges();
-                        nameImageCount++;
-                    }
-                    #endregion
-
-                    for (int i = nameImageCount * 2 - 1; i >= 0; i--)
-                    {
-                        NameIMG.RemoveAt(i);
-                        if (i % 2 == 0)
-                        {
-                            ImageListPath.RemoveAt(i / 2);
+                            File.Copy(SaveImageItem, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(SaveImageItem)), true);
                         }
+                        OpenFileDialog openDialog = new OpenFileDialog();
+                        openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
                     }
-                    ImagePath = "";
-                    MessageBox.Show("データを保存しました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Comfirm = 0;
+
+                    if (Comfirm == 1)
+                    {
+                        #region Value Form Land
+                        var Land = new LandDB()
+                        {
+                            LandNo = (int)LandNo,
+                            LandName = LandName,
+                            LandPost = LandPost,
+                            LandAddress = LandAddress,
+                            NearestSation = NearestSation,
+                            Price = Price,
+                            UnitPrice = UnitPrice,
+                            LandArea = LandArea,
+                            RoadBurden = RoadBurden,
+                            LandRights = LandRights,
+                            Ground = Ground,
+                            CityPlan = CityPlan,
+                            UseDistrict = UseDistrict,
+                            BuildingCoverage = BuildingCoverage,
+                            VolumeRaito = VolumeRaito,
+                            OtherLegalRestrictions = OtherLegalRestrictions,
+                            Terrain = Terrain,
+                            CurrentSituation = CurrentSituation,
+                            DeliveryConditionTime = DeliveryConditionTime,
+                            BuildingConditions = BuildingConditions,
+                            TransactionMode = TransactionMode,
+                            RoadsideSituation = RoadsideSituation,
+                            Facility = Facility,
+                            SchoolDistrict = SchoolDistrict,
+                            NeighborhoodInformation = NeighborhoodInformation,
+                            Remarks = Remarks,
+                        };
+
+                        DataProvider.Ins.DB.LandDB.Add(Land);
+                        DataProvider.Ins.DB.SaveChanges();
+
+                        int nameImageCount = 0;
+                        foreach (string saveImageDB in ImageListPath)
+                        {
+                            var AddImage = new ImageDB()
+                            {
+                                ImageName = saveImageDB,
+                                ImagePath = SavePath + "\\" + saveImageDB,
+                                LandNo = LandNo
+                            };
+                            DataProvider.Ins.DB.ImageDB.Add(AddImage);
+                            DataProvider.Ins.DB.SaveChanges();
+                            nameImageCount++;
+                        }
+                        #endregion
+
+                        for (int i = nameImageCount * 2 - 1; i >= 0; i--)
+                        {
+                            NameIMG.RemoveAt(i);
+                            if (i % 2 == 0)
+                            {
+                                ImageListPath.RemoveAt(i / 2);
+                            }
+                        }
+                        ImagePath = "";
+                        MessageBox.Show("物件内容を保存しました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Comfirm = 0;
+                        LandNo = null;
+                    }
+                }
+                else if(checkLanNoField == "")
+                {
+                    MessageBox.Show("物件番号を入力してください！", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (displayList.Count() != 0)
+                {
+                    MessageBox.Show("物件番"+ LandNo + "号がありました！", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             });
 
@@ -368,23 +383,17 @@ namespace matsukifudousan.ViewModel
             {
                 string nameImage = ImageListPath.ElementAt(0).ToString();
                 ImageListPath.RemoveAt(0);
+                NameIMG2.RemoveAt(0);
                 NameIMG.RemoveAt(index: indexBtn);
                 NameIMG.RemoveAt(index: indexImg);
-                if (comfirmDeleteImage == 0)
-                {
-                    DeleteImage(nameImage);
-                }
             }
             else
             {
                 string nameImage = ImageListPath.ElementAt(indexImg / 2).ToString();
                 ImageListPath.RemoveAt(indexImg / 2);
+                NameIMG2.RemoveAt(indexImg / 2);
                 NameIMG.RemoveAt(index: indexBtn);
                 NameIMG.RemoveAt(index: indexImg);
-                if (comfirmDeleteImage == 0)
-                {
-                    DeleteImage(nameImage);
-                }
             }
 
             ImagePath = "";

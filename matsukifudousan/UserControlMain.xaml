@@ -16,13 +16,13 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              
-             d:DesignHeight="550" d:DesignWidth="1000"
+             d:DesignHeight="650" d:DesignWidth="1100"
              Tag="マツキ不動産管理"
              Name="mainWindown">
     <UserControl.Resources>
         <Style x:Key="btnmain" TargetType="{x:Type Button}" >
-            <Setter Property="Height" Value="70"></Setter>
-            <Setter Property="Width" Value="200"></Setter>
+            <Setter Property="Height" Value="90"></Setter>
+            <Setter Property="Width" Value="230"></Setter>
             <Setter Property="FontWeight" Value="Bold"></Setter>
             <Setter Property="FontSize" Value="20"></Setter>
             <Setter Property="Background" Value="White"/>
@@ -48,7 +48,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -62,10 +62,10 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"></RowDefinition>
-                <RowDefinition Height="285"></RowDefinition>
+                <RowDefinition Height="530"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0 15 0 0">
-                <materialDesign:Card Height="80" Width="900"
+                <materialDesign:Card Height="100" Width="1000"
                 materialDesign:ShadowAssist.ShadowDepth="Depth3">
                     <materialDesign:Card.Background>
                         <ImageBrush ImageSource="images/top.JPG"/>
@@ -75,9 +75,9 @@
             <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0 30 0 0">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="80"></RowDefinition>
-                    <RowDefinition Height="80"></RowDefinition>
-                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="130"></RowDefinition>
+                    <RowDefinition Height="130"></RowDefinition>
+                    <RowDefinition Height="130"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
@@ -130,7 +130,7 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="images/document.png" HorizontalAlignment="Left" Margin="-67,0,0,0" Grid.ColumnSpan="2"/>
+                            <Image Grid.Column="0" Source="images/document.png" HorizontalAlignment="Left" Margin="-87,0,0,0" Grid.ColumnSpan="2"/>
                             <TextBlock Grid.Column="1" Text="マンション管理" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,23,-57,23" ></TextBlock>
                         </Grid>
                     </Button>
@@ -158,7 +158,7 @@
                         </Grid>
                     </Button>
 
-                    <Button
+                    <!--<Button
                         Style="{StaticResource btnmain}"
                         Grid.Column="1"      
                         ToolTip="顧客管理">
@@ -171,10 +171,25 @@
                             </Image>
                             <TextBlock Grid.Column="1" Text="顧客管理" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
                         </Grid>
+                    </Button>-->
+                    <Button
+                        Click="ImageSearch_Click"
+                        Grid.Column="1"    
+                        Style="{StaticResource btnmain}"
+                        ToolTip="画像検索" Margin="69,20,68,21">
+                        <Grid VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="images/lookup.png" Height="45" Margin="-19,0,19,0">
+                            </Image>
+                            <TextBlock Grid.Column="1" Text="画像検索" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                        </Grid>
                     </Button>
 
                     <Button
-                        Click="RentalContractSearch_Click"
+                        Click="RentalContractPaymentSearch_Click"
                         Style="{StaticResource btnmain}"
                         Grid.Column="2"      
                         ToolTip="物件検索">
@@ -185,21 +200,22 @@
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Source="images/lookup.png" Height="45" Margin="-22,0,22,0">
                             </Image>
-                            <TextBlock Grid.Column="1" Text="管理物件検索" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Grid.Column="1" Text="入金管理" VerticalAlignment="Center" Margin="0,10,0,11"/>
                         </Grid>
                     </Button>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="367*"></ColumnDefinition>
+                        <ColumnDefinition Width="211*"></ColumnDefinition>
+                        <ColumnDefinition Width="156*"/>
+                        <ColumnDefinition Width="366*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Button
-                        Click="test_Click"
+                        Click="CompanyDetails_Click"
                         Grid.Column="0"    
                         Style="{StaticResource btnmain}"
-                        ToolTip="会社情報">
+                        ToolTip="会社情報" Margin="68,20,69,21">
                         <Grid VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
@@ -208,21 +224,6 @@
                             <Image Grid.Column="0" Source="images/computer.png" Margin="-18,0,18,0">
                             </Image>
                             <TextBlock Grid.Column="1" Text="会社情報" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                        </Grid>
-                    </Button>
-                    <Button
-                        Click="ImageSearch_Click"
-                        Grid.Column="1"    
-                        Style="{StaticResource btnmain}"
-                        ToolTip="画像検索">
-                        <Grid VerticalAlignment="Center">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="images/lookup.png" Height="45" Margin="-22,0,22,0">
-                            </Image>
-                            <TextBlock Grid.Column="1" Text="画像検索" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
                         </Grid>
                     </Button>
 

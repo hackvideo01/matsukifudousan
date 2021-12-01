@@ -21,8 +21,8 @@ namespace matsukifudousan.ViewModel
 
     {
         #region initi
-        private string _HouseNo;
-        public string HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
+        private int _HouseNo;
+        public int HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
 
         private string _ContractType;
         public string ContractType { get => _ContractType; set { _ContractType = value; OnPropertyChanged(); } }
@@ -680,8 +680,8 @@ namespace matsukifudousan.ViewModel
 
             AddContractDetailsCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                ContractDetailsSearch contractSearch = new ContractDetailsSearch();
-                string HouseNoSelect = contractSearch.HouseSelect.Text;
+                RentalSearch contractSearch = new RentalSearch();
+                int HouseNoSelect = Int32.Parse(contractSearch.House.Text);
                 var AddContract = DataProvider.Ins.DB.ContractDetailsDB.Where(hno => hno.HouseNo == HouseNoSelect).SingleOrDefault();
                 AddContract.ContractType = ContractType;
                 AddContract.PickupMode = PickupMode;
@@ -800,27 +800,27 @@ namespace matsukifudousan.ViewModel
                 AddContract.OtherBuildingsChoose = OtherBuildingsChoose;
                 AddContract.OtherConditions = OtherConditions;
                 AddContract.OtherConditionsChoose = OtherConditionsChoose;
-                AddContract.TransportationFacilities = TransportationFacilities;
-                AddContract.Rent = Rent;
-                AddContract.CommonServiceFee = CommonServiceFee;
-                AddContract.CATVFee = CATVFee;
-                AddContract.ParkingFee = ParkingFee;
-                AddContract.SecurityDeposit = SecurityDeposit;
-                AddContract.KeyMoney = KeyMoney;
+                //AddContract.TransportationFacilities = TransportationFacilities;
+                //AddContract.Rent = Rent;
+                //AddContract.CommonServiceFee = CommonServiceFee;
+                //AddContract.CATVFee = CATVFee;
+                //AddContract.ParkingFee = ParkingFee;
+                //AddContract.SecurityDeposit = SecurityDeposit;
+                //AddContract.KeyMoney = KeyMoney;
                 AddContract.Total = Total;
 
                 DataProvider.Ins.DB.SaveChanges();
-                MessageBox.Show("情報が保存されていました。");
+                MessageBox.Show("物件内容を修正しました。","修正成功",MessageBoxButton.OK,MessageBoxImage.Information);
             });
         }
         private void reloadContract()
         {
-            ContractDetailsSearch contractSearch = new ContractDetailsSearch();
-            string HouseNoSelect = contractSearch.HouseSelect.Text;
+            RentalSearch contractSearch = new RentalSearch();
+            int HouseNoSelect = Int32.Parse(contractSearch.House.Text);
 
             #region Display Column of value
             contractDetailsView = new ObservableCollection<ContractDetailsDB>(DataProvider.Ins.DB.ContractDetailsDB.Where(i => i.HouseNo == HouseNoSelect));
-            HouseNo = contractDetailsView.First().HouseNo;
+            HouseNo = HouseNoSelect;
             ContractType = contractDetailsView.First().ContractType;
             PickupMode = contractDetailsView.First().PickupMode;
             DateCurrent = contractDetailsView.First().DateCurrent;

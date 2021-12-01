@@ -24,5 +24,20 @@ namespace matsukifudousan
         {
             InitializeComponent();
         }
+
+        private void dataGridContract_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            try
+            {
+                dataGridContract.BeginEdit();
+                DataGridCellInfo cell = dataGridContract.SelectedCells[0];
+                string value = ((TextBlock)cell.Column.GetCellContent(cell.Item)).Text;
+                House.Text = value;
+            }
+            catch (Exception)
+            {
+                //MessageBox.Show("ok");
+            }
+        }
     }
 }

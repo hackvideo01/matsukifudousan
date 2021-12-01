@@ -38,8 +38,8 @@ namespace matsukifudousan.ViewModel
     public class RentalInputViewModel : BaseViewModel
     {
         #region Rental Item Input
-        private string _HouseNo;
-        public string HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
+        private Nullable<int> _HouseNo;
+        public Nullable<int> HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } } 
 
         private string _HouseName;
         public string HouseName { get => _HouseName; set { _HouseName = value; OnPropertyChanged(); } }
@@ -97,6 +97,9 @@ namespace matsukifudousan.ViewModel
 
         private string _ParkingFee;
         public string ParkingFee { get => _ParkingFee; set { _ParkingFee = value; OnPropertyChanged(); } }
+
+        private string _CATVFee;
+        public string CATVFee { get => _CATVFee; set { _CATVFee = value; OnPropertyChanged(); } }
 
         private string _OtherFee;
         public string OtherFee { get => _OtherFee; set { _OtherFee = value; OnPropertyChanged(); } }
@@ -195,7 +198,6 @@ namespace matsukifudousan.ViewModel
 
         public RentalInputViewModel()
         {
-
             // Get current working directory (..\bin\Debug)
             string workingDirectory = Environment.CurrentDirectory;
 
@@ -207,10 +209,10 @@ namespace matsukifudousan.ViewModel
 
             string ImageNameString = ImageListPath.ToString();
             //ContractDetailsCommandWD = new RelayCommand<object>((p) => { return true; }, (p) => { ContractDetails wd = new ContractDetails(); wd.ShowDialog(); });
-            
+
             AddRentalCommand = new RelayCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(HouseNo))
+                if (string.IsNullOrEmpty(HouseNo.ToString()))
                     return false;
 
                 var displayList = DataProvider.Ins.DB.RentalManagementDB.Where(x => x.HouseNo == HouseNo);
@@ -220,91 +222,104 @@ namespace matsukifudousan.ViewModel
                 return true;
             }, (p) =>
             {
-                
-                Comfirm = 1;
-
-                if (Comfirm == 1)
+                RentalInput testRental = new RentalInput();
+                string checkRentalField = testRental.txbHouseNo.Text;
+                var displayList = DataProvider.Ins.DB.RentalManagementDB.Where(x => x.HouseNo == HouseNo);
+                if (HouseNo.ToString() != "" && displayList.Count() == 0 && checkRentalField != "")
                 {
-                    foreach (string SaveImageItem in NameIMG2)
-                    {
-                        File.Copy(SaveImageItem, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(SaveImageItem)), true);
-                    }
+                    Comfirm = 1;
 
-                    OpenFileDialog openDialog = new OpenFileDialog();
-                    openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-
-                    #region Value Form RentalMangement
-                    var AddRental = new RentalManagementDB()
+                    if (Comfirm == 1)
                     {
-                        HouseNo = HouseNo,
-                        HouseName = HouseName,
-                        HousePost = HousePost,
-                        HouseAddress = HouseAddress,
-                        NearestSation = NearestSation,
-                        HouseType = HouseType,
-                        Construction = Construction,
-                        YearConstruction = YearConstruction,
-                        Decorate = Decorate,
-                        TotalArea = TotalArea,
-                        Parking = Parking,
-                        Pets = Pets,
-                        OtherEquipment = OtherEquipment,
-                        HouseRemarks = HouseRemarks,
-                        SecurityDeposit = SecurityDeposit,
-                        KeyMoney = KeyMoney,
-                        CommonFee = CommonFee,
-                        ManagementFee = ManagementFee,
-                        Rent = Rent,
-                        ParkingFee = ParkingFee,
-                        OtherFee = OtherFee,
-                        MNGMTCOName = MNGMTCOName,
-                        CompanyAddress = CompanyAddress,
-                        COPhone = COPhone,
-                        COFax = COFax,
-                        Name = Name,
-                        Address = Address,
-                        Phone = Phone,
-                        Fax = Fax,
-                        MNGMTForm = MNGMTForm,
-                        Remarks = Remarks,
-                        Image = Image
-                    };
-
-                    DataProvider.Ins.DB.RentalManagementDB.Add(AddRental);
-                    DataProvider.Ins.DB.SaveChanges();
-                    //string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                    int nameImageCount = 0;
-                    foreach (string saveImageDB in ImageListPath)
-                    {
-                        var AddImage = new ImageDB()
+                        foreach (string SaveImageItem in NameIMG2)
                         {
-                            ImageName = saveImageDB,
-                            ImagePath = SavePath + "\\" + saveImageDB,
-                            HouseNo = HouseNo
-                        };
-                        DataProvider.Ins.DB.ImageDB.Add(AddImage);
-                        DataProvider.Ins.DB.SaveChanges();
-
-                        nameImageCount++;
-                    }
-
-                    for (int i = nameImageCount * 2 - 1; i >= 0; i--)
-                    {
-                        NameIMG.RemoveAt(i);
-                        if (i % 2 == 0)
-                        {
-                            ImageListPath.RemoveAt(i / 2);
+                            File.Copy(SaveImageItem, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(SaveImageItem)), true);
                         }
-                        ImagePath = "";
+
+                        OpenFileDialog openDialog = new OpenFileDialog();
+                        openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
+
+                        #region Value Form RentalMangement
+                        var AddRental = new RentalManagementDB()
+                        {
+                            HouseNo = (int)HouseNo,
+                            HouseName = HouseName,
+                            HousePost = HousePost,
+                            HouseAddress = HouseAddress,
+                            NearestSation = NearestSation,
+                            HouseType = HouseType,
+                            Construction = Construction,
+                            YearConstruction = YearConstruction,
+                            Decorate = Decorate,
+                            TotalArea = TotalArea,
+                            Parking = Parking,
+                            Pets = Pets,
+                            OtherEquipment = OtherEquipment,
+                            HouseRemarks = HouseRemarks,
+                            SecurityDeposit = SecurityDeposit,
+                            KeyMoney = KeyMoney,
+                            CommonFee = CommonFee,
+                            ManagementFee = ManagementFee,
+                            Rent = Rent,
+                            ParkingFee = ParkingFee,
+                            CATVFee = CATVFee,
+                            OtherFee = OtherFee,
+                            MNGMTCOName = MNGMTCOName,
+                            CompanyAddress = CompanyAddress,
+                            COPhone = COPhone,
+                            COFax = COFax,
+                            Name = Name,
+                            Address = Address,
+                            Phone = Phone,
+                            Fax = Fax,
+                            MNGMTForm = MNGMTForm,
+                            Remarks = Remarks,
+                        };
+
+                        DataProvider.Ins.DB.RentalManagementDB.Add(AddRental);
+                        DataProvider.Ins.DB.SaveChanges();
+                        //string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                        int nameImageCount = 0;
+                        foreach (string saveImageDB in ImageListPath)
+                        {
+                            var AddImage = new ImageDB()
+                            {
+                                ImageName = saveImageDB,
+                                ImagePath = SavePath + "\\" + saveImageDB,
+                                HouseNo = HouseNo
+                            };
+                            DataProvider.Ins.DB.ImageDB.Add(AddImage);
+                            DataProvider.Ins.DB.SaveChanges();
+
+                            nameImageCount++;
+                        }
+
+                        for (int i = nameImageCount * 2 - 1; i >= 0; i--)
+                        {
+                            NameIMG.RemoveAt(i);
+                            if (i % 2 == 0)
+                            {
+                                ImageListPath.RemoveAt(i / 2);
+                            }
+                            ImagePath = "";
+                        }
+                        MessageBox.Show("物件内容を保存しました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Comfirm = 0;
+                        HouseNo = null;
                     }
-                    MessageBox.Show("データを保存しました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Comfirm = 0;
+                    #endregion
                 }
-                #endregion
+                else if (checkRentalField == "")
+                {
+                    MessageBox.Show("物件番号を入力してください！", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (displayList.Count() != 0)
+                {
+                    MessageBox.Show("物件番" + HouseNo + "号がありました！", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             });
 
             int nameduplicate = 0;
-
             AddImageCommand = new RelayCommand<object>((p) =>
             {
                 return true;

@@ -150,6 +150,6 @@ namespace matsukifudousan.Model
         public string RentalGuaranteeFee { get; set; }
         public string FeeTaxIncluded { get; set; }
         public string Total { get; set; }
-        public string HouseNo { get; set; }
+        public Nullable<int> HouseNo { get; set; }
     }
 }

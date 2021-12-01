@@ -102,7 +102,7 @@
                             <TextBlock Text="物件番号" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBox Text="{Binding LandNo}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0"/>
+                            <TextBox Text="{Binding LandNo}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0" IsReadOnly="True"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -455,7 +455,7 @@
                     </ItemsControl>
                 </ScrollViewer>
 
-                <Button Grid.Row="19" Command="{Binding AddLandCommand}" Content="登録" Width="150" Height="42" Background="#333333"></Button>
+                <Button Grid.Row="19" Command="{Binding AddLandCommand}" Content="修正" Width="150" Height="42" Background="#333333"></Button>
 
             </Grid>
         </ScrollViewer>

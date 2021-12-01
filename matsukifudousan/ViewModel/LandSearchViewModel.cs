@@ -24,6 +24,9 @@ namespace matsukifudousan.ViewModel
         private string _Search;
         public string Search { get => _Search; set { _Search = value; OnPropertyChanged(); } }
 
+        private int _HouseNumbers;
+        public int HouseNumbers { get => _HouseNumbers; set { _HouseNumbers = value; OnPropertyChanged(); } }
+
         public ICommand SearchButton { get; set; }
 
         public ICommand PrintsButton { get; set; }
@@ -33,6 +36,8 @@ namespace matsukifudousan.ViewModel
         public ICommand LandFix { get; set; }
 
         public ICommand LandDelete { get; set; }
+
+        public ICommand TotalSearch { get; set; }
 
         private LandDB _SelectedItem;
         public LandDB SelectedItem
@@ -44,25 +49,28 @@ namespace matsukifudousan.ViewModel
                 OnPropertyChanged();
                 if (SelectedItem != null)
                 {
-                    LandNo = SelectedItem.LandNo;
+                    LandNo = (int)SelectedItem.LandNo;
                 }
             }
         }
 
-        private string _LandNo;
-        public string LandNo { get => _LandNo; set { _LandNo = value; OnPropertyChanged(); } }
+        private Nullable<int> _LandNo;
+        public Nullable<int> LandNo { get => _LandNo; set { _LandNo = value; OnPropertyChanged(); } }
 
         public LandSearchViewModel()
         {
             string Result = null;
-            List = new ObservableCollection<LandDB>(DataProvider.Ins.DB.LandDB.Where(t => t.LandNo.Contains(Result) || t.LandName.Contains(Result) || t.LandAddress.Contains(Result)));
+            List = new ObservableCollection<LandDB>(DataProvider.Ins.DB.LandDB.Where(t => t.LandNo.ToString().Contains(Result) || t.LandName.Contains(Result) || t.LandAddress.Contains(Result)));
             #region SearchButton
             SearchButton = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
+                LandSearch selectLandNo = new LandSearch();
+                selectLandNo.LandNo.Text = null;
                 Result = Search;
-                if (Result != "")
+                if (!String.IsNullOrWhiteSpace(Result) && Result != null && Result != "")
                 {
-                    List = new ObservableCollection<LandDB>(DataProvider.Ins.DB.LandDB.Where(t => t.LandNo.Contains(Result) || t.LandName.Contains(Result) || t.LandAddress.Contains(Result)));
+                    List = new ObservableCollection<LandDB>(DataProvider.Ins.DB.LandDB.Where(t => t.LandNo.ToString().Contains(Result) || t.LandName.Contains(Result) || t.LandAddress.Contains(Result)));
+                    HouseNumbers = List.Count;
                     if (List.Count == 0)
                     {
                         MessageBox.Show("検索の結果がなかったです。", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -70,11 +78,15 @@ namespace matsukifudousan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("まだ入力しないです。", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("入力してください。", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             });
             #endregion
-
+            TotalSearch = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                List = new ObservableCollection<LandDB>(DataProvider.Ins.DB.LandDB.ToList());
+                HouseNumbers = List.Count;
+            });
             PrintsButton = new RelayCommand<object>((p) => { return true; }, (p) => { printsButton(); });
             LandDetailsView = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -82,11 +94,11 @@ namespace matsukifudousan.ViewModel
 
                 if (selectLandNo.LandNo.Text != "")
                 {
-                    LandDetailsView openWindowDetails = new LandDetailsView(); openWindowDetails.ShowDialog();
+                    LandDetailsView openLand = new LandDetailsView(); openLand.ShowDialog();
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件を選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
             LandFix = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -99,7 +111,7 @@ namespace matsukifudousan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件を選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
             LandDelete = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -108,10 +120,11 @@ namespace matsukifudousan.ViewModel
                 if (selectLandNo.LandNo.Text != "")
                 {
                     landDelete();
+                    List = new ObservableCollection<LandDB>(DataProvider.Ins.DB.LandDB.Where(t => t.LandNo.ToString().Contains(Result) || t.LandName.Contains(Result) || t.LandAddress.Contains(Result)));
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件を選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
         }
@@ -215,19 +228,20 @@ namespace matsukifudousan.ViewModel
                     WindowStyle = WindowStyle.None
                 };
                 window.ShowDialog();
+                List = new ObservableCollection<LandDB>(DataProvider.Ins.DB.LandDB.Where(t => t.LandNo.ToString().Contains(Search) || t.LandName.Contains(Search) || t.LandAddress.Contains(Search)));
             }
             else
             {
-                MessageBox.Show("物件を選択下さい！", "Warring", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("物件を選択してください！", "Warring", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
         private void landDelete()
         {
             LandSearch landSearch = new LandSearch();
-            var landSearchNo = landSearch.LandNo.Text;
-            var resultButtonDeleteHouse = MessageBox.Show("本当にこの物件（物件番号：" + landSearchNo + "）を削除したいでしょうか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (resultButtonDeleteHouse == MessageBoxResult.OK)
+            int landSearchNo = Int32.Parse(landSearch.LandNo.Text);
+            var resultButtonDeleteHouse = MessageBox.Show("本当にこの物件（物件番号：" + landSearchNo + "）を削除しますか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (resultButtonDeleteHouse == MessageBoxResult.Yes)
             {
                 var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(imgDelete => imgDelete.LandNo == landSearchNo);
                 DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);

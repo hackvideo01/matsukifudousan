@@ -1,7 +1,10 @@
-﻿using System;
+﻿using matsukifudousan.Model;
+using matsukifudousan.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +25,31 @@ namespace matsukifudousan
         public RentalPaymentInput()
         {
             InitializeComponent();
+
+            DataContext = new RentalPaymentViewModel();
+
+
+        }
+
+
+        private void txbMoneyMonthPayment_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void Grid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+
+            var uie = e.OriginalSource as UIElement;
+
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                uie.MoveFocus(
+                new TraversalRequest(
+                FocusNavigationDirection.Next));
+            }
         }
     }
 }

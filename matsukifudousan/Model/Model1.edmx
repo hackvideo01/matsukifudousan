@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="ApartmentHouseNo" />
           </Key>
-          <Property Name="ApartmentHouseNo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ApartmentHouseNo" Type="int" Nullable="false" />
           <Property Name="ApartmentHouseName" Type="nvarchar" MaxLength="100" />
           <Property Name="ApartmentPost" Type="nvarchar" MaxLength="50" />
           <Property Name="ApartmentAddress" Type="nvarchar" MaxLength="50" />
@@ -180,13 +180,13 @@
           <Property Name="RentalGuaranteeFee" Type="nvarchar" MaxLength="50" />
           <Property Name="FeeTaxIncluded" Type="nvarchar" MaxLength="50" />
           <Property Name="Total" Type="nvarchar" MaxLength="150" />
-          <Property Name="HouseNo" Type="nvarchar" MaxLength="150" />
+          <Property Name="HouseNo" Type="int" />
         </EntityType>
         <EntityType Name="DetachedDB">
           <Key>
             <PropertyRef Name="DetachedHouseNo" />
           </Key>
-          <Property Name="DetachedHouseNo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DetachedHouseNo" Type="int" Nullable="false" />
           <Property Name="DetachedHouseName" Type="nchar" MaxLength="100" />
           <Property Name="DetachedPost" Type="nchar" MaxLength="50" />
           <Property Name="DetachedAddress" Type="nvarchar" MaxLength="50" />
@@ -224,16 +224,16 @@
           <Property Name="ImageName" Type="nvarchar" MaxLength="1000" />
           <Property Name="ImagePath" Type="nvarchar(max)" />
           <Property Name="ImageType" Type="nvarchar" MaxLength="50" />
-          <Property Name="HouseNo" Type="nvarchar" MaxLength="100" />
-          <Property Name="DetachedHouseNo" Type="nvarchar" MaxLength="100" />
-          <Property Name="ApartmentHouseNo" Type="nvarchar" MaxLength="100" />
-          <Property Name="LandNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="HouseNo" Type="int" />
+          <Property Name="DetachedHouseNo" Type="int" />
+          <Property Name="ApartmentHouseNo" Type="int" />
+          <Property Name="LandNo" Type="int" />
         </EntityType>
         <EntityType Name="LandDB">
           <Key>
             <PropertyRef Name="LandNo" />
           </Key>
-          <Property Name="LandNo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LandNo" Type="int" Nullable="false" />
           <Property Name="LandName" Type="nvarchar" MaxLength="150" />
           <Property Name="LandPost" Type="nvarchar" MaxLength="50" />
           <Property Name="LandAddress" Type="nvarchar" MaxLength="250" />
@@ -260,12 +260,20 @@
           <Property Name="NeighborhoodInformation" Type="nvarchar" MaxLength="150" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <EntityType Name="NotPaymentDB">
+          <Key>
+            <PropertyRef Name="HouseNo" />
+          </Key>
+          <Property Name="HouseNo" Type="int" Nullable="false" />
+          <Property Name="NotPayment" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="RentalContactDB">
           <Key>
-            <PropertyRef Name="RentalContractId" />
+            <PropertyRef Name="HouseNo" />
           </Key>
-          <Property Name="RentalContractId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="HouseNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HouseNo" Type="int" Nullable="false" />
+          <Property Name="HouseName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Rent" Type="nvarchar" MaxLength="50" />
           <Property Name="ContractDate" Type="nvarchar" MaxLength="50" />
           <Property Name="RenterName" Type="nvarchar" MaxLength="50" />
           <Property Name="RenterAddressNo" Type="nvarchar" MaxLength="50" />
@@ -300,7 +308,7 @@
           <Key>
             <PropertyRef Name="HouseNo" />
           </Key>
-          <Property Name="HouseNo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="HouseNo" Type="int" Nullable="false" />
           <Property Name="HouseName" Type="nvarchar" MaxLength="100" />
           <Property Name="HousePost" Type="nvarchar" MaxLength="50" />
           <Property Name="HouseAddress" Type="nvarchar" MaxLength="500" />
@@ -320,6 +328,7 @@
           <Property Name="ManagementFee" Type="nvarchar" MaxLength="250" />
           <Property Name="Rent" Type="nvarchar" MaxLength="250" />
           <Property Name="ParkingFee" Type="nvarchar" MaxLength="250" />
+          <Property Name="CATVFee" Type="nvarchar" MaxLength="150" />
           <Property Name="OtherFee" Type="nvarchar" MaxLength="500" />
           <Property Name="MNGMTCOName" Type="nvarchar" MaxLength="500" />
           <Property Name="CompanyAddress" Type="nvarchar" MaxLength="500" />
@@ -331,7 +340,43 @@
           <Property Name="Fax" Type="nvarchar" MaxLength="150" />
           <Property Name="MNGMTForm" Type="nvarchar" MaxLength="500" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="1000" />
-          <Property Name="Image" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="RentalPaymentDB">
+          <Key>
+            <PropertyRef Name="RentalPaymentId" />
+            <PropertyRef Name="HouseNo" />
+          </Key>
+          <Property Name="RentalPaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HouseNo" Type="int" Nullable="false" />
+          <Property Name="HouseName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Rent" Type="nvarchar" MaxLength="50" />
+          <Property Name="RentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth1" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth1Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth2" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth2Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth3" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth3Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth4" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth4Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth5" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth5Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth6" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth6Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth7" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth7Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth8" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth8Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth9" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth9Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth10" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth10Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth11" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth11Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth12" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoneyMonth12Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="NotPayment" Type="nvarchar" MaxLength="50" />
+          <Property Name="Year" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -343,18 +388,6 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <Association Name="FK__Image__HouseNo__7C4F7684">
-          <End Role="RentalManagementDB" Type="Self.RentalManagementDB" Multiplicity="0..1" />
-          <End Role="ImageDB" Type="Self.ImageDB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RentalManagementDB">
-              <PropertyRef Name="HouseNo" />
-            </Principal>
-            <Dependent Role="ImageDB">
-              <PropertyRef Name="HouseNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ImageDB_ApartmentDB">
           <End Role="ApartmentDB" Type="Self.ApartmentDB" Multiplicity="0..1" />
           <End Role="ImageDB" Type="Self.ImageDB" Multiplicity="*" />
@@ -397,13 +430,11 @@
           <EntitySet Name="DetachedDB" EntityType="Self.DetachedDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImageDB" EntityType="Self.ImageDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LandDB" EntityType="Self.LandDB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotPaymentDB" EntityType="Self.NotPaymentDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RentalContactDB" EntityType="Self.RentalContactDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RentalManagementDB" EntityType="Self.RentalManagementDB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RentalPaymentDB" EntityType="Self.RentalPaymentDB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Image__HouseNo__7C4F7684" Association="Self.FK__Image__HouseNo__7C4F7684">
-            <End Role="RentalManagementDB" EntitySet="RentalManagementDB" />
-            <End Role="ImageDB" EntitySet="ImageDB" />
-          </AssociationSet>
           <AssociationSet Name="FK_ImageDB_ApartmentDB" Association="Self.FK_ImageDB_ApartmentDB">
             <End Role="ApartmentDB" EntitySet="ApartmentDB" />
             <End Role="ImageDB" EntitySet="ImageDB" />
@@ -427,8 +458,10 @@
           <EntitySet Name="DetachedDB" EntityType="matsukiModel.DetachedDB" />
           <EntitySet Name="ImageDB" EntityType="matsukiModel.ImageDB" />
           <EntitySet Name="LandDB" EntityType="matsukiModel.LandDB" />
+          <EntitySet Name="NotPaymentDB" EntityType="matsukiModel.NotPaymentDB" />
           <EntitySet Name="RentalContactDB" EntityType="matsukiModel.RentalContactDB" />
           <EntitySet Name="RentalManagementDB" EntityType="matsukiModel.RentalManagementDB" />
+          <EntitySet Name="RentalPaymentDB" EntityType="matsukiModel.RentalPaymentDB" />
           <EntitySet Name="sysdiagrams" EntityType="matsukiModel.sysdiagrams" />
           <AssociationSet Name="FK_ImageDB_ApartmentDB" Association="matsukiModel.FK_ImageDB_ApartmentDB">
             <End Role="ApartmentDB" EntitySet="ApartmentDB" />
@@ -436,10 +469,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_ImageDB_DetachedDB" Association="matsukiModel.FK_ImageDB_DetachedDB">
             <End Role="DetachedDB" EntitySet="DetachedDB" />
-            <End Role="ImageDB" EntitySet="ImageDB" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Image__HouseNo__7C4F7684" Association="matsukiModel.FK__Image__HouseNo__7C4F7684">
-            <End Role="RentalManagementDB" EntitySet="RentalManagementDB" />
             <End Role="ImageDB" EntitySet="ImageDB" />
           </AssociationSet>
           <AssociationSet Name="FK_ImageDB_LandDB" Association="matsukiModel.FK_ImageDB_LandDB">
@@ -451,7 +480,7 @@
           <Key>
             <PropertyRef Name="ApartmentHouseNo" />
           </Key>
-          <Property Name="ApartmentHouseNo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ApartmentHouseNo" Type="Int32" Nullable="false" />
           <Property Name="ApartmentHouseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ApartmentPost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ApartmentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -623,13 +652,13 @@
           <Property Name="RentalGuaranteeFee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FeeTaxIncluded" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Total" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="HouseNo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="HouseNo" Type="Int32" />
         </EntityType>
         <EntityType Name="DetachedDB">
           <Key>
             <PropertyRef Name="DetachedHouseNo" />
           </Key>
-          <Property Name="DetachedHouseNo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DetachedHouseNo" Type="Int32" Nullable="false" />
           <Property Name="DetachedHouseName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="DetachedPost" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="DetachedAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -668,20 +697,19 @@
           <Property Name="ImageName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ImageType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="HouseNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DetachedHouseNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ApartmentHouseNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LandNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HouseNo" Type="Int32" />
+          <Property Name="DetachedHouseNo" Type="Int32" />
+          <Property Name="ApartmentHouseNo" Type="Int32" />
+          <Property Name="LandNo" Type="Int32" />
           <NavigationProperty Name="ApartmentDB" Relationship="matsukiModel.FK_ImageDB_ApartmentDB" FromRole="ImageDB" ToRole="ApartmentDB" />
           <NavigationProperty Name="DetachedDB" Relationship="matsukiModel.FK_ImageDB_DetachedDB" FromRole="ImageDB" ToRole="DetachedDB" />
-          <NavigationProperty Name="RentalManagementDB" Relationship="matsukiModel.FK__Image__HouseNo__7C4F7684" FromRole="ImageDB" ToRole="RentalManagementDB" />
           <NavigationProperty Name="LandDB" Relationship="matsukiModel.FK_ImageDB_LandDB" FromRole="ImageDB" ToRole="LandDB" />
         </EntityType>
         <EntityType Name="LandDB">
           <Key>
             <PropertyRef Name="LandNo" />
           </Key>
-          <Property Name="LandNo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LandNo" Type="Int32" Nullable="false" />
           <Property Name="LandName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="LandPost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LandAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
@@ -709,12 +737,20 @@
           <Property Name="Remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ImageDB" Relationship="matsukiModel.FK_ImageDB_LandDB" FromRole="LandDB" ToRole="ImageDB" />
         </EntityType>
+        <EntityType Name="NotPaymentDB">
+          <Key>
+            <PropertyRef Name="HouseNo" />
+          </Key>
+          <Property Name="HouseNo" Type="Int32" Nullable="false" />
+          <Property Name="NotPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="RentalContactDB">
           <Key>
-            <PropertyRef Name="RentalContractId" />
+            <PropertyRef Name="HouseNo" />
           </Key>
-          <Property Name="RentalContractId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HouseNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HouseNo" Type="Int32" Nullable="false" />
+          <Property Name="HouseName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Rent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ContractDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RenterName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RenterAddressNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -749,7 +785,7 @@
           <Key>
             <PropertyRef Name="HouseNo" />
           </Key>
-          <Property Name="HouseNo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HouseNo" Type="Int32" Nullable="false" />
           <Property Name="HouseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="HousePost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HouseAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -769,6 +805,7 @@
           <Property Name="ManagementFee" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Rent" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ParkingFee" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CATVFee" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="OtherFee" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="MNGMTCOName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CompanyAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -780,8 +817,43 @@
           <Property Name="Fax" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="MNGMTForm" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Remarks" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ImageDB" Relationship="matsukiModel.FK__Image__HouseNo__7C4F7684" FromRole="RentalManagementDB" ToRole="ImageDB" />
+        </EntityType>
+        <EntityType Name="RentalPaymentDB">
+          <Key>
+            <PropertyRef Name="RentalPaymentId" />
+            <PropertyRef Name="HouseNo" />
+          </Key>
+          <Property Name="RentalPaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HouseNo" Type="Int32" Nullable="false" />
+          <Property Name="HouseName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Rent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth1Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth2Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth3Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth4Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth5Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth6" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth6Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth7" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth7Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth8" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth8Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth9" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth9Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth10" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth10Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth11" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth11Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth12" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoneyMonth12Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NotPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -814,18 +886,6 @@
             </Principal>
             <Dependent Role="ImageDB">
               <PropertyRef Name="DetachedHouseNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Image__HouseNo__7C4F7684">
-          <End Type="matsukiModel.RentalManagementDB" Role="RentalManagementDB" Multiplicity="0..1" />
-          <End Type="matsukiModel.ImageDB" Role="ImageDB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RentalManagementDB">
-              <PropertyRef Name="HouseNo" />
-            </Principal>
-            <Dependent Role="ImageDB">
-              <PropertyRef Name="HouseNo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1107,6 +1167,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="NotPaymentDB">
+            <EntityTypeMapping TypeName="matsukiModel.NotPaymentDB">
+              <MappingFragment StoreEntitySet="NotPaymentDB">
+                <ScalarProperty Name="NotPayment" ColumnName="NotPayment" />
+                <ScalarProperty Name="HouseNo" ColumnName="HouseNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RentalContactDB">
             <EntityTypeMapping TypeName="matsukiModel.RentalContactDB">
               <MappingFragment StoreEntitySet="RentalContactDB">
@@ -1139,15 +1207,15 @@
                 <ScalarProperty Name="RenterAddressNo" ColumnName="RenterAddressNo" />
                 <ScalarProperty Name="RenterName" ColumnName="RenterName" />
                 <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+                <ScalarProperty Name="Rent" ColumnName="Rent" />
+                <ScalarProperty Name="HouseName" ColumnName="HouseName" />
                 <ScalarProperty Name="HouseNo" ColumnName="HouseNo" />
-                <ScalarProperty Name="RentalContractId" ColumnName="RentalContractId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RentalManagementDB">
             <EntityTypeMapping TypeName="matsukiModel.RentalManagementDB">
               <MappingFragment StoreEntitySet="RentalManagementDB">
-                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="MNGMTForm" ColumnName="MNGMTForm" />
                 <ScalarProperty Name="Fax" ColumnName="Fax" />
@@ -1159,6 +1227,7 @@
                 <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
                 <ScalarProperty Name="MNGMTCOName" ColumnName="MNGMTCOName" />
                 <ScalarProperty Name="OtherFee" ColumnName="OtherFee" />
+                <ScalarProperty Name="CATVFee" ColumnName="CATVFee" />
                 <ScalarProperty Name="ParkingFee" ColumnName="ParkingFee" />
                 <ScalarProperty Name="Rent" ColumnName="Rent" />
                 <ScalarProperty Name="ManagementFee" ColumnName="ManagementFee" />
@@ -1179,6 +1248,43 @@
                 <ScalarProperty Name="HousePost" ColumnName="HousePost" />
                 <ScalarProperty Name="HouseName" ColumnName="HouseName" />
                 <ScalarProperty Name="HouseNo" ColumnName="HouseNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RentalPaymentDB">
+            <EntityTypeMapping TypeName="matsukiModel.RentalPaymentDB">
+              <MappingFragment StoreEntitySet="RentalPaymentDB">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="NotPayment" ColumnName="NotPayment" />
+                <ScalarProperty Name="MoneyMonth12Date" ColumnName="MoneyMonth12Date" />
+                <ScalarProperty Name="MoneyMonth12" ColumnName="MoneyMonth12" />
+                <ScalarProperty Name="MoneyMonth11Date" ColumnName="MoneyMonth11Date" />
+                <ScalarProperty Name="MoneyMonth11" ColumnName="MoneyMonth11" />
+                <ScalarProperty Name="MoneyMonth10Date" ColumnName="MoneyMonth10Date" />
+                <ScalarProperty Name="MoneyMonth10" ColumnName="MoneyMonth10" />
+                <ScalarProperty Name="MoneyMonth9Date" ColumnName="MoneyMonth9Date" />
+                <ScalarProperty Name="MoneyMonth9" ColumnName="MoneyMonth9" />
+                <ScalarProperty Name="MoneyMonth8Date" ColumnName="MoneyMonth8Date" />
+                <ScalarProperty Name="MoneyMonth8" ColumnName="MoneyMonth8" />
+                <ScalarProperty Name="MoneyMonth7Date" ColumnName="MoneyMonth7Date" />
+                <ScalarProperty Name="MoneyMonth7" ColumnName="MoneyMonth7" />
+                <ScalarProperty Name="MoneyMonth6Date" ColumnName="MoneyMonth6Date" />
+                <ScalarProperty Name="MoneyMonth6" ColumnName="MoneyMonth6" />
+                <ScalarProperty Name="MoneyMonth5Date" ColumnName="MoneyMonth5Date" />
+                <ScalarProperty Name="MoneyMonth5" ColumnName="MoneyMonth5" />
+                <ScalarProperty Name="MoneyMonth4Date" ColumnName="MoneyMonth4Date" />
+                <ScalarProperty Name="MoneyMonth4" ColumnName="MoneyMonth4" />
+                <ScalarProperty Name="MoneyMonth3Date" ColumnName="MoneyMonth3Date" />
+                <ScalarProperty Name="MoneyMonth3" ColumnName="MoneyMonth3" />
+                <ScalarProperty Name="MoneyMonth2Date" ColumnName="MoneyMonth2Date" />
+                <ScalarProperty Name="MoneyMonth2" ColumnName="MoneyMonth2" />
+                <ScalarProperty Name="MoneyMonth1Date" ColumnName="MoneyMonth1Date" />
+                <ScalarProperty Name="MoneyMonth1" ColumnName="MoneyMonth1" />
+                <ScalarProperty Name="RentName" ColumnName="RentName" />
+                <ScalarProperty Name="Rent" ColumnName="Rent" />
+                <ScalarProperty Name="HouseName" ColumnName="HouseName" />
+                <ScalarProperty Name="HouseNo" ColumnName="HouseNo" />
+                <ScalarProperty Name="RentalPaymentId" ColumnName="RentalPaymentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

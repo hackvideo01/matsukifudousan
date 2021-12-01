@@ -20,7 +20,7 @@ namespace matsukifudousan.Model
             this.ImageDB = new HashSet<ImageDB>();
         }
     
-        public string LandNo { get; set; }
+        public int LandNo { get; set; }
         public string LandName { get; set; }
         public string LandPost { get; set; }
         public string LandAddress { get; set; }

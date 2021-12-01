@@ -27,8 +27,8 @@ namespace matsukifudousan.ViewModel
     public class RentalFixViewModel : BaseViewModel, System.ComponentModel.INotifyPropertyChanged
     {
         #region Rental Item Input
-        private string _HouseNo;
-        public string HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
+        private int _HouseNo;
+        public int HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
 
         private string _HouseName;
         public string HouseName { get => _HouseName; set { _HouseName = value; OnPropertyChanged(); } }
@@ -87,6 +87,9 @@ namespace matsukifudousan.ViewModel
         private string _ParkingFee;
         public string ParkingFee { get => _ParkingFee; set { _ParkingFee = value; OnPropertyChanged(); } }
 
+        private string _CATVFee;
+        public string CATVFee { get => _CATVFee; set { _CATVFee = value; OnPropertyChanged(); } }
+
         private string _OtherFee;
         public string OtherFee { get => _OtherFee; set { _OtherFee = value; OnPropertyChanged(); } }
 
@@ -131,8 +134,8 @@ namespace matsukifudousan.ViewModel
         private string _ImageFullPath;
         public string ImageFullPath { get => _ImageFullPath; set { _ImageFullPath = value; OnPropertyChanged(); } }
 
-        private string _rentalSearchHouseNo;
-        public string rentalSearchHouseNo { get => _rentalSearchHouseNo; set { _rentalSearchHouseNo = value; OnPropertyChanged(); } }
+        private int _rentalSearchHouseNo;
+        public int rentalSearchHouseNo { get => _rentalSearchHouseNo; set { _rentalSearchHouseNo = value; OnPropertyChanged(); } }
 
         private int _a;
         public int a { get => _a; set { _a = value; OnPropertyChanged(); } }
@@ -189,7 +192,7 @@ namespace matsukifudousan.ViewModel
             string SavePath = string.Format(@"{0}\images\RentalImage", projectDirectory);
             string[] a = ImageObject;
             RentalSearch rentalSearch = new RentalSearch();
-            rentalSearchHouseNo = rentalSearch.House.Text;
+            rentalSearchHouseNo = Int32.Parse(rentalSearch.House.Text);
             reload();
             AddImageCommand = new RelayCommand<object>((p) =>
             {
@@ -359,6 +362,7 @@ namespace matsukifudousan.ViewModel
                     AddRental.ManagementFee = ManagementFee;
                     AddRental.Rent = Rent;
                     AddRental.ParkingFee = ParkingFee;
+                    AddRental.CATVFee = CATVFee;
                     AddRental.OtherFee = OtherFee;
                     AddRental.MNGMTCOName = MNGMTCOName;
                     AddRental.CompanyAddress = CompanyAddress;
@@ -393,7 +397,7 @@ namespace matsukifudousan.ViewModel
 
                     OpenFileDialog openDialog = new OpenFileDialog();
                     openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-                    MessageBox.Show("データを修正されました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("物件の内容を修正しました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
                     //RentalSearchViewModel rentalSearch2 = new RentalSearchViewModel();
                     //rentalSearch2.List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(rentalSearchHouseNo) || t.HouseName.Contains(rentalSearchHouseNo) || t.HouseAddress.Contains(rentalSearchHouseNo)));
                     Comfirm = 0;
@@ -459,13 +463,13 @@ namespace matsukifudousan.ViewModel
 
         private void reload()
         {
-            if (rentalSearchHouseNo != "")
+            if (rentalSearchHouseNo != 0)
             {
                 #region Display Column of value
 
                 RentalDetailsView = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo));
 
-                HouseNo = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseNo;
+                HouseNo = (int)DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseNo;
                 HouseName = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseName;
                 HousePost = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HousePost;
                 HouseAddress = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().HouseAddress;
@@ -485,6 +489,7 @@ namespace matsukifudousan.ViewModel
                 ManagementFee = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().ManagementFee;
                 Rent = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().Rent;
                 ParkingFee = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().ParkingFee;
+                CATVFee = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().CATVFee;
                 OtherFee = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().OtherFee;
                 MNGMTCOName = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().MNGMTCOName;
                 CompanyAddress = DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == rentalSearchHouseNo).First().CompanyAddress;

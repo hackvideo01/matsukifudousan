@@ -20,9 +20,9 @@ namespace matsukifudousan.ViewModel
     public class ContractDetailsViewModel : BaseViewModel
 
     {
-        #region initi
-        private string _HouseNo;
-        public string HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
+        #region initi ContractDetails
+        private int _HouseNo;
+        public int HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
 
         private string _ContractType;
         public string ContractType { get => _ContractType; set { _ContractType = value; OnPropertyChanged(); } }
@@ -508,19 +508,20 @@ namespace matsukifudousan.ViewModel
             DateCurrent = DateTime.Now.ToString("yyyy/MM/dd");
 
             RentalSearch Result = new RentalSearch();
-            string resultSearch = Result.House.Text;
+            int resultSearch = Int32.Parse(Result.House.Text);
 
-            if (resultSearch != "")
+            if (resultSearch != 0)
             {
                 Location = DataProvider.Ins.DB.RentalManagementDB.Where(o => o.HouseNo == resultSearch).First().HouseAddress;
                 LocationName = DataProvider.Ins.DB.RentalManagementDB.Where(o => o.HouseNo == resultSearch).First().HouseName;
-                HouseNo = DataProvider.Ins.DB.RentalManagementDB.Where(o => o.HouseNo == resultSearch).First().HouseNo;
-                ParkingFee = DataProvider.Ins.DB.RentalManagementDB.Where(o => o.HouseNo == resultSearch).First().Parking;
+                HouseNo = (int)DataProvider.Ins.DB.RentalManagementDB.Where(o => o.HouseNo == resultSearch).First().HouseNo;
                 Rent = DataProvider.Ins.DB.RentalManagementDB.Where(o => o.HouseNo == resultSearch).First().Rent;
                 CommonServiceFee = DataProvider.Ins.DB.RentalManagementDB.Where(o => o.HouseNo == resultSearch).First().CommonFee;
                 ParkingFee = DataProvider.Ins.DB.RentalManagementDB.Where(o => o.HouseNo == resultSearch).First().ParkingFee;
+                CATVFee = DataProvider.Ins.DB.RentalManagementDB.Where(o => o.HouseNo == resultSearch).First().CATVFee;
                 SecurityDeposit = DataProvider.Ins.DB.RentalManagementDB.Where(o => o.HouseNo == resultSearch).First().SecurityDeposit;
                 KeyMoney = DataProvider.Ins.DB.RentalManagementDB.Where(o => o.HouseNo == resultSearch).First().KeyMoney;
+                TransportationFacilities = DataProvider.Ins.DB.RentalManagementDB.Where(o => o.HouseNo == resultSearch).First().NearestSation;
 
                 Choose1 = new ObservableCollection<string>
                 {
@@ -683,7 +684,7 @@ namespace matsukifudousan.ViewModel
 
             AddContractDetailsCommand = new RelayCommand<object>((p) => 
             {
-                if (string.IsNullOrEmpty(HouseNo))
+                if (string.IsNullOrEmpty(HouseNo.ToString()))
                     return false;
 
                 var displayList = DataProvider.Ins.DB.ContractDetailsDB.Where(x => x.HouseNo == HouseNo);
@@ -830,7 +831,7 @@ namespace matsukifudousan.ViewModel
 
                      #endregion
 
-                     MessageBox.Show("情報が保存されていました。");
+                     MessageBox.Show("登録しました。", "登録成功", MessageBoxButton.OK, MessageBoxImage.Information);
                  });
         }
     }

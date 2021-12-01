@@ -20,7 +20,7 @@
              Tag="画像検索"
 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="835">
+             d:DesignHeight="650" d:DesignWidth="835">
     <UserControl.Resources>
 
         <Style TargetType="Border" x:Key="BorderGrid">
@@ -49,7 +49,7 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
-            
+
             <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}" Width="auto">
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
@@ -73,7 +73,7 @@
                     <ColumnDefinition Width="70*"/>
                 </Grid.ColumnDefinitions>
                 <materialDesign:Card Grid.Row="0" Margin="5" VerticalAlignment="Stretch">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Height="350">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Height="445">
                         <ListBox Margin="20"
                                  ItemsSource="{Binding List, Mode=OneWay}"
                                  SelectedItem="{Binding SelectedItem}"
@@ -95,13 +95,24 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <DataTemplate.Resources>
-                                        <Style TargetType="Image">
+                                        <Style TargetType="Image" x:Key="zoomImage1">
                                             <Setter Property="Height" Value="160"/>
                                             <Setter Property="Width" Value="160"/>
                                         </Style>
+                                        <Style TargetType="Image" x:Key="zoomImage">
+                                            <Setter Property="Height" Value="360"/>
+                                            <Setter Property="Width" Value="360"/>
+                                        </Style>
                                     </DataTemplate.Resources>
                                     <StackPanel>
-                                        <Image Source="{Binding ImagePath}"></Image>       
+                                        <CheckBox Name="chk1"/>
+                                        <Popup x:Name="popupImage" PopupAnimation="Slide" IsOpen="{Binding IsChecked, ElementName=chk1}">
+                                            <Border Background="White">
+                                                <Image Style="{StaticResource zoomImage}" Source="{Binding ImagePath}"></Image>
+                                            </Border>
+                                        </Popup>
+                                        <!--<Image Source="{Binding ImagePath}"></Image>-->
+                                        <Image x:Name="zoomImage1" Style="{StaticResource zoomImage1}" Source="{Binding ImagePath}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

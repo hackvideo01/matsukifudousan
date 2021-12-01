@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:matsukifudousan"
-             xmlns:uc="clr-namespace:matsukifudousan.UserControlNL"
              
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -16,10 +15,10 @@
              FontFamily="{DynamicResource MaterialDesignFont}"
              
              DataContext="{StaticResource RentalContractSearchVM}"
-             x:Name="RentalContractUC"
-             Tag="管理物件検索"
+             x:Name="RentalContractSearchUC"
+             
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="835">
+             d:DesignHeight="650" d:DesignWidth="835">
     <UserControl.Resources>
 
         <Style TargetType="Border" x:Key="BorderGrid">
@@ -34,9 +33,8 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <uc:UserControlUC Tag="{Binding Tag, ElementName=RentalContractUC}"></uc:UserControlUC>
-            <materialDesign:PackIcon Kind="AccountBoxOutline" Height="30" Width="30" VerticalAlignment="Center" Margin="8 0 0 0"/>
+        <Grid Grid.Row="0" Margin="15,15,0,0">
+            <TextBlock Text="賃貸契約契約" FontSize="30"></TextBlock>
         </Grid>
         <Grid Grid.Row="1" Margin="15,15,0,0">
             <Grid.RowDefinitions>
@@ -50,26 +48,25 @@
                         <ColumnDefinition Width="28*"></ColumnDefinition>
                         <ColumnDefinition Width="10*"></ColumnDefinition>
                         <ColumnDefinition Width="10*"></ColumnDefinition>
+                        <!--<ColumnDefinition Width="10*"></ColumnDefinition>-->
                         <ColumnDefinition Width="10*"></ColumnDefinition>
-                        <ColumnDefinition Width="10*"></ColumnDefinition>
-                        <ColumnDefinition Width="10*"></ColumnDefinition>
-                        <ColumnDefinition Width="12*"></ColumnDefinition>
+                        <!--<ColumnDefinition Width="10*"></ColumnDefinition>-->
+                        <!--<ColumnDefinition Width="12*"></ColumnDefinition>-->
                     </Grid.ColumnDefinitions>
                     <TextBox Text="{Binding Search, Mode=TwoWay}" Grid.Column="0"></TextBox>
                     <Button Grid.Column="1" Command="{Binding SearchButton}" Content="検索" Margin="0 0 3 0" Background="#FE8181"></Button>
-                    <Button Grid.Column="2" Command="{Binding RentalDetailsView}" Content="詳細" Margin="0 0 2 0" Background="#80B2FE"></Button>
-                    <Button Grid.Column="3" x:Name="fixButton" Command="{Binding RentalFix}" Content="修正" Margin="0 0 2 0" Background="#CA5100"></Button>
-                    <Button Grid.Column="4" Command="{Binding RentalDelete}" Content="削除" Margin="0 0 2 0" Background="#E51400"></Button>
-                    <Button Grid.Column="5" Command="{Binding PrintsButton}" Content="印刷" Margin="0 0 2 0" Background="#8CD25F"></Button>
-                    <Button Grid.Column="6" Command="{Binding RentalPaymentInputWD}" Content="入金" Background="DarkSalmon"></Button>
+                    <Button Grid.Column="2" Command="{Binding RentalContractView}" Content="詳細" Margin="0 0 2 0" Background="#80B2FE"></Button>
+                    <Button Grid.Column="3" Command="{Binding RentalContractFix}" Content="修正" Margin="0 0 2 0" Background="#CA5100"></Button>
+                    <!--<Button Grid.Column="4" Command="{Binding RentalContractDelete}" Content="削除" Margin="0 0 2 0" Background="#E51400"></Button>-->
+                    <!--<Button Grid.Column="5" Command="{Binding RentalContractPrints}" Content="印刷" Margin="0 0 2 0" Background="#8CD25F"></Button>-->
+                    <!--<Button Grid.Column="6" Command="{Binding RentalPaymentInputWD}" Content="入金" Background="DarkKhaki"></Button>-->
                 </Grid>
             </Border>
 
             <TextBox x:Name="House" Grid.Row="1" Text="{Binding HouseNo, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" materialDesign:HintAssist.Hint="物件番号" Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True"/>
 
             <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
-                <DataGrid Name="dataGrid" ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem,Mode=TwoWay}" ColumnHeaderHeight="40" AutoGenerateColumns="False" CanUserAddRows="False" Height="335">
-                    <DataGrid.HeadersVisibility>Column</DataGrid.HeadersVisibility>
+                <DataGrid Name="dataGridContract" ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem,Mode=TwoWay}" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserAddRows="False" Height="450" SelectedCellsChanged="dataGridContract_SelectedCellsChanged">
                     <!--<DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
                             <Style.Triggers>
@@ -79,23 +76,6 @@
                             </Style.Triggers>
                         </Style>
                     </DataGrid.RowStyle>-->
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-
-                            <!-- ヘッダーの罫線を黒にする -->
-                            <Setter Property="BorderThickness" Value="0,1,1,1"/>
-                            <Setter Property="BorderBrush" Value="Black"/>
-                            <Setter Property="FontSize" Value="16"/>
-                            <Setter Property="FontWeight" Value="Bold"/>
-                            <Setter Property="Background" Value="LightSeaGreen"/>
-                            <Setter Property="Foreground" Value="White"/>
-
-                            <!-- ヘッダー文字をセンタリングする -->
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            <Setter Property="VerticalContentAlignment" Value="Center"/>
-                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="物件番号" 
                         Binding="{Binding HouseNo}" 
@@ -104,7 +84,7 @@
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
+                                Value="1,0,0,1" />
                                     <Setter Property="BorderBrush"
                                 Value="Black" />
                                 </Style>
@@ -118,7 +98,22 @@
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
+                                Value="1,0,0,1" />
+                                    <Setter Property="BorderBrush"
+                                Value="Black" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="借主"
+                        IsReadOnly="True"
+                        FontSize="18"
+                        Binding="{Binding RentName}">
+
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="BorderThickness"
+                                Value="1,0,0,1" />
                                     <Setter Property="BorderBrush"
                                 Value="Black" />
                                 </Style>
@@ -133,202 +128,7 @@
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="未入金"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding Rent}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="1月"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding CommonFee}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="2月"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding Rent}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="3月"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding CommonFee}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="4月"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding ParkingFee}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="5月"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding CommonFee}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="6月"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding Rent}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="7月"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding ManagementFee}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="8月"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding CommonFee}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="9月"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding Rent}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="10月"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding CommonFee}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="11月"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding Rent}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,1,1" />
-                                    <Setter Property="BorderBrush"
-                                Value="Black" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="12月"
-                        IsReadOnly="True"
-                        FontSize="18"
-                        Binding="{Binding ParkingFee}">
-
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="BorderThickness"
-                                Value="0,0,0,1" />
+                                Value="1,0,1,1" />
                                     <Setter Property="BorderBrush"
                                 Value="Black" />
                                 </Style>

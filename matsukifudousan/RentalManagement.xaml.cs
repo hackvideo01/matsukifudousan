@@ -57,8 +57,8 @@ namespace matsukifudousan
                     RentalContain.Children.Add(usc);
                     break;
 
-                case "DepositBusiness":
-                    usc = new DepositBusiness();
+                case "RentalContractSearch":
+                    usc = new RentalContractSearch();
                     RentalContain.Children.Add(usc);
                     break;
                     

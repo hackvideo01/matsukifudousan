@@ -15,8 +15,8 @@ namespace matsukifudousan.ViewModel
 {
     public class LandDetailsViewModel : BaseViewModel
     {
-        private string _landNoView;
-        public string landNoView { get => _landNoView; set { _landNoView = value; OnPropertyChanged(); } }
+        private int _landNoView;
+        public int landNoView { get => _landNoView; set { _landNoView = value; OnPropertyChanged(); } }
 
         private string _ImagePath;
         public string ImagePath { get => _ImagePath; set { _ImagePath = value; OnPropertyChanged(); } }
@@ -35,8 +35,8 @@ namespace matsukifudousan.ViewModel
         public LandDetailsViewModel()
         {
             LandSearch landSearchView = new LandSearch();
-            landNoView = landSearchView.LandNo.Text;
-            if (landNoView != "")
+            landNoView = Int32.Parse(landSearchView.LandNo.Text);
+            if (landNoView != 0)
             {
                 landDetailsView = new ObservableCollection<LandDB>(DataProvider.Ins.DB.LandDB.Where(v => v.LandNo == landNoView));
                 reload();
@@ -44,7 +44,7 @@ namespace matsukifudousan.ViewModel
         }
         private void reload()
         {
-            if (landNoView != "")
+            if (landNoView != 0)
             {
                 landImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.LandNo == landNoView));
                 foreach (var imagePathDB in landImageView)

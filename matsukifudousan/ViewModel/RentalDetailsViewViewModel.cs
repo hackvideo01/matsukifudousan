@@ -15,8 +15,8 @@ namespace matsukifudousan.ViewModel
 {
     public class RentalDetailsViewViewModel : BaseViewModel
     {
-        private string _houseNoView;
-        public string houseNoView { get => _houseNoView; set { _houseNoView = value; OnPropertyChanged(); } }
+        private int _houseNoView;
+        public int houseNoView { get => _houseNoView; set { _houseNoView = value; OnPropertyChanged(); } }
 
         private string _ImagePath;
         public string ImagePath { get => _ImagePath; set { _ImagePath = value; OnPropertyChanged(); } }
@@ -35,13 +35,13 @@ namespace matsukifudousan.ViewModel
         public RentalDetailsViewViewModel()
         {
             RentalSearch rentalSearchView = new RentalSearch();
-            houseNoView = rentalSearchView.House.Text;
+            houseNoView = Int32.Parse(rentalSearchView.House.Text);
             RentalDetailsView = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(v => v.HouseNo == houseNoView));
             reload();
         }
         private void reload()
         {
-            if (houseNoView != "")
+            if (houseNoView != 0)
             {
                 rentalImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.HouseNo == houseNoView));
                 foreach (var imagePathDB in rentalImageView)

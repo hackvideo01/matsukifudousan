@@ -63,19 +63,23 @@
 
             <Grid Grid.Row="2" Height="35">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="35*"></ColumnDefinition>
-                    <ColumnDefinition Width="10*"></ColumnDefinition>
-                    <ColumnDefinition Width="35*"></ColumnDefinition>
-                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="28*"></ColumnDefinition>
+                    <ColumnDefinition Width="12*"></ColumnDefinition>
+                    <ColumnDefinition Width="28*"></ColumnDefinition>
+                    <ColumnDefinition Width="12*"></ColumnDefinition>
+                    <ColumnDefinition Width="28*"></ColumnDefinition>
+                    <ColumnDefinition Width="12*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" Text="{Binding GuideMapText}" IsReadOnly="True" materialDesign:HintAssist.Hint="案内図" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5 0 0 0"></TextBox>
                 <Button Grid.Column="1" Command="{Binding GuideMap}" Content="案内図" Background="Violet"></Button>
-                <TextBox Grid.Column="2" Text="{Binding FloorPlanText}" IsReadOnly="True" materialDesign:HintAssist.Hint="間取図" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5 0 0 0"></TextBox>
-                <Button Grid.Column="3"  Command="{Binding FloorPlan}" Content="間取図" Background="CadetBlue"></Button>
+                <TextBox Grid.Column="2" Text="{Binding FloorPlanText1}" IsReadOnly="True" materialDesign:HintAssist.Hint="間取図" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5 0 0 0"></TextBox>
+                <Button Grid.Column="3"  Command="{Binding FloorPlan1}" Content="間取図1" Background="CadetBlue"></Button>
+                <TextBox Grid.Column="4" Text="{Binding FloorPlanText2}" IsReadOnly="True" materialDesign:HintAssist.Hint="間取図" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5 0 0 0"></TextBox>
+                <Button Grid.Column="5"  Command="{Binding FloorPlan2}" Content="間取図2" Background="CadetBlue"></Button>
             </Grid>
             
             <materialDesign:Card Grid.Row="3" Margin="5" VerticalAlignment="Stretch">
-                <DataGrid Name="dataGrid" Grid.Row="2" ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem,Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Height="300">
+                <DataGrid Name="dataGrid" Grid.Row="2" ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem,Mode=TwoWay}" AutoGenerateColumns="False" CanUserAddRows="False" Height="410">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="物件番号" Binding="{Binding HouseNo}" IsReadOnly="True"/>
                         <DataGridTemplateColumn Header="物件名">

@@ -14,8 +14,9 @@ namespace matsukifudousan.Model
     
     public partial class RentalContactDB
     {
-        public int RentalContractId { get; set; }
-        public string HouseNo { get; set; }
+        public int HouseNo { get; set; }
+        public string HouseName { get; set; }
+        public string Rent { get; set; }
         public string ContractDate { get; set; }
         public string RenterName { get; set; }
         public string RenterAddressNo { get; set; }

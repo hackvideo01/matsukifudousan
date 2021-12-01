@@ -19,7 +19,7 @@
              
              DataContext="{StaticResource RentalInputVM}"
              
-             d:DesignHeight="550" d:DesignWidth="1000"
+             d:DesignHeight="650" d:DesignWidth="1100"
              Tag="賃貸管理"
              Name="RentalMN">
     <UserControl.Resources>
@@ -87,7 +87,7 @@
             
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="165"></ColumnDefinition>
-                <ColumnDefinition Width="835"></ColumnDefinition>
+                <ColumnDefinition Width="935"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
             <StackPanel Grid.Column="0" HorizontalAlignment="Left">
@@ -108,21 +108,21 @@
                             <TextBlock Text="賃貸物件検索" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
                     </ListViewItem>
-                    <!--<ListViewItem x:Name="DepositBusiness" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
+                    <ListViewItem x:Name="RentalContractSearch" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
                         <StackPanel x:Name="DepositBusinessBGChange" Background="#1294F4" Orientation="Horizontal" Margin="10 0" Width="135">
-                            <TextBlock Text="入金管理" Margin="10" Foreground="White" FontSize="20"/>
+                            <TextBlock Text="賃貸契約検索" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
-                    </ListViewItem>-->
+                    </ListViewItem>
                     <ListViewItem x:Name="Prints" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
                         <StackPanel x:Name="PrintsSearchBGChange" Background="#1294F4" Orientation="Horizontal" Margin="10 0" Width="135">
                             <TextBlock Text="各種印刷" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="ContractDetails" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
+                    <!--<ListViewItem x:Name="ContractDetails" Style="{StaticResource ResourceKey=ListViewItemStyle1}">
                         <StackPanel Background="#1294F4" Orientation="Horizontal" Margin="10 0" Width="135">
                             <TextBlock Text="詳細入力検索" Margin="10" Foreground="White" FontSize="20"/>
                         </StackPanel>
-                    </ListViewItem>
+                    </ListViewItem>-->
                 </ListView>
                 
             </StackPanel>

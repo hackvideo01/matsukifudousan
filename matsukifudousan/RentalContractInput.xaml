@@ -546,7 +546,7 @@
                                 <TextBlock Text="書類選択" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                             </Border>
                             <Grid Grid.Column="1">
-                                <ComboBox SelectedItem="{Binding ComboxPrints}" x:Name="Gaschoose" ItemsSource="{Binding ComboxPrintsChoose}" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="23" Margin="9 0 0 0" Height="36">
+                                <ComboBox SelectedItem="{Binding ComboxPrints}" ItemsSource="{Binding ComboxPrintsChoose}" Style="{StaticResource ResourceKey=MaterialDesignComboBox}" FontSize="23" Margin="9 0 0 0" Height="36">
                                 </ComboBox>
                             </Grid>
                         </Grid>

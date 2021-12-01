@@ -38,9 +38,9 @@ namespace matsukifudousan.ViewModel
 {
     public class RentalContractInputViewModel : BaseViewModel
     {
-        #region Rental Item Input
-        private string _HouseNo;
-        public string HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
+        #region RentalPayment Item Input
+        private int _HouseNo;
+        public int HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
 
         private string _ContractDate;
         public string ContractDate { get => _ContractDate; set { _ContractDate = value; OnPropertyChanged(); } }
@@ -162,12 +162,12 @@ namespace matsukifudousan.ViewModel
             string savePathImage = string.Format(@"{0}\images", projectDirectory);
 
             RentalSearch Result = new RentalSearch();
-            string resultSearch = Result.House.Text;
+            int resultSearch = Int32.Parse(Result.House.Text);
             HouseNo = DataProvider.Ins.DB.RentalManagementDB.Where(c => c.HouseNo == resultSearch).FirstOrDefault().HouseNo;
 
             AddRentalContractCommand = new RelayCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(HouseNo))
+                if (string.IsNullOrEmpty(HouseNo.ToString()))
                     return false;
 
                 var displayList = DataProvider.Ins.DB.RentalContactDB.Where(x => x.HouseNo == HouseNo);
@@ -223,7 +223,7 @@ namespace matsukifudousan.ViewModel
             ComboxPrintsChoose.Add("建物賃貸借契約書");
             ComboxPrintsChoose.Add("土地賃貸借契約書");
             ComboxPrintsChoose.Add("駐車場賃貸借契約書");
-            ComboxPrintsChoose.Add("定期物件賃貸借契約書");
+            ComboxPrintsChoose.Add("定期建物賃貸借契約書(居住用)");
             PrintsRentalContract = new RelayCommand<object>((p) =>
                  {
                      if (Comfirm == 0)
@@ -247,7 +247,7 @@ namespace matsukifudousan.ViewModel
                                  else
                                  {
                                      RentalSearch select = new RentalSearch();
-                                     string selectHouseNo = select.House.Text;
+                                     int selectHouseNo = Int32.Parse(select.House.Text);
                                      var accessValueSearchRentalContract = DataProvider.Ins.DB.RentalContactDB.Where(r => r.HouseNo == selectHouseNo);
                                      var accessValueSearchRental = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo);
 
@@ -365,7 +365,7 @@ namespace matsukifudousan.ViewModel
                                  else
                                  {
                                      RentalSearch select = new RentalSearch();
-                                     string selectHouseNo = select.House.Text;
+                                     int selectHouseNo = Int32.Parse(select.House.Text);
                                      var accessValueSearchRentalContract = DataProvider.Ins.DB.RentalContactDB.Where(r => r.HouseNo == selectHouseNo);
                                      var accessValueSearchRental = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo);
 
@@ -410,25 +410,35 @@ namespace matsukifudousan.ViewModel
                                      string SecurityDeposit = accessValueSearchRental.FirstOrDefault().SecurityDeposit;
                                      string KeyMoney = accessValueSearchRental.FirstOrDefault().KeyMoney;
 
-                                     DateTime dTimeRentBirthday = DateTime.Parse(RentBirthday);
-                                     string yearRentBirthday = dTimeRentBirthday.Year.ToString();
-                                     string monthRentBirthday = dTimeRentBirthday.Month.ToString();
-                                     string dayRentBirthday = dTimeRentBirthday.Day.ToString();
+                                     string RentBirthdayConvert = null;
+                                     if (RentBirthday != null)
+                                     {
+                                         DateTime dTimeRentBirthday = DateTime.Parse(RentBirthday);
+                                         string yearRentBirthday = dTimeRentBirthday.Year.ToString();
+                                         string monthRentBirthday = dTimeRentBirthday.Month.ToString();
+                                         string dayRentBirthday = dTimeRentBirthday.Day.ToString();
 
-                                     string RentBirthdayConvert = yearRentBirthday + "年" + monthRentBirthday + "月" + dayRentBirthday + "日生";
+                                         RentBirthdayConvert = yearRentBirthday + "年" + monthRentBirthday + "月" + dayRentBirthday + "日生";
+                                     }
+                                     string JointGuarantorBirthdayConvert1 = null;
+                                     if (JointGuarantorBirthday1 != null)
+                                     {
+                                         DateTime dTimeJointGuarantorBirthdayConvert1 = DateTime.Parse(JointGuarantorBirthday1);
+                                         string yearJointGuarantorBirthday1 = dTimeJointGuarantorBirthdayConvert1.Year.ToString();
+                                         string monthJointGuarantorBirthday1 = dTimeJointGuarantorBirthdayConvert1.Month.ToString();
+                                         string dayJointGuarantorBirthday1 = dTimeJointGuarantorBirthdayConvert1.Day.ToString();
+                                         JointGuarantorBirthdayConvert1 = yearJointGuarantorBirthday1 + "年" + monthJointGuarantorBirthday1 + "月" + dayJointGuarantorBirthday1 + "日生";
+                                     }
+                                     string JointGuarantorBirthdayConvert2 = null;
+                                     if (JointGuarantorBirthday2 != null)
+                                     {
+                                         DateTime dTimeJointGuarantorBirthdayConvert2 = DateTime.Parse(JointGuarantorBirthday2);
+                                         string yearJointGuarantorBirthday2 = dTimeJointGuarantorBirthdayConvert2.Year.ToString();
+                                         string monthJointGuarantorBirthday2 = dTimeJointGuarantorBirthdayConvert2.Month.ToString();
+                                         string dayJointGuarantorBirthday2 = dTimeJointGuarantorBirthdayConvert2.Day.ToString();
 
-                                     DateTime dTimeJointGuarantorBirthdayConvert1 = DateTime.Parse(JointGuarantorBirthday1);
-                                     string yearJointGuarantorBirthday1 = dTimeJointGuarantorBirthdayConvert1.Year.ToString();
-                                     string monthJointGuarantorBirthday1 = dTimeJointGuarantorBirthdayConvert1.Month.ToString();
-                                     string dayJointGuarantorBirthday1 = dTimeJointGuarantorBirthdayConvert1.Day.ToString();
-                                     string JointGuarantorBirthdayConvert1 = yearJointGuarantorBirthday1 + "年" + monthJointGuarantorBirthday1 + "月" + dayJointGuarantorBirthday1 + "日生";
-
-                                     DateTime dTimeJointGuarantorBirthdayConvert2 = DateTime.Parse(JointGuarantorBirthday2);
-                                     string yearJointGuarantorBirthday2 = dTimeJointGuarantorBirthdayConvert2.Year.ToString();
-                                     string monthJointGuarantorBirthday2 = dTimeJointGuarantorBirthdayConvert2.Month.ToString();
-                                     string dayJointGuarantorBirthday2 = dTimeJointGuarantorBirthdayConvert2.Day.ToString();
-
-                                     string JointGuarantorBirthdayConvert2 = yearJointGuarantorBirthday2 + "年" + monthJointGuarantorBirthday2 + "月" + dayJointGuarantorBirthday2 + "日生";
+                                         JointGuarantorBirthdayConvert2 = yearJointGuarantorBirthday2 + "年" + monthJointGuarantorBirthday2 + "月" + dayJointGuarantorBirthday2 + "日生";
+                                     }
 
                                      // Open a File
                                      try
@@ -466,6 +476,7 @@ namespace matsukifudousan.ViewModel
                                      this.xls.Cells[308, "C"] = RentName;
                                      this.xls.Cells[310, "C"] = RentOfficeName;
                                      this.xls.Cells[305, "E"] = RentPhoneNumber;
+
                                      this.xls.Cells[308, "E"] = RentBirthdayConvert;
                                      this.xls.Cells[310, "E"] = RentOfficePhone;
 
@@ -487,9 +498,9 @@ namespace matsukifudousan.ViewModel
                                  //(Microsoft.Office.Interop.Excel.Worksheet)this.book.Sheets[sheetName];
                                  ExcelVisibleToggle(xls, true);
                              }
-                             catch (Exception)
+                             catch (Exception e)
                              {
-                                 MessageBox.Show("もう一度印刷してください。");
+                                 MessageBox.Show("もう一度印刷してください。" + e);
                              }
                          }
                          else if (ComboxPrints == "土地賃貸借契約書")
@@ -505,7 +516,7 @@ namespace matsukifudousan.ViewModel
                                  else
                                  {
                                      RentalSearch select = new RentalSearch();
-                                     string selectHouseNo = select.House.Text;
+                                     int selectHouseNo = Int32.Parse(select.House.Text);
                                      var accessValueSearchRentalContract = DataProvider.Ins.DB.RentalContactDB.Where(r => r.HouseNo == selectHouseNo);
                                      var accessValueSearchRental = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo);
 
@@ -619,7 +630,7 @@ namespace matsukifudousan.ViewModel
                                  else
                                  {
                                      RentalSearch select = new RentalSearch();
-                                     string selectHouseNo = select.House.Text;
+                                     int selectHouseNo = Int32.Parse(select.House.Text);
                                      var accessValueSearchRentalContract = DataProvider.Ins.DB.RentalContactDB.Where(r => r.HouseNo == selectHouseNo);
                                      var accessValueSearchRental = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo);
 
@@ -722,7 +733,7 @@ namespace matsukifudousan.ViewModel
                                  MessageBox.Show("もう一度印刷してください。");
                              }
                          }
-                         else if (ComboxPrints == "定期物件賃貸借契約書")
+                         else if (ComboxPrints == "定期建物賃貸借契約書(居住用)")
                          {
                              try
                              {
@@ -735,7 +746,7 @@ namespace matsukifudousan.ViewModel
                                  else
                                  {
                                      RentalSearch select = new RentalSearch();
-                                     string selectHouseNo = select.House.Text;
+                                     int selectHouseNo = Int32.Parse(select.House.Text);
                                      var accessValueSearchRentalContract = DataProvider.Ins.DB.RentalContactDB.Where(r => r.HouseNo == selectHouseNo);
                                      var accessValueSearchRental = DataProvider.Ins.DB.RentalManagementDB.Where(r => r.HouseNo == selectHouseNo);
 
@@ -780,29 +791,39 @@ namespace matsukifudousan.ViewModel
                                      string SecurityDeposit = accessValueSearchRental.FirstOrDefault().SecurityDeposit;
                                      string KeyMoney = accessValueSearchRental.FirstOrDefault().KeyMoney;
 
-                                     DateTime dTimeRentBirthday = DateTime.Parse(RentBirthday);
-                                     string yearRentBirthday = dTimeRentBirthday.Year.ToString();
-                                     string monthRentBirthday = dTimeRentBirthday.Month.ToString();
-                                     string dayRentBirthday = dTimeRentBirthday.Day.ToString();
+                                     string RentBirthdayConvert = null;
+                                     if (RentBirthday != null)
+                                     {
+                                         DateTime dTimeRentBirthday = DateTime.Parse(RentBirthday);
+                                         string yearRentBirthday = dTimeRentBirthday.Year.ToString();
+                                         string monthRentBirthday = dTimeRentBirthday.Month.ToString();
+                                         string dayRentBirthday = dTimeRentBirthday.Day.ToString();
 
-                                     string RentBirthdayConvert = yearRentBirthday + "年" + monthRentBirthday + "月" + dayRentBirthday + "日生";
+                                         RentBirthdayConvert = yearRentBirthday + "年" + monthRentBirthday + "月" + dayRentBirthday + "日生";
+                                     }
+                                     string JointGuarantorBirthdayConvert1 = null;
+                                     if (JointGuarantorBirthday1 != null)
+                                     {
+                                         DateTime dTimeJointGuarantorBirthdayConvert1 = DateTime.Parse(JointGuarantorBirthday1);
+                                         string yearJointGuarantorBirthday1 = dTimeJointGuarantorBirthdayConvert1.Year.ToString();
+                                         string monthJointGuarantorBirthday1 = dTimeJointGuarantorBirthdayConvert1.Month.ToString();
+                                         string dayJointGuarantorBirthday1 = dTimeJointGuarantorBirthdayConvert1.Day.ToString();
+                                         JointGuarantorBirthdayConvert1 = yearJointGuarantorBirthday1 + "年" + monthJointGuarantorBirthday1 + "月" + dayJointGuarantorBirthday1 + "日生";
+                                     }
+                                     string JointGuarantorBirthdayConvert2 = null;
+                                     if (JointGuarantorBirthday2 != null)
+                                     {
+                                         DateTime dTimeJointGuarantorBirthdayConvert2 = DateTime.Parse(JointGuarantorBirthday2);
+                                         string yearJointGuarantorBirthday2 = dTimeJointGuarantorBirthdayConvert2.Year.ToString();
+                                         string monthJointGuarantorBirthday2 = dTimeJointGuarantorBirthdayConvert2.Month.ToString();
+                                         string dayJointGuarantorBirthday2 = dTimeJointGuarantorBirthdayConvert2.Day.ToString();
 
-                                     DateTime dTimeJointGuarantorBirthdayConvert1 = DateTime.Parse(JointGuarantorBirthday1);
-                                     string yearJointGuarantorBirthday1 = dTimeJointGuarantorBirthdayConvert1.Year.ToString();
-                                     string monthJointGuarantorBirthday1 = dTimeJointGuarantorBirthdayConvert1.Month.ToString();
-                                     string dayJointGuarantorBirthday1 = dTimeJointGuarantorBirthdayConvert1.Day.ToString();
-                                     string JointGuarantorBirthdayConvert1 = yearJointGuarantorBirthday1 + "年" + monthJointGuarantorBirthday1 + "月" + dayJointGuarantorBirthday1 + "日生";
-
-                                     DateTime dTimeJointGuarantorBirthdayConvert2 = DateTime.Parse(JointGuarantorBirthday2);
-                                     string yearJointGuarantorBirthday2 = dTimeJointGuarantorBirthdayConvert2.Year.ToString();
-                                     string monthJointGuarantorBirthday2 = dTimeJointGuarantorBirthdayConvert2.Month.ToString();
-                                     string dayJointGuarantorBirthday2 = dTimeJointGuarantorBirthdayConvert2.Day.ToString();
-
-                                     string JointGuarantorBirthdayConvert2 = yearJointGuarantorBirthday2 + "年" + monthJointGuarantorBirthday2 + "月" + dayJointGuarantorBirthday2 + "日生";
+                                         JointGuarantorBirthdayConvert2 = yearJointGuarantorBirthday2 + "年" + monthJointGuarantorBirthday2 + "月" + dayJointGuarantorBirthday2 + "日生";
+                                     }
                                      // Open a File
                                      try
                                      {
-                                         this.book = xls.Workbooks.Open(savePathFile + "/定期物件賃貸借契約書.xlsx");
+                                         this.book = xls.Workbooks.Open(savePathFile + "/定期建物賃貸借契約書(居住用).xlsx");
                                      }
                                      catch (Exception)
                                      {

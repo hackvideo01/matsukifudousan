@@ -58,18 +58,22 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="White">
+    <Grid Background="White" PreviewKeyDown="Grid_PreviewKeyDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <uc:UserControlUC Tag="{Binding Tag, ElementName=DetachedFixWD}"></uc:UserControlUC>
+            <uc:UserControlUC Tag="{Binding Tag, ElementName=ApartmentFixWD}"></uc:UserControlUC>
             <materialDesign:PackIcon Kind="BorderColor" Height="30" Width="30" VerticalAlignment="Center" Margin="8 0 0 0"/>
         </Grid>
 
-        <ScrollViewer  Grid.Row="1">
+        <ScrollViewer Grid.Row="1">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="376*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="42"></RowDefinition>
                     <RowDefinition Height="42"></RowDefinition>
@@ -95,7 +99,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="0" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -105,12 +109,12 @@
                             <TextBlock Text="物件番号" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBox Text="{Binding ApartmentHouseNo}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0"/>
+                            <TextBox Text="{Binding ApartmentHouseNo}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0" IsReadOnly="True"/>
                         </Grid>
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="1" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="1" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -125,7 +129,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="2" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="2" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -139,15 +143,15 @@
                                 <ColumnDefinition Width="30*"></ColumnDefinition>
                                 <ColumnDefinition Width="70*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBox Text="{Binding ApartmentPost}" Grid.Column="0" materialDesign:HintAssist.Hint="郵便局番号" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox x:Name="txbApartmentPost" Text="{Binding ApartmentPost}" Grid.Column="0" materialDesign:HintAssist.Hint="郵便局番号" FontSize="19" Margin="0 3 0 0" LostFocus="txbApartmentPost_LostFocus" />
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBox Text="{Binding ApartmentAddress}" materialDesign:HintAssist.Hint="所在地" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox x:Name="txbApartmentAddress" Text="{Binding ApartmentAddress}" materialDesign:HintAssist.Hint="所在地" FontSize="19" Margin="0 3 0 0" />
                             </Border>
                         </Grid>
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="3" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="3" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -162,7 +166,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="4" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="4" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -184,7 +188,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="5" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="5" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -199,7 +203,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="6" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="6" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -221,7 +225,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="7" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="7" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -243,7 +247,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="8" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="8" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -265,7 +269,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="9" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="9" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -287,7 +291,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="10" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="10" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -309,7 +313,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="11" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="11" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -331,7 +335,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="12" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="12" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -353,7 +357,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="13" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="13" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -375,7 +379,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="14" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="14" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -390,7 +394,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="15" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="15" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -405,7 +409,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="16" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="16" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -420,7 +424,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="17" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="17" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -435,7 +439,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="18" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="18" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -450,7 +454,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="19" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="19" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -465,7 +469,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="20" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="20" Style="{StaticResource ResourceKey=BorderGrid}" Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -486,7 +490,7 @@
                     </Grid>
                 </Border>
 
-                <ScrollViewer Grid.Row="21" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <ScrollViewer Grid.Row="21" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2">
                     <ItemsControl x:Name="listImage" ItemsSource="{Binding NameIMG}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -510,7 +514,7 @@
                     </ItemsControl>
                 </ScrollViewer>
 
-                <Button Grid.Row="22" Command="{Binding AddApartmentCommand}" Content="登録" Width="150" Height="42" Background="#333333"></Button>
+                <Button Grid.Row="22" Command="{Binding AddApartmentCommand}" Content="修正" Width="150" Height="42" Background="#333333" Grid.Column="1" Margin="268,0,334,0"></Button>
 
             </Grid>
         </ScrollViewer>

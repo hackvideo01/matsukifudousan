@@ -15,8 +15,8 @@ namespace matsukifudousan.ViewModel
 {
     public class DetachedDetailsViewViewModel : BaseViewModel
     {
-        private string _detachedNoView;
-        public string detachedNoView { get => _detachedNoView; set { _detachedNoView = value; OnPropertyChanged(); } }
+        private int _detachedNoView;
+        public int detachedNoView { get => _detachedNoView; set { _detachedNoView = value; OnPropertyChanged(); } }
 
         private string _ImagePath;
         public string ImagePath { get => _ImagePath; set { _ImagePath = value; OnPropertyChanged(); } }
@@ -35,7 +35,7 @@ namespace matsukifudousan.ViewModel
         public DetachedDetailsViewViewModel()
         {
             DetachedSearch detachedSearchView = new DetachedSearch();
-            detachedNoView = detachedSearchView.House.Text;
+            detachedNoView = Int32.Parse(detachedSearchView.House.Text);
 
             detachedDetailsView = new ObservableCollection<DetachedDB>(DataProvider.Ins.DB.DetachedDB.Where(v => v.DetachedHouseNo == detachedNoView));
 
@@ -43,7 +43,7 @@ namespace matsukifudousan.ViewModel
         }
         private void reload()
         {
-            if (detachedNoView != "")
+            if (detachedNoView != 0)
             {
                 detachedImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.DetachedHouseNo == detachedNoView));
                 foreach (var imagePathDB in detachedImageView)

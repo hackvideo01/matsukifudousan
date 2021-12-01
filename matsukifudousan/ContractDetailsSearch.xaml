@@ -57,7 +57,7 @@
                     <Button Grid.Column="2" Command="{Binding ContractDetailsView}" Content="詳細" Margin="0 0 2 0" Background="#80B2FE"></Button>
                     <Button Grid.Column="3" x:Name="fixButton" Command="{Binding ContractDetailsFix}" Content="修正" Margin="0 0 2 0" Background="#CA5100"></Button>
                     <Button Grid.Column="4" Command="{Binding ContractDetailsDelete}" Content="削除" Margin="0 0 2 0" Background="#E51400"></Button>
-                    <Button Grid.Column="5" Command="{Binding PrintsButton}" Content="プリント" Margin="0 0 2 0" Background="#8CD25F"></Button>
+                    <Button Grid.Column="5" Command="{Binding PrintsButton}" Content="印刷" Margin="0 0 2 0" Background="#8CD25F"></Button>
                 </Grid>
             </Border>
 

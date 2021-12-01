@@ -26,6 +26,9 @@ namespace matsukifudousan.ViewModel
         private string _Search;
         public string Search { get => _Search; set { _Search = value; OnPropertyChanged(); } }
 
+        private int _HouseNumbers;
+        public int HouseNumbers { get => _HouseNumbers; set { _HouseNumbers = value; OnPropertyChanged(); } }
+
         public ICommand SearchButton { get; set; }
 
         public ICommand PrintsButton { get; set; }
@@ -35,6 +38,8 @@ namespace matsukifudousan.ViewModel
         public ICommand ApartmentFix { get; set; }
 
         public ICommand ApartmentDelete { get; set; }
+
+        public ICommand TotalSearch { get; set; }
 
         private ApartmentDB _SelectedItem;
         public ApartmentDB SelectedItem
@@ -46,30 +51,30 @@ namespace matsukifudousan.ViewModel
                 OnPropertyChanged();
                 if (SelectedItem != null)
                 {
-                    ApartmentHouseNo = SelectedItem.ApartmentHouseNo;
+                    ApartmentHouseNo = (int)SelectedItem.ApartmentHouseNo;
                 }
             }
         }
 
-        private string _ApartmentHouseNo;
-        public string ApartmentHouseNo { get => _ApartmentHouseNo; set { _ApartmentHouseNo = value; OnPropertyChanged(); } }
+        private Nullable<int> _ApartmentHouseNo;
+        public Nullable<int> ApartmentHouseNo { get => _ApartmentHouseNo; set { _ApartmentHouseNo = value; OnPropertyChanged(); } }
 
         public ApartmentSearchViewModel()
         {
             string Result = null;
-            List = new ObservableCollection<ApartmentDB>(DataProvider.Ins.DB.ApartmentDB.Where(t => t.ApartmentHouseNo.Contains(Result) || t.ApartmentHouseName.Contains(Result) || t.ApartmentAddress.Contains(Result)));
+            List = new ObservableCollection<ApartmentDB>(DataProvider.Ins.DB.ApartmentDB.Where(t => t.ApartmentHouseNo.ToString().Contains(Result) || t.ApartmentHouseName.Contains(Result) || t.ApartmentAddress.Contains(Result)));
 
             #region SearchButton
             SearchButton = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
+                ApartmentSearch selectApartmentNo = new ApartmentSearch();
+                selectApartmentNo.House.Text = null;
                 Result = Search;
-
-
-                if (Result != "")
+                if (!String.IsNullOrWhiteSpace(Result) && Result != null && Result != "")
                 {
 
-                    List = new ObservableCollection<ApartmentDB>(DataProvider.Ins.DB.ApartmentDB.Where(t => t.ApartmentHouseNo.Contains(Result) || t.ApartmentHouseName.Contains(Result) || t.ApartmentAddress.Contains(Result)));
-
+                    List = new ObservableCollection<ApartmentDB>(DataProvider.Ins.DB.ApartmentDB.Where(t => t.ApartmentHouseNo.ToString().Contains(Result) || t.ApartmentHouseName.Contains(Result) || t.ApartmentAddress.Contains(Result)));
+                    HouseNumbers = List.Count;
                     if (List.Count == 0)
                     {
                         MessageBox.Show("検索の結果がなかったです。", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -77,10 +82,16 @@ namespace matsukifudousan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("まだ入力しないです。", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("入力してください。", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             });
             #endregion
+
+            TotalSearch = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                List = new ObservableCollection<ApartmentDB>(DataProvider.Ins.DB.ApartmentDB.ToList());
+                HouseNumbers = List.Count;
+            });
 
             PrintsButton = new RelayCommand<object>((p) => { return true; }, (p) => { printsButton(); });
             ApartmentDetailsView = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -93,7 +104,7 @@ namespace matsukifudousan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
             });
             ApartmentFix = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -106,7 +117,7 @@ namespace matsukifudousan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
             });
             ApartmentDelete = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -116,10 +127,11 @@ namespace matsukifudousan.ViewModel
                 if (selectApartmentNo.House.Text != "")
                 {
                     apartmentDelete();
+                    List = new ObservableCollection<ApartmentDB>(DataProvider.Ins.DB.ApartmentDB.Where(t => t.ApartmentHouseNo.ToString().Contains(Result) || t.ApartmentHouseName.Contains(Result) || t.ApartmentAddress.Contains(Result)));
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
             });
 
@@ -251,7 +263,7 @@ namespace matsukifudousan.ViewModel
             }
             else
             {
-                MessageBox.Show("物件を選択下さい！", "Warring", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("物件を選択してください！", "Warring", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -259,11 +271,11 @@ namespace matsukifudousan.ViewModel
         {
             ApartmentSearch apartmentSearch = new ApartmentSearch();
 
-            var apartmentDeleteHouseNo = apartmentSearch.House.Text;
+            var apartmentDeleteHouseNo = Int32.Parse(apartmentSearch.House.Text);
 
-            var resultButtonDeleteHouse = MessageBox.Show("本当にこの物件（物件番号：" + apartmentDeleteHouseNo + "）を削除したいでしょうか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var resultButtonDeleteHouse = MessageBox.Show("本当にこの物件（物件番号：" + apartmentDeleteHouseNo + "）を削除しますか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if (resultButtonDeleteHouse == MessageBoxResult.OK)
+            if (resultButtonDeleteHouse == MessageBoxResult.Yes)
             {
                 var imageDeleteDB = DataProvider.Ins.DB.ImageDB.Where(imgDelete => imgDelete.ApartmentHouseNo == apartmentDeleteHouseNo);
                 DataProvider.Ins.DB.ImageDB.RemoveRange(imageDeleteDB);
@@ -274,7 +286,7 @@ namespace matsukifudousan.ViewModel
                 DataProvider.Ins.DB.SaveChanges();
 
                 MessageBox.Show("削除しました！");
-
+                apartmentSearch.House.Text = null;
             }
             else
             {

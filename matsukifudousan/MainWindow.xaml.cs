@@ -46,6 +46,14 @@ namespace matsukifudousan
                     usc = new LandManagement();
                     GridMain.Children.Add(usc);
                     break;
+                case "RentalPayment":
+                    usc = new RentalContractPaymentSearch();
+                    GridMain.Children.Add(usc);
+                    break;
+                case "ImageSearch":
+                    usc = new ImageSearch();
+                    GridMain.Children.Add(usc);
+                    break;
                 case "version":
                     version_Click();
                     break;
@@ -112,5 +120,39 @@ namespace matsukifudousan
             AutoUpdater.Start("https://strategic.jp/matsuki-update/update.xml");
         }
 
+
+        private void ListViewMenu_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            //GridMain.Children.Clear();
+            switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
+            {
+
+                case "UserControlMain":
+                    usc = new UserControlMain();
+                    GridMain.Children.Add(usc);
+                    break;
+                case "RentalManagement":
+                    usc = new RentalManagement();
+                    GridMain.Children.Add(usc);
+                    break;
+                case "DetachedHouseManagement":
+                    usc = new DetachedHouseManagement();
+                    GridMain.Children.Add(usc);
+                    break;
+                case "ApartmentManagement":
+                    usc = new ApartmentManagement();
+                    GridMain.Children.Add(usc);
+                    break;
+                case "LandManagement":
+                    usc = new LandManagement();
+                    GridMain.Children.Add(usc);
+                    break;
+                case "version":
+                    version_Click();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

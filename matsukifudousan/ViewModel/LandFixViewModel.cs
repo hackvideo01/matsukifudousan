@@ -29,8 +29,8 @@ namespace matsukifudousan.ViewModel
 
 
         #region Land Item Input
-        private string _LandNo;
-        public string LandNo { get => _LandNo; set { _LandNo = value; OnPropertyChanged(); } }
+        private int _LandNo;
+        public int LandNo { get => _LandNo; set { _LandNo = value; OnPropertyChanged(); } }
 
         private string _LandName;
         public string LandName { get => _LandName; set { _LandName = value; OnPropertyChanged(); } }
@@ -115,8 +115,8 @@ namespace matsukifudousan.ViewModel
         private string _ImageFullPath;
         public string ImageFullPath { get => _ImageFullPath; set { _ImageFullPath = value; OnPropertyChanged(); } }
 
-        private string _landSearchHouseNo;
-        public string landSearchHouseNo { get => _landSearchHouseNo; set { _landSearchHouseNo = value; OnPropertyChanged(); } }
+        private int _landSearchHouseNo;
+        public int landSearchHouseNo { get => _landSearchHouseNo; set { _landSearchHouseNo = value; OnPropertyChanged(); } }
         #endregion
         public ICommand ContractDetailsCommandWD { get; set; }
 
@@ -166,7 +166,7 @@ namespace matsukifudousan.ViewModel
             string SavePath = string.Format(@"{0}\images\RentalImage", projectDirectory);
             string[] a = ImageObject;
             LandSearch landSearch = new LandSearch();
-            landSearchHouseNo = landSearch.LandNo.Text;
+            landSearchHouseNo = Int32.Parse(landSearch.LandNo.Text);
             reload();
 
             AddImageCommand = new RelayCommand<object>((p) =>
@@ -309,7 +309,7 @@ namespace matsukifudousan.ViewModel
                     string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
                     int nameImageCount = 0;
 
-                    landImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.ApartmentHouseNo == landSearchHouseNo));
+                    landImageView = new ObservableCollection<ImageDB>(DataProvider.Ins.DB.ImageDB.Where(img => img.LandNo == landSearchHouseNo));
                     DataProvider.Ins.DB.ImageDB.RemoveRange(landImageView);
                     DataProvider.Ins.DB.SaveChanges();
                     foreach (string saveImageDB in ImageListPath)
@@ -326,7 +326,7 @@ namespace matsukifudousan.ViewModel
                     }
                     OpenFileDialog openDialog = new OpenFileDialog();
                     openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-                    MessageBox.Show("データを修正されました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("物件の内容を修正しました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
                     Comfirm = 0;
                 }
                 #endregion
@@ -349,7 +349,7 @@ namespace matsukifudousan.ViewModel
 
                 if (comfirmDeleteImage == 0)
                 {
-                    var resultButtonDeleteImg = MessageBox.Show("本当にこの物件（画像：" + nameImage + "）を削除したいでしょうか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    var resultButtonDeleteImg = MessageBox.Show("この物件（画像：" + nameImage + "）を削除しますか？", "警告", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (resultButtonDeleteImg == MessageBoxResult.Yes)
                     {
                         DeleteImage(nameImage);
@@ -389,7 +389,7 @@ namespace matsukifudousan.ViewModel
 
         private void reload()
         {
-            if (landSearchHouseNo != "")
+            if (landSearchHouseNo != 0)
             {
                 #region Display Column of value
                 LandDetailsView = new ObservableCollection<LandDB>(DataProvider.Ins.DB.LandDB.Where(v => v.LandNo == landSearchHouseNo));

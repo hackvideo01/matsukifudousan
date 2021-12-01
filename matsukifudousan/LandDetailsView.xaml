@@ -19,7 +19,7 @@
              ResizeMode="NoResize"
              WindowStyle="None"
 
-             DataContext="{StaticResource DetachedDetailsViewVM}"
+             DataContext="{StaticResource LandDetailsVM}"
              x:Name="LandDetailsViewVM"
              mc:Ignorable="d" 
              Tag="土地詳細"

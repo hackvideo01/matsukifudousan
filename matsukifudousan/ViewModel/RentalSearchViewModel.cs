@@ -55,26 +55,26 @@ namespace matsukifudousan.ViewModel
                 OnPropertyChanged();
                 if (SelectedItem != null)
                 {
-                    HouseNo = SelectedItem.HouseNo;
+                    HouseNo = (int)SelectedItem.HouseNo;
                 }
             }
         }
 
-        private string _HouseNo;
-        public string HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
+        private Nullable<int> _HouseNo;
+        public Nullable<int> HouseNo { get => _HouseNo; set { _HouseNo = value; OnPropertyChanged(); } }
 
         List<RentalManagementDB> LoadRecord(int page,int recordNum)
         {
             List<RentalManagementDB> result = new List<RentalManagementDB>();
             string Result = null;
             Result = Search;
-            result = DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)).OrderBy(a=>a.HouseNo).Skip(page).Take(recordNum).ToList();
+            result = DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.ToString().Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)).OrderBy(a=>a.HouseNo).Skip(page).Take(recordNum).ToList();
             return result;
         }
         public RentalSearchViewModel()
         {
             string Result = null;
-            List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
+            List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.ToString().Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
             #region SearchButton
             //int loadedRecord = 0;
             //int pageNumber = 1;
@@ -82,11 +82,12 @@ namespace matsukifudousan.ViewModel
 
             SearchButton = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                //List = LoadRecord(loadedRecord, numberRecord);
+                RentalSearch selectRentalNo = new RentalSearch();
+                selectRentalNo.House.Text = null;
                 Result = Search;
-                if (Result != "" && Result != null)
+                if (!String.IsNullOrWhiteSpace(Result) && Result != null && Result != "")
                 {
-                    List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
+                    List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.ToString().Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
 
                     if (List.Count == 0)
                     {
@@ -95,7 +96,7 @@ namespace matsukifudousan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("まだ入力しないです。", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("入力してください。", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             });
             #endregion
@@ -111,7 +112,7 @@ namespace matsukifudousan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件を選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
             });
             RentalFix = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -124,7 +125,7 @@ namespace matsukifudousan.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件を選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
             });
             RentalDelete = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -133,53 +134,62 @@ namespace matsukifudousan.ViewModel
 
                 if (selectRentalNo.House.Text != "")
                 {
-                    rentalDelete();
+                    int isExist = DataProvider.Ins.DB.RentalContactDB.Where(i => i.HouseNo == HouseNo).Count();
+
+                    //if (isExist != 0)
+                    //{
+                    //    MessageBox.Show("削除が出来ないです。まず賃貸契約（番号：" + HouseNo + "）を削除してください。", "確認", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    //}
+                    //else
+                    //{
+                        rentalDelete();
+                    //}
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件を選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
             });
 
             ContractDetailsCommandWD = new RelayCommand<object>((p) => { return true; }, (p) => 
             {
                 RentalSearch selectRentalNo = new RentalSearch();
-                var selectRentalSearch = selectRentalNo.House.Text;
+                var selectRentalSearch = Int32.Parse(selectRentalNo.House.Text);
 
-                if (selectRentalSearch != "")
+                if (HouseNo != 0)
                 {
-                    if (DataProvider.Ins.DB.ContractDetailsDB.Where(h=>h.HouseNo == selectRentalSearch).Count() == 0)
+                    if (DataProvider.Ins.DB.ContractDetailsDB.Where(h=>h.HouseNo == HouseNo).Count() == 0)
                     {
                         ContractDetails wd = new ContractDetails(); wd.ShowDialog();
                     }
                     else
                     {
-                        MessageBox.Show("物件は詳細入力がありました。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                        contractDetailsFixOpenWithWindow();
                     }
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件を選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
             RentalContract = new RelayCommand<object>((p) => { return true; }, (p) => 
             {
                 RentalSearch selectRentalNo = new RentalSearch();
-                var selectRentalSearch = selectRentalNo.House.Text;
-                var displayList = DataProvider.Ins.DB.RentalContactDB.Where(x => x.HouseNo == selectRentalSearch);
+                var selectRentalSearch = Int32.Parse(selectRentalNo.House.Text);
+                var displayList = DataProvider.Ins.DB.RentalContactDB.Where(x => x.HouseNo == HouseNo);
                 int a = displayList.Count();
 
-                if (selectRentalSearch != "" && selectRentalSearch != null && displayList.Count() == 0)
+                if (HouseNo != 0 && HouseNo != null && displayList.Count() == 0)
                 {
                     RentalContractInput openWindowRentalContractInput = new RentalContractInput(); openWindowRentalContractInput.ShowDialog();
                 }
                 else if (displayList.Count() != 0)
                 {
-                    MessageBox.Show("物件（物件No：" + selectRentalSearch + "）がありました。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件（物件No：" + selectRentalSearch + "）がありました。", "選択", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else
                 {
-                    MessageBox.Show("物件を選択ください。", "選択", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("物件を選択してください。", "選択", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
         }
@@ -275,9 +285,9 @@ namespace matsukifudousan.ViewModel
         private void rentalFixOpenWithWindow()
         {
             RentalSearch rentalSearch = new RentalSearch();
-            var rentalSearchHouseNo = rentalSearch.House.Text;
+            var rentalSearchHouseNo = Int32.Parse(rentalSearch.House.Text);
 
-            if (rentalSearchHouseNo != "")
+            if (rentalSearchHouseNo != 0)
             {
                 string Result = null;
                 Result = Search;
@@ -292,20 +302,20 @@ namespace matsukifudousan.ViewModel
                     WindowStyle = WindowStyle.None
                 };
                 window.ShowDialog();
-                List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
+                List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.ToString().Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
             }
             else
             {
-                MessageBox.Show("物件を選択下さい！", "Warring", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("物件を選択してください！", "Warring", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
         private void rentalDelete()
         {
             RentalSearch rentalSearch = new RentalSearch();
-            var rentalHouseDelete = rentalSearch.House.Text;
-            var resultButtonDeleteHouse = MessageBox.Show("本当にこの物件（物件番号：" + rentalHouseDelete + "）を削除したいでしょうか？","警告",MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            if (resultButtonDeleteHouse == MessageBoxResult.OK)
+            int rentalHouseDelete = Int32.Parse(rentalSearch.House.Text);
+            var resultButtonDeleteHouse = MessageBox.Show("この物件（物件番号：" + rentalHouseDelete + "）を削除しますか？", "警告",MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (resultButtonDeleteHouse == MessageBoxResult.Yes)
             {
                 string Result = null;
                 Result = Search;
@@ -318,11 +328,44 @@ namespace matsukifudousan.ViewModel
                 DataProvider.Ins.DB.SaveChanges();
 
                 MessageBox.Show("削除しました！");
-                List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
+                List = new ObservableCollection<RentalManagementDB>(DataProvider.Ins.DB.RentalManagementDB.Where(t => t.HouseNo.ToString().Contains(Result) || t.HouseName.Contains(Result) || t.HouseAddress.Contains(Result)));
             }
             else
             {
                 MessageBox.Show("削除しなかったです。");
+            }
+        }
+        private void contractDetailsFixOpenWithWindow()
+        {
+            RentalSearch rentalSearch = new RentalSearch();
+            var contractSearchHouseNo = rentalSearch.House.Text;
+
+            if (contractSearchHouseNo != "")
+            {
+                //Window window = new Window
+                //{
+                //    Title = "賃貸修正",
+                //    Width = 835,
+                //    Height = 450,
+                //    Content = new RentalFixs(),
+                //    ResizeMode = ResizeMode.NoResize,
+                //    WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                //    WindowStyle = WindowStyle.None
+                //};
+                //window.ShowDialog();
+
+                try
+                {
+                    ContractDetailsFix openWindowDetails = new ContractDetailsFix(); openWindowDetails.ShowDialog();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("物件を選択してください！" + e, "Warring", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("物件を選択してください！", "Warring", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

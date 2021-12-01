@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:matsukifudousan"
+             xmlns:vali="clr-namespace:matsukifudousan.ViewModel"
              
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -53,9 +54,28 @@
             <Setter Property="Margin" Value="0 3 0 0"/>
             <Setter Property="FontSize" Value="19"/>
         </Style>
+        <ControlTemplate x:Key="ExclamationOnError">
+            <Grid>
+                <!-- FontSize を元のテキストボックスから取得するために名前をつけて Binding -->
+                <AdornedElementPlaceholder x:Name="TextBox"/>
+                <TextBlock Text="! " HorizontalAlignment="Right" Foreground="Red"
+                       FontSize="{Binding ElementName=TextBox, Path=AdornedElement.FontSize}"/>
+            </Grid>
+        </ControlTemplate>
+
+        <!-- Validation がエラーを返した際にその内容をツールチップを表示するスタイル -->
+        <Style x:Key="TextBoxHasError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                    Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                    Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
-    <Grid Background="White">
+    <Grid Background="White" PreviewKeyDown="Grid_PreviewKeyDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -95,10 +115,22 @@
                             <ColumnDefinition Width="70*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0" Style="{StaticResource ResourceKey=BorderTr1}">
-                            <TextBlock Text="物件番号" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
+                            <TextBlock Text="物件番号（必須）" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBox Text="{Binding LandNo}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0"/>
+                            <!--<TextBox x:Name="txbLandNo" Text="{Binding LandNo}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0" PreviewTextInput="txbLandNo_PreviewTextInput"/>-->
+                            <TextBox x:Name="txbLandNo"  materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 0 0 0" PreviewTextInput="txbLandNo_PreviewTextInput"
+                             Validation.ErrorTemplate="{StaticResource ExclamationOnError}"
+                             InputMethod.IsInputMethodEnabled="False"
+                             Style="{StaticResource TextBoxHasError}" KeyUp="txbLandNo_KeyUp" LostFocus="txbLandNo_LostFocus">
+                                <TextBox.Text>
+                                    <Binding Path="LandNo" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <vali:NumberValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </Grid>
                     </Grid>
                 </Border>
@@ -132,9 +164,9 @@
                                 <ColumnDefinition Width="30*"></ColumnDefinition>
                                 <ColumnDefinition Width="70*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBox Text="{Binding LandPost}" Grid.Column="0" materialDesign:HintAssist.Hint="郵便局番号" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox x:Name="txbLandPost" Text="{Binding LandPost}" Grid.Column="0" materialDesign:HintAssist.Hint="郵便局番号" FontSize="19" Margin="0 3 0 0" LostFocus="txbLandPost_LostFocus" />
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBox Text="{Binding LandAddress}" materialDesign:HintAssist.Hint="所在地" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox x:Name="txbLandAddress" Text="{Binding LandAddress}" materialDesign:HintAssist.Hint="所在地" FontSize="19" Margin="0 3 0 0" />
                             </Border>
                         </Grid>
                     </Grid>

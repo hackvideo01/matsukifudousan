@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 namespace matsukifudousan
 {
@@ -29,12 +30,8 @@ namespace matsukifudousan
         public RentalInput()
         {
             InitializeComponent();
-
-            DataContext = new RentalInputViewModel();
-
         }
-
-        private void Grid_PreviewKeyDown(object sender, KeyEventArgs e)
+            private void Grid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             var uie = e.OriginalSource as UIElement;
 
@@ -85,16 +82,57 @@ namespace matsukifudousan
             }
             catch (Exception)
             {
-                MessageBox.Show("郵便局番号は恐らく間違っています。もう一度ご確認お願い致します。", "確認", MessageBoxButton.OK, MessageBoxImage.Question);
+                MessageBox.Show("郵便局番号は恐らく間違っています。もう一度ご確認お願い致します。", "確認", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void txbHouseNo_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+
+            //foreach (var ch in e.Text)
+            //{
+            //    if (!(Char.IsDigit(ch) || ch.Equals(':')))
+            //    {
+            //        e.Handled = true;
+            //        break;
+            //    }
+            //}
+        }
+
+        private void txbHouseNo_KeyUp(object sender, KeyEventArgs e)
+        {
+            KeyEventArgs ke = e as KeyEventArgs;
+            if (ke.Key == Key.Space)
+            {
+                ke.Handled = true;
+
+                MessageBox.Show("物件番号はスペースバーを入力したいでください！", "確認", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public bool IsNumber(string pText)
+        {
+            Regex regex = new Regex(@"^[-+]?[0-9]*.?[0-9]+$");
+            return regex.IsMatch(pText);
         }
 
         private void txbHouseNo_LostFocus(object sender, RoutedEventArgs e)
         {
-            var checkHouse = DataProvider.Ins.DB.RentalManagementDB.Where(ck=>ck.HouseNo == txbHouseNo.Text);
-            if (checkHouse.Count() != 0)
+            if (txbHouseNo.Text != "" && IsNumber(txbHouseNo.Text))
             {
-                MessageBox.Show("物件がありました。他の物件号を入力してください。", "物件番号を再入力", MessageBoxButton.OK, MessageBoxImage.Question);
+                int houseno = Int32.Parse(txbHouseNo.Text);
+                var checkHouse = DataProvider.Ins.DB.RentalManagementDB.Where(ck => ck.HouseNo == houseno);
+                int checkhousenoCount = checkHouse.Count();
+                if (checkhousenoCount != 0)
+                {
+                    MessageBox.Show("その物件番号は使われています。", "物件番号を再入力", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("物件番号（数字のみ）を入力してください。", "物件番号を再入力", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

@@ -18,7 +18,7 @@
 
     <viewmodel:DetachedInputViewModel x:Key="DetachedInputVM"></viewmodel:DetachedInputViewModel>
 
-    <viewmodel:DetachedSearchViews x:Key="DetachedSearchVM"></viewmodel:DetachedSearchViews>
+    <viewmodel:DetachedSearchViewModel x:Key="DetachedSearchVM"></viewmodel:DetachedSearchViewModel>
 
     <viewmodel:DetachedDetailsViewViewModel x:Key="DetachedDetailsViewVM"></viewmodel:DetachedDetailsViewViewModel>
 
@@ -52,6 +52,22 @@
 
     <viewmodel:RentalContractInputViewModel x:Key="RentalContractInputVM"></viewmodel:RentalContractInputViewModel>
 
+    <viewmodel:RentalContractPaymentSearchViewModel x:Key="RentalContractPaymentSearchVM"></viewmodel:RentalContractPaymentSearchViewModel>
+
+    <viewmodel:RentalPaymentViewModel x:Key="RentalPaymentVM"></viewmodel:RentalPaymentViewModel>
+
     <viewmodel:RentalContractSearchViewModel x:Key="RentalContractSearchVM"></viewmodel:RentalContractSearchViewModel>
+
+    <viewmodel:RentalContractFixViewModel x:Key="RentalContractFixVM"></viewmodel:RentalContractFixViewModel>
+
+    <viewmodel:RentalContractViewViewModel x:Key="RentalContractViewVM"></viewmodel:RentalContractViewViewModel>
+
+    <viewmodel:ApartmentPrintsViewModel x:Key="ApartmentPrintsVM"></viewmodel:ApartmentPrintsViewModel>
+
+    <viewmodel:DetachedPrintsViewModel x:Key="DetachedPrintsVM"></viewmodel:DetachedPrintsViewModel>
+
+    <viewmodel:LandPrintsViewModel x:Key="LandPrintsVM"></viewmodel:LandPrintsViewModel>
+
+    <viewmodel:RentalPaymentFixViewModel x:Key="RentalPaymentFixVM"></viewmodel:RentalPaymentFixViewModel>
 
 </ResourceDictionary>

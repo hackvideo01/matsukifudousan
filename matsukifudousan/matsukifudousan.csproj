@@ -37,6 +37,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accord, Version=3.8.0.0, Culture=neutral, PublicKeyToken=fa1a88e29555ccf7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Accord.3.8.0\lib\net462\Accord.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Math, Version=3.8.0.0, Culture=neutral, PublicKeyToken=fa1a88e29555ccf7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Accord.Math.3.8.0\lib\net462\Accord.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Math.Core, Version=3.8.0.0, Culture=neutral, PublicKeyToken=fa1a88e29555ccf7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Accord.Math.3.8.0\lib\net462\Accord.Math.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Statistics, Version=3.8.0.0, Culture=neutral, PublicKeyToken=fa1a88e29555ccf7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Accord.Statistics.3.8.0\lib\net462\Accord.Statistics.dll</HintPath>
+    </Reference>
     <Reference Include="ApiAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ApiAccess.1.0.0\lib\ApiAccess.dll</HintPath>
     </Reference>
@@ -126,6 +138,9 @@
     <Reference Include="SpreadsheetLight, Version=3.5.0.0, Culture=neutral, PublicKeyToken=32fbb46dc1730c57, processorArchitecture=MSIL">
       <HintPath>..\packages\SpreadsheetLight.3.5.0\lib\netstandard2.0\SpreadsheetLight.dll</HintPath>
     </Reference>
+    <Reference Include="Stripe.net, Version=39.80.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stripe.net.39.80.0\lib\net461\Stripe.net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -134,6 +149,7 @@
       <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -158,6 +174,11 @@
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -263,6 +284,9 @@
     <Compile Include="LandManagement.xaml.cs">
       <DependentUpon>LandManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LandPrints.xaml.cs">
+      <DependentUpon>LandPrints.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LandSearch.xaml.cs">
       <DependentUpon>LandSearch.xaml</DependentUpon>
     </Compile>
@@ -297,21 +321,45 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\NotPaymentDB.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\RentalContactDB.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\RentalManagementDB.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\RentalPaymentDB.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\sysdiagrams.cs">
       <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RentalContractFix.xaml.cs">
+      <DependentUpon>RentalContractFix.xaml</DependentUpon>
     </Compile>
     <Compile Include="RentalContractInput.xaml.cs">
       <DependentUpon>RentalContractInput.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RentalContractPaymentSearch.xaml.cs">
+      <DependentUpon>RentalContractPaymentSearch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RentalContractSearch.xaml.cs">
       <DependentUpon>RentalContractSearch.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RentalContractView.xaml.cs">
+      <DependentUpon>RentalContractView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RentalPaymentFix.xaml.cs">
+      <DependentUpon>RentalPaymentFix.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\ApartmentPrintsViewModel.cs" />
+    <Compile Include="ViewModel\DetachedPrintsViewModel.cs" />
+    <Compile Include="ViewModel\DetachedSearchViewModel.cs" />
+    <Compile Include="ViewModel\LandPrintsViewModel.cs" />
+    <Compile Include="ViewModel\NumberValidationRule.cs" />
+    <Compile Include="ViewModel\RentalContractViewViewModel.cs" />
     <Compile Include="RentalPaymentInput.xaml.cs">
       <DependentUpon>RentalPaymentInput.xaml</DependentUpon>
     </Compile>
@@ -352,15 +400,17 @@
     <Compile Include="ViewModel\DetachedDetailsViewViewModel.cs" />
     <Compile Include="ViewModel\DetachedFixsViewModel.cs" />
     <Compile Include="ViewModel\DetachedInputViewModel.cs" />
-    <Compile Include="ViewModel\DetachedSearchView.cs" />
     <Compile Include="ViewModel\ImageSearchViewModel.cs" />
     <Compile Include="ViewModel\LandDetailsViewModel.cs" />
     <Compile Include="ViewModel\LandFixViewModel.cs" />
     <Compile Include="ViewModel\LandInputViewModel.cs" />
     <Compile Include="ViewModel\LandSearchViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\RentalContractFixViewModel.cs" />
     <Compile Include="ViewModel\RentalContractInputViewModel.cs" />
+    <Compile Include="ViewModel\RentalContractPaymentSearchViewModel.cs" />
     <Compile Include="ViewModel\RentalContractSearchViewModel.cs" />
+    <Compile Include="ViewModel\RentalPaymentFixViewModel.cs" />
     <Compile Include="ViewModel\RentalPaymentViewModel.cs" />
     <Compile Include="ViewModel\RentalPrintsViewModel.cs" />
     <Compile Include="ViewModel\RentalDetailsViewViewModel.cs" />
@@ -462,6 +512,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LandPrints.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LandSearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -478,11 +532,27 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RentalContractFix.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RentalContractInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="RentalContractPaymentSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RentalContractSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RentalContractView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RentalPaymentFix.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -550,7 +620,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="files\住宅賃貸借契約書.xlsx" />
-    <None Include="files\住宅賃貸借媒介契約書（貸主用）.xlsx" />
+    <None Include="files\住宅賃貸借媒介契約書%28貸主用%29.xlsx" />
     <None Include="files\取引台帳.xlsx" />
     <None Include="files\土地賃貸借契約書.xlsx" />
     <None Include="files\売渡確認書.xlsx" />
@@ -558,15 +628,10 @@
     <None Include="files\委任状%28土地%29.xlsx" />
     <None Include="files\委任状.xlsx" />
     <None Include="files\定期建物賃貸借%28定期借家%29契約についての説明書.xlsx" />
-    <None Include="files\定期建物賃貸借契約書（居住用）.xlsx" />
+    <None Include="files\定期建物賃貸借契約書%28居住用%29.xlsx" />
     <None Include="files\建物賃貸借契約書.xlsx" />
-    <EntityDeploy Include="Model\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="files\明細書.xlsx" />
-    <None Include="files\案内図.xlsx" />
-    <None Include="files\物件（入居者名）.xlsx" />
+    <None Include="files\物件%28入居者名%29.xlsx" />
     <None Include="files\管理報告書%282%29.xlsx" />
     <None Include="files\管理報告書.xlsx" />
     <None Include="files\請求書.xlsx" />
@@ -574,8 +639,17 @@
     <None Include="files\賃貸借契約書.xlsx" />
     <None Include="files\重要車項脱明書.xlsx" />
     <None Include="files\鍵受取書.xlsx" />
+    <None Include="files\間取り図%28マンション%29.xlsx" />
+    <None Include="files\間取り図%28土地%29.xlsx" />
+    <None Include="files\間取り図%28戸建%29.xlsx" />
+    <None Include="files\間取り図%28賃貸%29.xlsx" />
+    <None Include="files\間取り図.xlsx" />
     <None Include="files\領収書.xlsx" />
     <None Include="files\駐車場賃貸借契約書.xlsx" />
+    <EntityDeploy Include="Model\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="Model\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
@@ -618,6 +692,8 @@
   <ItemGroup>
     <Resource Include="images\company.jpg" />
     <Resource Include="images\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -636,5 +712,7 @@
       <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets'))" />
+    <Error Condition="!Exists('..\packages\Accord.3.8.0\build\Accord.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Accord.3.8.0\build\Accord.targets'))" />
   </Target>
+  <Import Project="..\packages\Accord.3.8.0\build\Accord.targets" Condition="Exists('..\packages\Accord.3.8.0\build\Accord.targets')" />
 </Project>

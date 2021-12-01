@@ -32,14 +32,15 @@ using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using Orientation = System.Windows.Controls.Orientation;
+using System.ComponentModel;
 
 namespace matsukifudousan.ViewModel
 {
     public class DetachedInputViewModel : BaseViewModel
     {
         #region Detached Item Input
-        private string _DetachedHouseNo;
-        public string DetachedHouseNo { get => _DetachedHouseNo; set { _DetachedHouseNo = value; OnPropertyChanged(); } }
+        private Nullable<int> _DetachedHouseNo;
+        public Nullable<int> DetachedHouseNo { get => _DetachedHouseNo; set { _DetachedHouseNo = value; OnPropertyChanged("DetachedHouseNo"); } }
 
         private string _DetachedHouseName;
         public string DetachedHouseName { get => _DetachedHouseName; set { _DetachedHouseName = value; OnPropertyChanged(); } }
@@ -136,7 +137,7 @@ namespace matsukifudousan.ViewModel
         #endregion
         public ICommand ContractDetailsCommandWD { get; set; }
 
-        public ICommand AddRentalCommand { get; set; }
+        public ICommand AddDetachedCommand { get; set; }
 
         public ICommand AddImageCommand { get; set; }
 
@@ -151,6 +152,9 @@ namespace matsukifudousan.ViewModel
 
         private ObservableCollection<Object> _NameIMG = new ObservableCollection<Object>();
         public ObservableCollection<Object> NameIMG { get => _NameIMG; set { _NameIMG = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<Object> _NameIMG2 = new ObservableCollection<Object>();
+        public ObservableCollection<Object> NameIMG2 { get => _NameIMG2; set { _NameIMG2 = value; OnPropertyChanged(); } }
 
         private ObservableCollection<Object> _ImageListPath = new ObservableCollection<Object>();
         public ObservableCollection<Object> ImageListPath { get => _ImageListPath; set { _ImageListPath = value; OnPropertyChanged(); } }
@@ -185,9 +189,9 @@ namespace matsukifudousan.ViewModel
             string ImageNameString = ImageListPath.ToString();
             ContractDetailsCommandWD = new RelayCommand<object>((p) => { return true; }, (p) => { ContractDetails wd = new ContractDetails(); wd.ShowDialog(); });
 
-            AddRentalCommand = new RelayCommand<object>((p) =>
+            AddDetachedCommand = new RelayCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(DetachedHouseNo))
+                if (string.IsNullOrEmpty(DetachedHouseNo.ToString()))
                     return false;
                 var displayList = DataProvider.Ins.DB.DetachedDB.Where(x => x.DetachedHouseNo == DetachedHouseNo);
                 if (displayList == null || displayList.Count() != 0) // if displayList = 0 then HouseNo had in database
@@ -196,86 +200,101 @@ namespace matsukifudousan.ViewModel
             }, (p) =>
 
             {
-                #region Value Form RentalMangement
-                var AddRental = new DetachedDB()
+                DetachedHouseInput testDetached = new DetachedHouseInput();
+                string checkDetachedNoField = testDetached.txbDetachedHouseNo.Text;
+                var displayList = DataProvider.Ins.DB.DetachedDB.Where(x => x.DetachedHouseNo == DetachedHouseNo);
+                if (DetachedHouseNo.ToString() != "" && displayList.Count() == 0 && checkDetachedNoField != "")
                 {
-                    DetachedHouseNo = DetachedHouseNo,
-                    DetachedHouseName = DetachedHouseName,
-                    DetachedPost = DetachedPost,
-                    DetachedAddress = DetachedAddress,
-                    NearestSation = NearestSation,
-                    Price = Price,
-                    FloorPlanType = FloorPlanType,
-                    FloorPlanDetails = FloorPlanDetails,
-                    LandArea = LandArea,
-                    BuildingArea = BuildingArea,
-                    BuildingStructure = BuildingStructure,
-                    DateConstruction = DateConstruction,
-                    LandRights = LandRights,
-                    Ground = Ground,
-                    CityPlanning = CityPlanning,
-                    UseDistrict = UseDistrict,
-                    BuildingCoverageRatio = BuildingCoverageRatio,
-                    FloorAreaRatio = FloorAreaRatio,
-                    OtherLegalRestrictions = OtherLegalRestrictions,
-                    Terrain = Terrain,
-                    CurrentSituation = CurrentSituation,
-                    DeliveryConditionTime = DeliveryConditionTime,
-                    Parking = Parking,
-                    TransactionMode = TransactionMode,
-                    RoadsideSituation = RoadsideSituation,
-                    Facility = Facility,
-                    SchoolDistrict = SchoolDistrict,
-                    NeighborhoodInformation = NeighborhoodInformation,
-                    Remarks = Remarks,
-                };
-
-                DataProvider.Ins.DB.DetachedDB.Add(AddRental);
-                DataProvider.Ins.DB.SaveChanges();
-                //string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                int nameImageCount = 0;
-                foreach (string saveImageDB in ImageListPath)
-                {
-                    var AddImage = new ImageDB()
+                    Comfirm = 1;
+                    if (Comfirm == 1)
                     {
-                        ImageName = saveImageDB,
-                        ImagePath = SavePath + "\\" + saveImageDB,
-                        DetachedHouseNo = DetachedHouseNo
-                    };
-                    DataProvider.Ins.DB.ImageDB.Add(AddImage);
-                    DataProvider.Ins.DB.SaveChanges();
-
-                    nameImageCount++;
-                }
-                Comfirm = 1;
-
-                if (Comfirm == 1)
-                {
-                    OpenFileDialog openDialog = new OpenFileDialog();
-                    openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-
-                    MessageBox.Show("データを保存しました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                }
-
-
-                if (Comfirm == 1)
-                {
-                    for (int i = nameImageCount * 2 - 1; i >= 0; i--)
-                    {
-                        NameIMG.RemoveAt(i);
-                        if (i % 2 == 0)
+                        foreach (string SaveImageItem in NameIMG2)
                         {
-                            ImageListPath.RemoveAt(i/2);
+                            File.Copy(SaveImageItem, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(SaveImageItem)), true);
+                        }
+                        OpenFileDialog openDialog = new OpenFileDialog();
+                        openDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
+                    }
+
+                    if (Comfirm == 1)
+                    {
+                        #region Value Form DetachedMangement
+                        var AddRental = new DetachedDB()
+                        {
+                            DetachedHouseNo = (int)DetachedHouseNo,
+                            DetachedHouseName = DetachedHouseName,
+                            DetachedPost = DetachedPost,
+                            DetachedAddress = DetachedAddress,
+                            NearestSation = NearestSation,
+                            Price = Price,
+                            FloorPlanType = FloorPlanType,
+                            FloorPlanDetails = FloorPlanDetails,
+                            LandArea = LandArea,
+                            BuildingArea = BuildingArea,
+                            BuildingStructure = BuildingStructure,
+                            DateConstruction = DateConstruction,
+                            LandRights = LandRights,
+                            Ground = Ground,
+                            CityPlanning = CityPlanning,
+                            UseDistrict = UseDistrict,
+                            BuildingCoverageRatio = BuildingCoverageRatio,
+                            FloorAreaRatio = FloorAreaRatio,
+                            OtherLegalRestrictions = OtherLegalRestrictions,
+                            Terrain = Terrain,
+                            CurrentSituation = CurrentSituation,
+                            DeliveryConditionTime = DeliveryConditionTime,
+                            Parking = Parking,
+                            TransactionMode = TransactionMode,
+                            RoadsideSituation = RoadsideSituation,
+                            Facility = Facility,
+                            SchoolDistrict = SchoolDistrict,
+                            NeighborhoodInformation = NeighborhoodInformation,
+                            Remarks = Remarks,
+                        };
+
+                        DataProvider.Ins.DB.DetachedDB.Add(AddRental);
+                        DataProvider.Ins.DB.SaveChanges();
+                        //string appDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                        int nameImageCount = 0;
+                        foreach (string saveImageDB in ImageListPath)
+                        {
+                            var AddImage = new ImageDB()
+                            {
+                                ImageName = saveImageDB,
+                                ImagePath = SavePath + "\\" + saveImageDB,
+                                DetachedHouseNo = DetachedHouseNo
+                            };
+                            DataProvider.Ins.DB.ImageDB.Add(AddImage);
+                            DataProvider.Ins.DB.SaveChanges();
+
+                            nameImageCount++;
+                        }
+                        #endregion
+                        for (int i = nameImageCount * 2 - 1; i >= 0; i--)
+                        {
+                            NameIMG.RemoveAt(i);
+                            if (i % 2 == 0)
+                            {
+                                ImageListPath.RemoveAt(i / 2);
+                            }
                         }
                         ImagePath = "";
+                        MessageBox.Show("物件内容を登録しました。", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Information);
                         Comfirm = 0;
+                        DetachedHouseNo = null;
                     }
                 }
-
-                #endregion
+                else if (checkDetachedNoField == "")
+                {
+                    MessageBox.Show("物件番号を入力してください！", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else if (displayList.Count() != 0)
+                {
+                    MessageBox.Show("物件番" + DetachedHouseNo + "号がありました！", "Comfirm", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             });
 
+            int nameduplicate = 0;
             AddImageCommand = new RelayCommand<object>((p) =>
             {
                 return true;
@@ -290,33 +309,23 @@ namespace matsukifudousan.ViewModel
                     if (openDialog.ShowDialog() == true)
                     {
                         string appDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                        //string appdirect = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-                        //string appdirect1 = AppDomain.CurrentDomain.BaseDirectory;
-
-                        //string appdirect2 = System.IO.Directory.GetCurrentDirectory();
-
-                        //string appdirect3 = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
-
                         foreach (String item in openDialog.FileNames)
                         {
-                            //var displayListImage = DataProvider.Ins.DB.ImageDB.Where(x => x.ImageName == item);
-
-                            //if (displayListImage == null || displayListImage.Count() != 0)
-                            //{
-
-                            //    var result = MessageBox.Show("がありました。この写真を保存しますか？", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Error);
-                            //    if (result == MessageBoxResult.No)
-                            //    {
-                            //        goto duplicateImage;
-                            //    }
-                            //}
                             string fileNameRandom = item;
                             string filePathWithoutName = Path.GetDirectoryName(fileNameRandom);
                             string fileName = Path.GetFileName(fileNameRandom);
                             string filenamewithoutextension = Path.GetFileNameWithoutExtension(fileNameRandom);
                             string extension = Path.GetExtension(fileNameRandom);
-                            if (File.Exists(SavePath + "\\" + fileName))
+
+                            foreach (String nameDuplicate in ImageListPath)
+                            {
+                                if (nameDuplicate == fileName)
+                                {
+                                    nameduplicate++;
+                                }
+                            }
+
+                            if (File.Exists(SavePath + "\\" + fileName) || nameduplicate > 0)
                             {
                                 var result = MessageBox.Show("【" + fileName + "】 " + "がありました。\nもう一度写真を選択或いはアップデートしたい写真の名前を変更ください！", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
                                 if (result == MessageBoxResult.OK)
@@ -324,23 +333,21 @@ namespace matsukifudousan.ViewModel
                                     goto duplicateImage;
                                 }
                             }
-                            //while (File.Exists(SavePath + "\\" + fileName))
-                            //{
-                            //    MessageBox.Show("ありました!");
-
-                            //    fileName = filenamewithoutextension + count + extension;
-                            //}
-
-                            //ImageObject.Add(filePathWithoutName + "\\" + fileName);
-                            //File.Copy(fileNameRandom, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(fileNameRandom)), true);
-                            //string curDir = Path.GetDirectoryName(fileNameRandom);
-                            //File.Move(fileNameRandom, Path.Combine(curDir, "NewNameForFile.txt"));
                         }
 
                         foreach (var imageLink in openDialog.FileNames)
                         {
                             string imagePath = imageLink;
-                            var drawImageBitmap = new BitmapImage(new Uri(imagePath));
+
+                            var drawImageBitmap = new BitmapImage();
+                            var stream = File.OpenRead(imagePath);
+                            drawImageBitmap.BeginInit();
+                            drawImageBitmap.CacheOption = BitmapCacheOption.OnLoad;
+                            drawImageBitmap.StreamSource = stream;
+                            drawImageBitmap.EndInit();
+                            stream.Close();
+                            stream.Dispose();
+                            drawImageBitmap.Freeze();
                             var imageControl = new Image();
                             imageControl.Width = 100;  //set image of width 100 , guest of request
                             imageControl.Height = 100; //set image of height 100 , quest of request
@@ -356,8 +363,15 @@ namespace matsukifudousan.ViewModel
                             NameIMG.Add(imageControl);
                             NameIMG.Add(deleteButton);
                         }
+
+
                         ImageObject = openDialog.FileNames;
                         ImageNameObject = openDialog.SafeFileNames;
+                        foreach (String saveImageName2 in ImageObject)
+                        {
+                            NameIMG2.Add(saveImageName2);
+                        }
+
                         foreach (String saveImageName in ImageNameObject)
                         {
                             ImageListPath.Add(saveImageName);
@@ -367,11 +381,6 @@ namespace matsukifudousan.ViewModel
                         foreach (var saveImageName in ImageListPath)
                         {
                             ImagePath += conbineCharatarBefore + saveImageName + conbineCharatarAfter;
-                        }
-
-                        foreach (String SaveImageItem in ImageObject)
-                        {
-                            File.Copy(SaveImageItem, System.IO.Path.Combine(SavePath, System.IO.Path.GetFileName(SaveImageItem)), true);
                         }
                     }
                 }
@@ -392,23 +401,17 @@ namespace matsukifudousan.ViewModel
             {
                 string nameImage = ImageListPath.ElementAt(0).ToString();
                 ImageListPath.RemoveAt(0);
+                NameIMG2.RemoveAt(0);
                 NameIMG.RemoveAt(index: indexBtn);
                 NameIMG.RemoveAt(index: indexImg);
-                if (comfirmDeleteImage == 0)
-                {
-                    DeleteImage(nameImage);
-                }
             }
             else
             {
                 string nameImage = ImageListPath.ElementAt(indexImg / 2).ToString();
                 ImageListPath.RemoveAt(indexImg / 2);
+                NameIMG2.RemoveAt(indexImg / 2);
                 NameIMG.RemoveAt(index: indexBtn);
                 NameIMG.RemoveAt(index: indexImg);
-                if (comfirmDeleteImage == 0)
-                {
-                    DeleteImage(nameImage);
-                }
             }
 
             ImagePath = "";

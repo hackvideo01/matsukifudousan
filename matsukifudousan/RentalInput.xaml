@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:matsukifudousan"
+             xmlns:validation="clr-namespace:matsukifudousan.ViewModel"
              
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -55,6 +56,26 @@
             <Setter Property="Margin" Value="0 3 0 0"/>
             <Setter Property="FontSize" Value="19"/>
         </Style>
+
+        <ControlTemplate x:Key="ExclamationOnError">
+            <Grid>
+                <!-- FontSize を元のテキストボックスから取得するために名前をつけて Binding -->
+                <AdornedElementPlaceholder x:Name="TextBox"/>
+                <TextBlock Text="! " HorizontalAlignment="Right" Foreground="Red"
+                       FontSize="{Binding ElementName=TextBox, Path=AdornedElement.FontSize}"/>
+            </Grid>
+        </ControlTemplate>
+
+        <!-- Validation がエラーを返した際にその内容をツールチップを表示するスタイル -->
+        <Style x:Key="TextBoxHasError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                    Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                    Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <Grid Background="White" PreviewKeyDown="Grid_PreviewKeyDown">
@@ -89,6 +110,7 @@
                     <RowDefinition Height="42"></RowDefinition>
                     <RowDefinition Height="42"></RowDefinition>
                     <RowDefinition Height="42"></RowDefinition>
+                    <RowDefinition Height="42"></RowDefinition>
                     <RowDefinition Height="100"></RowDefinition>
                     <RowDefinition Height="42"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -102,10 +124,22 @@
                             <ColumnDefinition Width="75*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0" Style="{StaticResource ResourceKey=BorderTr1}">
-                            <TextBlock Text="物件番号" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
+                            <TextBlock Text="物件番号（必須）" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
                         </Border>
                         <Grid Grid.Column="1">
-                            <TextBox x:Name="txbHouseNo" Text="{Binding HouseNo}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0" LostFocus="txbHouseNo_LostFocus"/>
+                            <!--<TextBox x:Name="txbHouseNo" Text="{Binding HouseNo, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 3 0 0" PreviewTextInput="txbHouseNo_PreviewTextInput" SpellCheck.IsEnabled="True"/>-->
+                            <TextBox x:Name="txbHouseNo" materialDesign:HintAssist.Hint="物件番号" FontSize="19" Margin="0 0 0 0" PreviewTextInput="txbHouseNo_PreviewTextInput" SpellCheck.IsEnabled="True"
+                             InputMethod.IsInputMethodEnabled="False"
+                             Validation.ErrorTemplate="{StaticResource ExclamationOnError}"
+                             Style="{StaticResource TextBoxHasError}" KeyUp="txbHouseNo_KeyUp" LostFocus="txbHouseNo_LostFocus">
+                                <TextBox.Text>
+                                    <Binding Path="HouseNo" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validation:NumberValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                         </Grid>
                     </Grid>
                 </Border>
@@ -276,9 +310,9 @@
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" Text="{Binding SecurityDeposit}" materialDesign:HintAssist.Hint="敷金" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Grid.Column="0" Text="{Binding SecurityDeposit}" materialDesign:HintAssist.Hint="敷金" FontSize="19" Margin="0 3 0 0" InputMethod.IsInputMethodEnabled="False"/>
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBox Text="{Binding KeyMoney}" materialDesign:HintAssist.Hint="礼金" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox Text="{Binding KeyMoney}" materialDesign:HintAssist.Hint="礼金" FontSize="19" Margin="0 3 0 0" InputMethod.IsInputMethodEnabled="False"/>
                             </Border>
                         </Grid>
                     </Grid>
@@ -298,9 +332,9 @@
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" Text="{Binding CommonFee}" materialDesign:HintAssist.Hint="共益費" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Grid.Column="0" Text="{Binding CommonFee}" materialDesign:HintAssist.Hint="共益費" FontSize="19" Margin="0 3 0 0" InputMethod.IsInputMethodEnabled="False"/>
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBox Text="{Binding ManagementFee}" materialDesign:HintAssist.Hint="管理費" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox Text="{Binding ManagementFee}" materialDesign:HintAssist.Hint="管理費" FontSize="19" Margin="0 3 0 0" InputMethod.IsInputMethodEnabled="False"/>
                             </Border>
                         </Grid>
                     </Grid>
@@ -320,15 +354,30 @@
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                                 <ColumnDefinition Width="50*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" Text="{Binding Rent}" materialDesign:HintAssist.Hint="家賃" FontSize="19" Margin="0 3 0 0" />
+                            <TextBox Grid.Column="0" Text="{Binding Rent}" materialDesign:HintAssist.Hint="家賃" FontSize="19" Margin="0 3 0 0" InputMethod.IsInputMethodEnabled="False"/>
                             <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="Black">
-                                <TextBox Text="{Binding ParkingFee}" materialDesign:HintAssist.Hint="駐車料" FontSize="19" Margin="0 3 0 0" />
+                                <TextBox Text="{Binding ParkingFee}" materialDesign:HintAssist.Hint="駐車料" FontSize="19" Margin="0 3 0 0" InputMethod.IsInputMethodEnabled="False"/>
                             </Border>
                         </Grid>
                     </Grid>
                 </Border>
 
                 <Border Grid.Row="12" Style="{StaticResource ResourceKey=BorderGrid}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="25*"></ColumnDefinition>
+                            <ColumnDefinition Width="75*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Style="{StaticResource ResourceKey=BorderTr2}">
+                            <TextBlock Text="CATV　費（月額）" Style="{StaticResource ResourceKey=Textblock}"></TextBlock>
+                        </Border>
+                        <Grid Grid.Column="1">
+                            <TextBox Text="{Binding CATVFee}" materialDesign:HintAssist.Hint="CATV　費（月額）" FontSize="19" Margin="0 3 0 0" />
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="13" Style="{StaticResource ResourceKey=BorderGrid}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -342,8 +391,9 @@
                         </Grid>
                     </Grid>
                 </Border>
+                
 
-                <Border Grid.Row="13" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="14" Style="{StaticResource ResourceKey=BorderGrid}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -358,7 +408,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="14" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="15" Style="{StaticResource ResourceKey=BorderGrid}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -373,7 +423,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="15" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="16" Style="{StaticResource ResourceKey=BorderGrid}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -393,7 +443,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="16" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="17" Style="{StaticResource ResourceKey=BorderGrid}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -408,7 +458,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="17" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="18" Style="{StaticResource ResourceKey=BorderGrid}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -423,7 +473,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="18" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="19" Style="{StaticResource ResourceKey=BorderGrid}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -443,7 +493,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="19" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="20" Style="{StaticResource ResourceKey=BorderGrid}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -458,7 +508,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="20" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="21" Style="{StaticResource ResourceKey=BorderGrid}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -473,7 +523,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="21" Style="{StaticResource ResourceKey=BorderGrid}">
+                <Border Grid.Row="22" Style="{StaticResource ResourceKey=BorderGrid}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -494,7 +544,7 @@
                     </Grid>
                 </Border>
 
-                <ScrollViewer Grid.Row="22" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <ScrollViewer Grid.Row="23" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                     <ItemsControl x:Name="listImage" ItemsSource="{Binding NameIMG}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -516,7 +566,7 @@
                     </ItemsControl>
                 </ScrollViewer>
 
-                <Button Grid.Row="23" Command="{Binding AddRentalCommand}" Content="登録" Width="150" Height="42" Background="#333333"></Button>
+                <Button Grid.Row="24" Command="{Binding AddRentalCommand}" Content="登録" Width="150" Height="42" Background="#333333"></Button>
 
             </Grid>
         </ScrollViewer>

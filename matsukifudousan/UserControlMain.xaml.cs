@@ -53,7 +53,7 @@ namespace matsukifudousan
             usc = new LandManagement();
             parentWindow.GridMain.Children.Add(usc);
         }
-        private void test_Click(object sender, RoutedEventArgs e)
+        private void CompanyDetails_Click(object sender, RoutedEventArgs e)
         {
             CompanyDetails companyDetails = new CompanyDetails();
             companyDetails.Show();
@@ -64,10 +64,10 @@ namespace matsukifudousan
             usc = new ImageSearch();
             parentWindow.GridMain.Children.Add(usc);
         }
-        private void RentalContractSearch_Click(object sender, RoutedEventArgs e)
+        private void RentalContractPaymentSearch_Click(object sender, RoutedEventArgs e)
         {
             MainWindow parentWindow = (MainWindow)Window.GetWindow(this);
-            usc = new RentalContractSearch();
+            usc = new RentalContractPaymentSearch();
             parentWindow.GridMain.Children.Add(usc);
         }
     }

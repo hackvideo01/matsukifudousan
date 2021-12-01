@@ -7,7 +7,7 @@
         xmlns:uc="clr-namespace:matsukifudousan.UserControlNL"
         mc:Ignorable="d"
         
-        Title="マツキ不動産" Height="550" Width="1000"
+        Title="マツキ不動産" Height="650" Width="1100"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -68,9 +68,9 @@
             <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
         </EventTrigger>
 
-        <EventTrigger RoutedEvent="Grid.MouseLeave" SourceName="GridMenu">
+        <!--<EventTrigger RoutedEvent="Grid.MouseLeave" SourceName="GridMenu">
             <BeginStoryboard Storyboard="{StaticResource CloseMenu}" />
-        </EventTrigger>
+        </EventTrigger>-->
     </Window.Triggers>
     
     <Grid x:Name="GridMain">
@@ -92,7 +92,7 @@
             </Grid.RenderTransform>
             <StackPanel>
                 <Image Height="140" Source="images/menu-image.png" Stretch="Fill"/>
-                <ListView x:Name="ListViewMenu" Foreground="#FF313131" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged_1">
+                <ListView x:Name="ListViewMenu" Foreground="#FF313131" FontFamily="Champagne &amp; Limousines" FontSize="18" SelectionChanged="ListViewMenu_SelectionChanged_1" MouseLeftButtonUp="ListViewMenu_MouseLeftButtonUp">
                     <ListViewItem x:Name="UserControlMain" Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
                         <StackPanel Orientation="Horizontal" Margin="10 0">
                             <!--<materialDesign:PackIcon Kind="FileDocument" Width="20" Height="20" Foreground="Gray" Margin="5" VerticalAlignment="Center"/>-->
@@ -133,28 +133,28 @@
                             <TextBlock Text="土地管理" Margin="10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
+                    <!--<ListViewItem Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
                         <StackPanel Orientation="Horizontal" Margin="10 0">
-                            <!--<materialDesign:PackIcon Kind="AccountSearch" Width="20" Height="20" Foreground="#FFE6A701" Margin="5" VerticalAlignment="Center"/>-->
+                            --><!--<materialDesign:PackIcon Kind="AccountSearch" Width="20" Height="20" Foreground="#FFE6A701" Margin="5" VerticalAlignment="Center"/>--><!--
                             <Image Grid.Column="0" Source="images/computer.png" Height="30">
                             </Image>
                             <TextBlock Text="顧客管理" Margin="10"/>
                         </StackPanel>
-                    </ListViewItem>
-                    <ListViewItem Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
+                    </ListViewItem>-->
+                    <ListViewItem x:Name="RentalPayment" Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
                         <StackPanel Orientation="Horizontal" Margin="10 0">
                             <!--<materialDesign:PackIcon Kind="SearchWeb" Width="20" Height="20" Foreground="#FF0069C1" Margin="5" VerticalAlignment="Center"/>-->
                             <Image Grid.Column="0" Source="images/lookup.png" Height="25">
                             </Image>
-                            <TextBlock Text="物件検索" Margin="10"/>
+                            <TextBlock Text="入金検索" Margin="10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
+                    <ListViewItem x:Name="ImageSearch" Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
                         <StackPanel Orientation="Horizontal" Margin="10 0">
                             <!--<materialDesign:PackIcon Kind="Settings" Width="20" Height="20" Foreground="#FF0069C1" Margin="5" VerticalAlignment="Center"/>-->
-                            <Image Grid.Column="0" Source="images/computer.png" Height="30">
+                            <Image Grid.Column="0" Source="images/lookup.png" Height="25">
                             </Image>
-                            <TextBlock Text="会社情報" Margin="10"/>
+                            <TextBlock Text="画像検索" Margin="10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="version" Height="45" Padding="0" Style="{StaticResource ResourceKey=cursor}">
